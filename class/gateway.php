@@ -1,301 +1,449 @@
 <?php
 
-require_once('xassetBaseObject.php');
+require_once __DIR__ . '/xassetBaseObject.php';
 
-class xassetGateway extends xassetBaseObject {
-
-  function xassetGateway($id = null) {
-    $this->initVar('id', XOBJ_DTYPE_INT, null, false);
-    $this->initVar('code', XOBJ_DTYPE_TXTBOX, null, false, 20);
-    $this->initVar('enabled', XOBJ_DTYPE_INT, 1, false);
-    //
-    if (isset($id)) {
-      if (is_array($id)) {
-        $this->assignVars($id);
-      }
-    } else {
-      $this->setNew();
-    }
-  }
-  ///////////////////////////////////////////////////
-  function getDetails() {
-        $hgDetail =& xoops_getmodulehandler('gatewayDetail','xasset');
-
-    return $hgDetail->getByIndex($this->getVar('id'));
-  }
-  ///////////////////////////////////////////////////
-  function getDetailArray() {
-    $hgDetail =& xoops_getmodulehandler('gatewayDetail','xasset');
-
-    return $hgDetail->getConfigArrayByIndex($this->getVar('id'));
-  }
-  ///////////////////////////////////////////////////
-  function saveConfigValue($key, $value) {
-    $hGDetail =& xoops_getmodulehandler('gatewayDetail','xasset');
-
-    return $hGDetail->saveConfigValue($this->getVar('id'),$key,$value);
-  }
-  ///////////////////////////////////////////////////
-  function toggleBinaryValues($values) {
-    $hGDetail =& xoops_getmodulehandler('gatewayDetail','xasset');
-    //
-    $aDetail = $hGDetail->getBinaryConfigArrayByIndex($this->getVar('id'));
-    //should have an array of binary fields... check if these exist in the post values array
-    foreach($aDetail as $detail) {
-      if (isset($values[$detail['gkey']])) {
-        $hGDetail->saveConfigValue($this->getVar('id'),$detail['gkey'],true);
-      } else {
-        $hGDetail->saveConfigValue($this->getVar('id'),$detail['gkey'],false);
+/**
+ * Class xassetGateway
+ */
+class XAssetGateway extends XassetBaseObject
+{
+    /**
+     * @param null $id
+     */
+    public function __construct($id = null)
+    {
+        $this->initVar('id', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('code', XOBJ_DTYPE_TXTBOX, null, false, 20);
+        $this->initVar('enabled', XOBJ_DTYPE_INT, 1, false);
+        //
+        if (isset($id)) {
+            if (is_array($id)) {
+                $this->assignVars($id);
             }
+        } else {
+            $this->setNew();
+        }
     }
-  }
+
+    ///////////////////////////////////////////////////
+
+    /**
+     * @return mixed
+     */
+    public function getDetails()
+    {
+        $hgDetail = xoops_getModuleHandler('gatewayDetail', 'xasset');
+
+        return $hgDetail->getByIndex($this->getVar('id'));
+    }
+
+    ///////////////////////////////////////////////////
+
+    /**
+     * @return mixed
+     */
+    public function getDetailArray()
+    {
+        $hgDetail = xoops_getModuleHandler('gatewayDetail', 'xasset');
+
+        return $hgDetail->getConfigArrayByIndex($this->getVar('id'));
+    }
+
+    ///////////////////////////////////////////////////
+
+    /**
+     * @param $key
+     * @param $value
+     *
+     * @return mixed
+     */
+    public function saveConfigValue($key, $value)
+    {
+        $hGDetail = xoops_getModuleHandler('gatewayDetail', 'xasset');
+
+        return $hGDetail->saveConfigValue($this->getVar('id'), $key, $value);
+    }
+
+    ///////////////////////////////////////////////////
+
+    /**
+     * @param $values
+     */
+    public function toggleBinaryValues($values)
+    {
+        $hGDetail = xoops_getModuleHandler('gatewayDetail', 'xasset');
+        //
+        $aDetail = $hGDetail->getBinaryConfigArrayByIndex($this->getVar('id'));
+        //should have an array of binary fields... check if these exist in the post values array
+        foreach ($aDetail as $detail) {
+            if (isset($values[$detail['gkey']])) {
+                $hGDetail->saveConfigValue($this->getVar('id'), $detail['gkey'], true);
+            } else {
+                $hGDetail->saveConfigValue($this->getVar('id'), $detail['gkey'], false);
+            }
+        }
+    }
 }
 
-class xassetGatewayHandler extends xassetBaseObjectHandler {
-  //vars
-  var $_db;
-  var $classname = 'xassetgateway';
-  var $_dbtable  = 'xasset_gateway';
-  //cons
-  function xassetGatewayHandler(&$db)
-  {
-    $this->_db = $db;
-  }
-  ///////////////////////////////////////////////////
-  function &getInstance(&$db)
-  {
-      static $instance;
-      if(!isset($instance)) {
-          $instance = new xassetGatewayHandler($db);
-      }
+/**
+ * Class xassetGatewayHandler
+ */
+class XassetGatewayHandler extends XassetBaseObjectHandler
+{
+    //vars
+    public $_db;
+    public $classname = 'xassetgateway';
+    public $_dbtable  = 'xasset_gateway';
 
-      return $instance;
-  }
-  ///////////////////////////////////////////////////
-  function &getByCode($code){
-    $crit = new Criteria('code',$code);
-    $objs = $this->getObjects($crit);
-    //
-    if (count($objs) == 0){
-      $res = false;
+    //cons
 
-      return $res;
-        } else {
-      $res = current($objs);
+    /**
+     * @param $db
+     */
+    public function __construct(XoopsDatabase $db)
+    {
+        $this->_db = $db;
+    }
+
+    ///////////////////////////////////////////////////
+
+    /**
+     * @param $db
+     *
+     * @return xassetGatewayHandler
+     */
+    public function getInstance(XoopsDatabase $db)
+    {
+        static $instance;
+        if (null === $instance) {
+            $instance = new static($db);
+        }
+
+        return $instance;
+    }
+
+    ///////////////////////////////////////////////////
+
+    /**
+     * @param $code
+     *
+     * @return bool|mixed
+     */
+    public function &getByCode($code)
+    {
+        $crit = new Criteria('code', $code);
+        $objs = $this->getObjects($crit);
+        //
+        if (count($objs) == 0) {
+            $res = false;
 
             return $res;
-    }
-  }
-  ///////////////////////////////////////////////////
-  function &getCodeID($code) {
-    $crit = new Criteria('code',$code);
-    $objs = $this->getObjects($crit);
-    //
-    if (count($objs) == 0){
-      $res = false;
+        } else {
+            $res = current($objs);
 
-      return $res;
-    } else if (count($objs) > 0) {
-      $obj = current($objs);
-
-      return $obj->getVar('id');
-    }
-  }
-  ///////////////////////////////////////////////////
-  function getInstalledGatewayArray() {
-    $crit = new Criteria('enabled',true);
-
-    return $this->getGatewayArray($crit);
-  }
-  ///////////////////////////////////////////////////
-  function getInstalledGatewayWithDescArray() {
-    $ar = $this->getInstalledGatewayArray();
-    for($i=0;$i<count($ar);$i++) {
-      $gateway =& $this->getGatewayModuleByID($ar[$i]['id']);
-      $ar[$i]['description'] = $gateway->description;
-    }
-
-    return $ar;
-  }
-  ///////////////////////////////////////////////////
-  function getGatewayArray($crit = null) {
-    global $xoopsModule;
-    //
-    $objs = $this->getObjects($crit);
-    $ary  = array();
-    foreach($objs as $obj) {
-      $gateway =& $this->getGatewayModuleByID($obj->ID());
-      if ($gateway->version() == $xoopsModule->getVar('version'))
-        $ary[] = $obj->getArray();
-    }
-
-    return $ary;
-  }
-  ///////////////////////////////////////////////////
-    function &getGatewayModuleByID($id) {
-    $gateway =& $this->get($id);
-    //
-    $directory_array = $this->_getDirectoryListing();
-    //
-    for ($i=0, $n=sizeof($directory_array); $i<$n; $i++) {
-      $file = $directory_array[$i]['file'];
-      $class = substr($file, 0, strrpos($file, '.'));
-      //
-      if (is_object($gateway)) {
-        if ($class == $gateway->getVar('code')) {
-          require_once($directory_array[$i]['fullPath']);
-          $module = new $class;
-          if (!is_subclass_of($module,'baseGateway')) {
-            unset($module);
-          }
-          break;
+            return $res;
         }
-      }
     }
-    //
-    if (isset($module)){
-      return $module;
-    } else {
-      $res = false;
 
-      return $res;
+    ///////////////////////////////////////////////////
+
+    /**
+     * @param $code
+     *
+     * @return bool
+     */
+    public function &getCodeID($code)
+    {
+        $crit = new Criteria('code', $code);
+        $objs = $this->getObjects($crit);
+        //
+        if (count($objs) == 0) {
+            $res = false;
+
+            return $res;
+        } elseif (count($objs) > 0) {
+            $obj = current($objs);
+
+            return $obj->getVar('id');
+        }
     }
-  }
-  ///////////////////////////////////////////////////
-  function getGatewayFromPost($post, &$gateway) {
+
+    ///////////////////////////////////////////////////
+
+    /**
+     * @return array
+     */
+    public function getInstalledGatewayArray()
+    {
+        $crit = new Criteria('enabled', true);
+
+        return $this->getGatewayArray($crit);
+    }
+
+    ///////////////////////////////////////////////////
+
+    /**
+     * @return array
+     */
+    public function getInstalledGatewayWithDescArray()
+    {
+        $ar = $this->getInstalledGatewayArray();
+        for ($i = 0, $iMax = count($ar); $i < $iMax; ++$i) {
+            $gateway               =& $this->getGatewayModuleByID($ar[$i]['id']);
+            $ar[$i]['description'] = $gateway->description;
+        }
+
+        return $ar;
+    }
+
+    ///////////////////////////////////////////////////
+
+    /**
+     * @param null $crit
+     *
+     * @return array
+     */
+    public function getGatewayArray($crit = null)
+    {
+        global $xoopsModule;
+        //
+        $objs = $this->getObjects($crit);
+        $ary  = [];
+        foreach ($objs as $obj) {
+            $gateway =& $this->getGatewayModuleByID($obj->ID());
+            if ($gateway->version() == $xoopsModule->getVar('version')) {
+                $ary[] = $obj->getArray();
+            }
+        }
+
+        return $ary;
+    }
+
+    ///////////////////////////////////////////////////
+
+    /**
+     * @param $id
+     *
+     * @return bool
+     */
+    public function &getGatewayModuleByID($id)
+    {
+        $gateway =& $this->get($id);
+        //
         $directory_array = $this->_getDirectoryListing();
         //
-    for ($i=0, $n=sizeof($directory_array); $i<$n; $i++) {
-      $file = $directory_array[$i]['file'];
-      $class = substr($file, 0, strrpos($file, '.'));
-      //
-      require_once($directory_array[$i]['fullPath']);
-      $module = new $class;
-      if (is_subclass_of($module,'baseGateway')) {
-        if ($orderID = $module->isThisGateway($post)) {
-          $gateway = $module;
-
-          return $orderID;
-        } else {
-          unset($module);
+        for ($i = 0, $n = count($directory_array); $i < $n; ++$i) {
+            $file  = $directory_array[$i]['file'];
+            $class = substr($file, 0, strrpos($file, '.'));
+            //
+            if (is_object($gateway)) {
+                if ($class == $gateway->getVar('code')) {
+                    require_once $directory_array[$i]['fullPath'];
+                    $module = new $class;
+                    if (!is_subclass_of($module, 'baseGateway')) {
+                        unset($module);
+                    }
+                    break;
+                }
+            }
         }
-      }
+        //
+        if (isset($module)) {
+            return $module;
+        } else {
+            $res = false;
+
+            return $res;
+        }
     }
 
-    return false;
-  }
-  ///////////////////////////////////////////////////
-  function parseGatewayModules() {
-    global $xoopsModule;
-    //
+    ///////////////////////////////////////////////////
+
+    /**
+     * @param $post
+     * @param $gateway
+     *
+     * @return bool
+     */
+    public function getGatewayFromPost($post, &$gateway)
+    {
+        $directory_array = $this->_getDirectoryListing();
+        //
+        for ($i = 0, $n = count($directory_array); $i < $n; ++$i) {
+            $file  = $directory_array[$i]['file'];
+            $class = substr($file, 0, strrpos($file, '.'));
+            //
+            require_once $directory_array[$i]['fullPath'];
+            $module = new $class;
+            if (is_subclass_of($module, 'baseGateway')) {
+                if ($orderID = $module->isThisGateway($post)) {
+                    $gateway = $module;
+
+                    return $orderID;
+                } else {
+                    unset($module);
+                }
+            }
+        }
+
+        return false;
+    }
+
+    ///////////////////////////////////////////////////
+
+    /**
+     * @return array
+     */
+    public function parseGatewayModules()
+    {
+        global $xoopsModule;
+        //
         $directory_array = $this->_getDirectoryListing();
         //include and process payment modules
-    $installed_modules = array();
-    for ($i=0, $n=sizeof($directory_array); $i<$n; $i++) {
-      $file = $directory_array[$i]['file'];
-      require_once($directory_array[$i]['fullPath']);
-      //get class name based on file
-      $class = substr($file, 0, strrpos($file, '.'));
-      $module = new $class;
-      //check if this class is a subclass of baseGateway
-      if (is_subclass_of($module,'baseGateway') && ($xoopsModule->getVar('version') == $module->version())) {
-        $installed_modules[] = array( 'id'        => $module->id,
-                                      'class'     => $class,
-                                      'file'      => $file,
-                                      'filePath'  => $directory_array[$i]['fullPath'],
-                                      'enabled'   => $module->enabled,
-                                      'installed' => $module->installed,
-                                      'shortDesc' => $module->shortDesc);
+        $installed_modules = [];
+        for ($i = 0, $n = count($directory_array); $i < $n; ++$i) {
+            $file = $directory_array[$i]['file'];
+            require_once $directory_array[$i]['fullPath'];
+            //get class name based on file
+            $class  = substr($file, 0, strrpos($file, '.'));
+            $module = new $class;
+            //check if this class is a subclass of baseGateway
+            if (is_subclass_of($module, 'baseGateway') && ($xoopsModule->getVar('version') == $module->version())) {
+                $installed_modules[] = [
+                    'id'        => $module->id,
+                    'class'     => $class,
+                    'file'      => $file,
+                    'filePath'  => $directory_array[$i]['fullPath'],
+                    'enabled'   => $module->enabled,
+                    'installed' => $module->installed,
+                    'shortDesc' => $module->shortDesc
+                ];
             }
-      unset($module);
+            unset($module);
+        }
+
+        return $installed_modules;
     }
 
-    return $installed_modules;
-  }
-  ///////////////////////////////////////////////////
-    function enableGateway($class) {
-        return $this->switchGateway($class,true);
-  }
-  ///////////////////////////////////////////////////
-  function disableGateway($class) {
-        $this->switchGateway($class,false);
-    //now delete the gateway record
-    if ($obj =& $this->getByCode($class)) {
-      //delete data
-      $gate =& $this->getGatewayModuleByID($obj->getVar('id'));
-      $gate->remove();
-      //delete header
-      $this->deleteByID($obj->getVar('id'));
-    }
-  }
-  ///////////////////////////////////////////////////
-    function switchGateway($class, $switch) {
-    if ($obj =& $this->getByCode($class)) {
-      $obj->setVar('enabled',$switch);
+    ///////////////////////////////////////////////////
 
-      return $this->insert($obj);
-    } else {
-      //could not find in tables... need to install?
-      $this->parseGatewayModules();
-      //
-      $module = new $class;
-
-      return $module->install();
-    }
-  }
-  ///////////////////////////////////////////////////
-  function postPaymentDetails($gateID) {
-    $gateway =& $this->getGatewayModuleByID($gateID);
-    //do we need more info?
-    if ($gateway->preprocess())
-      $gateway->doPreprocess();
-    else
-      $gateway->postToGateway();
-  }
-  ///////////////////////////////////////////////////
-  function insert(&$obj, $force = false)
-  {
-    if (!parent::insert($obj, $force)){
-      return false;
-    }
-    // Copy all object vars into local variables
-    foreach ($obj->cleanVars as $k => $v) {
-      ${$k} = $v;
+    /**
+     * @param $class
+     *
+     * @return bool
+     */
+    public function enableGateway($class)
+    {
+        return $this->switchGateway($class, true);
     }
 
-    // Create query for DB update
-    if ($obj->isNew()) {
-      // Determine next auto-gen ID for table
-      $id = $this->_db->genId($this->_db->prefix($this->_dbtable).'_uid_seq');
-      $sql = sprintf( 'INSERT INTO %s (id, code, enabled)
-                       VALUES (%u, %s, %u)',
-                                            $this->_db->prefix($this->_dbtable),  $id, $this->_db->quoteString($code), $enabled);
-    } else {
-        $sql = sprintf('UPDATE %s SET code = %s, enabled = %u where id = %u',
-                        $this->_db->prefix($this->_dbtable), $this->_db->quoteString($code), $enabled, $id);
-    }
-     //echo $sql;
-    // Update DB
-    if (false != $force) {
-      $result = $this->_db->queryF($sql);
-    } else {
-      $result = $this->_db->query($sql);
+    ///////////////////////////////////////////////////
+
+    /**
+     * @param $class
+     */
+    public function disableGateway($class)
+    {
+        $this->switchGateway($class, false);
+        //now delete the gateway record
+        if ($obj = $this->getByCode($class)) {
+            //delete data
+            $gate =& $this->getGatewayModuleByID($obj->getVar('id'));
+            $gate->remove();
+            //delete header
+            $this->deleteByID($obj->getVar('id'));
+        }
     }
 
-    if (!$result) {
-      echo $sql;
+    ///////////////////////////////////////////////////
 
-      return false;
+    /**
+     * @param $class
+     * @param $switch
+     *
+     * @return bool
+     */
+    public function switchGateway($class, $switch)
+    {
+        if ($obj = $this->getByCode($class)) {
+            $obj->setVar('enabled', $switch);
+
+            return $this->insert($obj);
+        } else {
+            //could not find in tables... need to install?
+            $this->parseGatewayModules();
+            //
+            $module = new $class;
+
+            return $module->install();
+        }
     }
 
-    //Make sure auto-gen ID is stored correctly in object
-    if (empty($id)) {
-      $id = $this->_db->getInsertId();
+    ///////////////////////////////////////////////////
+
+    /**
+     * @param $gateID
+     */
+    public function postPaymentDetails($gateID)
+    {
+        $gateway =& $this->getGatewayModuleByID($gateID);
+        //do we need more info?
+        if ($gateway->preprocess()) {
+            $gateway->doPreprocess();
+        } else {
+            $gateway->postToGateway();
+        }
     }
+
+    ///////////////////////////////////////////////////
+
+    /**
+     * @param object|XoopsObject $obj
+     * @param bool               $force
+     * @return bool
+     */
+    public function insert(XoopsObject $obj, $force = false)
+    {
+        if (!parent::insert($obj, $force)) {
+            return false;
+        }
+        // Copy all object vars into local variables
+        foreach ($obj->cleanVars as $k => $v) {
+            ${$k} = $v;
+        }
+
+        // Create query for DB update
+        if ($obj->isNew()) {
+            // Determine next auto-gen ID for table
+            $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
+            $sql = sprintf('INSERT INTO %s (id, CODE, enabled)
+                                      VALUES (%u, %s, %u)', $this->_db->prefix($this->_dbtable), $id, $this->_db->quoteString($code), $enabled);
+        } else {
+            $sql = sprintf('UPDATE %s SET CODE = %s, enabled = %u WHERE id = %u', $this->_db->prefix($this->_dbtable), $this->_db->quoteString($code), $enabled, $id);
+        }
+        //echo $sql;
+        // Update DB
+        if (false != $force) {
+            $result = $this->_db->queryF($sql);
+        } else {
+            $result = $this->_db->query($sql);
+        }
+
+        if (!$result) {
+            echo $sql;
+
+            return false;
+        }
+
+        //Make sure auto-gen ID is stored correctly in object
+        if (empty($id)) {
+            $id = $this->_db->getInsertId();
+        }
         $obj->assignVar('id', $id);
 
-    return true;
+        return true;
     }
+
     ///////////////////////////////////////////////////
     /*function _postToGateway($url, $fields) {
         $form = "<html>
@@ -305,27 +453,33 @@ class xassetGatewayHandler extends xassetBaseObjectHandler {
                          </html>";
         echo $form;
     }        */
-  ///////////////////////////////////////////////////
-  function _getDirectoryListing() {
+    ///////////////////////////////////////////////////
+    /**
+     * @return array
+     */
+    public function _getDirectoryListing()
+    {
         global $PHP_SELF;
-    //
-        $file_extension   = '.php';//substr($PHP_SELF, strrpos($PHP_SELF, '.'));
-        $module_directory = XASSET_CLASS_PATH .'/gateways/';
-    //
-    $directory_array = array();
-    if ($dir = @dir($module_directory)) {
-      while ($file = $dir->read()) {
-        if (!is_dir($module_directory . $file)) {
-          if (substr($file, strrpos($file, '.')) == $file_extension) {
-            $directory_array[] = array( 'file'     => $file,
-                                        'fullPath' => $module_directory . $file);
-          }
+        //
+        $file_extension   = '.php'; //substr($PHP_SELF, strrpos($PHP_SELF, '.'));
+        $module_directory = XASSET_CLASS_PATH . '/gateways/';
+        //
+        $directory_array = [];
+        if ($dir = @dir($module_directory)) {
+            while ($file = $dir->read()) {
+                if (!is_dir($module_directory . $file)) {
+                    if (substr($file, strrpos($file, '.')) == $file_extension) {
+                        $directory_array[] = [
+                            'file'     => $file,
+                            'fullPath' => $module_directory . $file
+                        ];
+                    }
+                }
+            }
+            sort($directory_array);
+            $dir->close();
         }
-      }
-      sort($directory_array);
-      $dir->close();
-    }
 
-    return $directory_array;
-  }
+        return $directory_array;
+    }
 }

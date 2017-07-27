@@ -1,10 +1,15 @@
 <?php
 
-class validate {
-
-  //cons
-  function validate($rules) {
-
-  }
-
+/**
+ * Class validate
+ */
+class validate
+{
+    //cons
+    /**
+     * @param $rules
+     */
+    public function __construct($rules)
+    {
+    }
 }

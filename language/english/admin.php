@@ -8,21 +8,21 @@ define('_AM_XASSET_ADMIN_GOTOMODULE', 'Go To Module');
 define('_AM_XASSET_MENU_PREFERENCES', 'Preferences');
 define('_AM_XASSET_MENU_MANAGE_APPLICATIONS', 'Applications');
 define('_AM_XASSET_MENU_MANAGE_LICENSES', 'Licenses');
-define('_AM_XASSET_MENU_MANAGE_STATS','Download Stats');
+define('_AM_XASSET_MENU_MANAGE_STATS', 'Download Stats');
 define('_AM_XASSET_MENU_MANAGE_PACKAGES', 'Packages');
 define('_AM_XASSET_MENU_MANAGE_LINKS', 'Links');
-define('_AM_XASSET_MENU_MANAGE_REGIONS','Regions');
+define('_AM_XASSET_MENU_MANAGE_REGIONS', 'Regions');
 define('_AM_XASSET_MENU_MANAGE_COUNTRIES', 'Countries');
 define('_AM_XASSET_MENU_MANAGE_ZONES', 'Zones');
-define('_AM_XASSET_MENU_MANAGE_TAXRATES','Taxes & Rates');
-define('_AM_XASSET_MENU_MANAGE_CURRENCIES','Currencies');
-define('_AM_XASSET_MENU_MANAGE_GATEWAYS','Payment Gateways');
-define('_AM_XASSET_CONFIG','xasset Configuration');
-define('_AM_XASSET_MENU_GATEWAY_LOGS','Gateway Logs');
-define('_AM_XASSET_MENU_ORDER_TRACKING','Order Tracking');
-define('_AM_XASSET_CHECK_TABLES','Check Tables');
-define('_AM_XASSET_SUPPORT','Support');
-define('_AM_XASSET_MENU_MANAGE_MEMBERSHIP','Membership');
+define('_AM_XASSET_MENU_MANAGE_TAXRATES', 'Taxes & Rates');
+define('_AM_XASSET_MENU_MANAGE_CURRENCIES', 'Currencies');
+define('_AM_XASSET_MENU_MANAGE_GATEWAYS', 'Payment Gateways');
+define('_AM_XASSET_CONFIG', 'xasset Configuration');
+define('_AM_XASSET_MENU_GATEWAY_LOGS', 'Gateway Logs');
+define('_AM_XASSET_MENU_ORDER_TRACKING', 'Order Tracking');
+define('_AM_XASSET_CHECK_TABLES', 'Check Tables');
+define('_AM_XASSET_SUPPORT', 'Support');
+define('_AM_XASSET_MENU_MANAGE_MEMBERSHIP', 'Membership');
 
 //Permissions
 define('_AM_XASSET_GROUP_PERM', 'Group Permissions');
@@ -51,12 +51,12 @@ define("_AM_XASSET_ICO_APPROVED","Approved");
 define("_AM_XASSET_ICO_NOTAPPROVED","Not Approved");
 define("_AM_XASSET_ICO_VIEW_LICENSE","View Licenses"); */
 
-define("_AM_XASSET_ICO_LINK","Related Link");
-define("_AM_XASSET_ICO_URL","Add Related URL");
-define("_AM_XASSET_ICO_ADD","Add");
-define("_AM_XASSET_ICO_APPROVE","Approve");
-define("_AM_XASSET_ICO_STATS","Stats");
+define('_AM_XASSET_ICO_LINK', 'Related Link');
+define('_AM_XASSET_ICO_URL', 'Add Related URL');
+define('_AM_XASSET_ICO_ADD', 'Add');
+define('_AM_XASSET_ICO_APPROVE', 'Approve');
+define('_AM_XASSET_ICO_STATS', 'Stats');
 
 //templates
-define('AM_XASSET_TEMPLATE_ADMIN_INDEX','Admin Index Page');
-define('AM_XASSET_TEMPLATE_APPLICATION_INDEX','Admin Application Maintenance');
+define('AM_XASSET_TEMPLATE_ADMIN_INDEX', 'Admin Index Page');
+define('AM_XASSET_TEMPLATE_APPLICATION_INDEX', 'Admin Application Maintenance');

@@ -1,29 +1,37 @@
 <?php
 
-require_once("../../../mainfile.php");
+require_once __DIR__ . '/../../../mainfile.php';
 
-function onSampleClick($packageID, $packageKey) {
-  global $xoopsUser;
-  //
-  $hPackage =& xoops_getmodulehandler('package','xasset');
-  $hCommon  =& xoops_getmodulehandler('common','xasset');
-  //
-  $objResponse = new xajaxResponse();
-  //
-  if ($hCommon->keyMatches($packageID, $packageKey, $hPackage->_weight)) {
-    $oPackage =& $hPackage->get($packageID);
+/**
+ * @param $packageID
+ * @param $packageKey
+ *
+ * @return xajaxResponse
+ */
+function onSampleClick($packageID, $packageKey)
+{
+    global $xoopsUser;
     //
-    $objResponse->addAssign("movie_player","innerHTML", '');
-    $objResponse->addScriptCall('renderPlayer',$packageID,$oPackage->fileSize(),$xoopsUser ? $hCommon->pspEncrypt($xoopsUser->uid()) : $hCommon->pspEncrypt(0));
-  } else {
-    $objResponse->addAssign("movie_player","innerHTML", '');
-  }
-  //
-  return $objResponse;
+    $hPackage = xoops_getModuleHandler('package', 'xasset');
+    $hCommon  = xoops_getModuleHandler('common', 'xasset');
+    //
+    $objResponse = new xajaxResponse();
+    //
+    if ($hCommon->keyMatches($packageID, $packageKey, $hPackage->_weight)) {
+        $oPackage =& $hPackage->get($packageID);
+        //
+        $objResponse->addAssign('movie_player', 'innerHTML', '');
+        $objResponse->addScriptCall('renderPlayer', $packageID, $oPackage->fileSize(), $xoopsUser ? $hCommon->pspEncrypt($xoopsUser->uid()) : $hCommon->pspEncrypt(0));
+    } else {
+        $objResponse->addAssign('movie_player', 'innerHTML', '');
+    }
+
+    //
+    return $objResponse;
 }
 
-$hAjax =& xoops_getmodulehandler('ajax','xasset');
-$oAjax =& $hAjax->create();
+$hAjax = xoops_getModuleHandler('ajax', 'xasset');
+$oAjax = $hAjax->create();
 //
 $oAjax->registerFunction('onSampleClick');
 $oAjax->processRequests();

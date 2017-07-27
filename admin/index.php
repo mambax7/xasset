@@ -14,55 +14,55 @@
  * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package
  * @since
- * @author     XOOPS Development Team
- * @version    $Id $
+ * @author       XOOPS Development Team
  */
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';
-include_once dirname(__FILE__) . '/admin_header.php';
+require_once __DIR__ . '/../../../include/cp_header.php';
+require_once __DIR__ . '/admin_header.php';
 
 xoops_cp_header();
 
-    $indexAdmin = new ModuleAdmin();
+$adminObject = \Xmf\Module\Admin::getInstance();
 
 //----------------------------------
 
 global $xoopsTpl;
 //
-$hApp       =& xoops_getmodulehandler('application','xasset');
-$hLic       =& xoops_getmodulehandler('license','xasset');
-$hPack      =& xoops_getmodulehandler('package','xasset');
-$hStat      =& xoops_getmodulehandler('userPackageStats','xasset');
-$hLinks     =& xoops_getmodulehandler('link','xasset');
+$hApp   = xoops_getModuleHandler('application', 'xasset');
+$hLic   = xoops_getModuleHandler('license', 'xasset');
+$hPack  = xoops_getModuleHandler('package', 'xasset');
+$hStat  = xoops_getModuleHandler('userPackageStats', 'xasset');
+$hLinks = xoops_getModuleHandler('link', 'xasset');
 //
-$applicationsCount     = $hApp->getAllApplicationsCount();
-$licensesCount         = $hLic->getAllLicensesCount();
-$filesCount            = $hPack->getAllPackagesCount();
-$linksCount            = $hLinks->getAllLinksCount();
-$downloadsCount        = $hStat->getAllDownloadStats();
+$applicationsCount = $hApp->getAllApplicationsCount();
+$licensesCount     = $hLic->getAllLicensesCount();
+$filesCount        = $hPack->getAllPackagesCount();
+$linksCount        = $hLinks->getAllLinksCount();
+$downloadsCount    = $hStat->getAllDownloadStats();
 //test SSL connectivity
-$fp = fsockopen('ssl://www.paypal.com', 443,$errnum,$errstr,30);
-if (!$fp)
-  $test = array('pass' => false, 'errnum' => $errnum, 'errstr' => $errstr);
-else
-  $test = array('pass' => true);
+$fp = fsockopen('ssl://www.paypal.com', 443, $errnum, $errstr, 30);
+if (!$fp) {
+    $test = ['pass' => false, 'errnum' => $errnum, 'errstr' => $errstr];
+} else {
+    $test = ['pass' => true];
+}
 
 //$statistics = calculateStatistics();
 
-$indexAdmin->addInfoBox(_MI_XASSET_DASHBBOARD);
+$adminObject->addInfoBox(_MI_XASSET_DASHBBOARD);
 
-$indexAdmin->addInfoBoxLine(_MI_XASSET_DASHBBOARD, _MI_XASSET_APPLICATIONS, $hApp->getAllApplicationsCount(), 'Green');
-$indexAdmin->addInfoBoxLine(_MI_XASSET_DASHBBOARD, _MI_XASSET_LICENSES, $hLic->getAllLicensesCount(), 'Green');
-$indexAdmin->addInfoBoxLine(_MI_XASSET_DASHBBOARD, _MI_XASSET_FILES, $hPack->getAllPackagesCount(), 'Green');
-$indexAdmin->addInfoBoxLine(_MI_XASSET_DASHBBOARD, _MI_XASSET_LINKS, $hLinks->getAllLinksCount(), 'Green');
-$indexAdmin->addInfoBoxLine(_MI_XASSET_DASHBBOARD, _MI_XASSET_DOWNLOADS, $hStat->getAllDownloadStats(), 'Green');
+$adminObject->addInfoBoxLine(_MI_XASSET_DASHBBOARD, _MI_XASSET_APPLICATIONS, $hApp->getAllApplicationsCount(), 'Green');
+$adminObject->addInfoBoxLine(_MI_XASSET_DASHBBOARD, _MI_XASSET_LICENSES, $hLic->getAllLicensesCount(), 'Green');
+$adminObject->addInfoBoxLine(_MI_XASSET_DASHBBOARD, _MI_XASSET_FILES, $hPack->getAllPackagesCount(), 'Green');
+$adminObject->addInfoBoxLine(_MI_XASSET_DASHBBOARD, _MI_XASSET_LINKS, $hLinks->getAllLinksCount(), 'Green');
+$adminObject->addInfoBoxLine(_MI_XASSET_DASHBBOARD, _MI_XASSET_DOWNLOADS, $hStat->getAllDownloadStats(), 'Green');
 if ($test) {
-$indexAdmin->addInfoBoxLine(_MI_XASSET_DASHBBOARD, '<br />Outgoing SSL Support? Yes', 'Green');
+    $adminObject->addInfoBoxLine(_MI_XASSET_DASHBBOARD, '<br>Outgoing SSL Support? Yes', 'Green');
 } else {
-    $indexAdmin->addInfoBoxLine(_MI_XASSET_DASHBBOARD, '<br />Outgoing SSL Support? Failed with codes errnum: '. $errnum." and errstr: ".$errstr, 'Green');
+    $adminObject->addInfoBoxLine(_MI_XASSET_DASHBBOARD, '<br>Outgoing SSL Support? Failed with codes errnum: ' . $errnum . ' and errstr: ' . $errstr, 'Green');
 }
 
-    echo $indexAdmin->addNavigation('index.php');
-    echo $indexAdmin->renderIndex();
+$adminObject->displayNavigation(basename(__FILE__));
+$adminObject->displayIndex();
 
-include "admin_footer.php";
+require_once __DIR__ . '/admin_footer.php';
