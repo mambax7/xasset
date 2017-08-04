@@ -18,13 +18,8 @@ $modversion['license_url']   = 'www.gnu.org/licenses/gpl-2.0.html';
 $modversion['official']      = 0; //1 indicates supported by XOOPS Dev Team, 0 means 3rd party supported
 $modversion['image']         = 'assets/images/xasset_slogo.png';
 $modversion['dirname']       = basename(__DIR__);
-
-//$modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
-//$modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
-//$modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
 $modversion['modicons16'] = 'assets/images/icons/16';
 $modversion['modicons32'] = 'assets/images/icons/32';
-//about
 $modversion['release_file']        = XOOPS_URL . '/modules/' . $modversion['dirname'] . '/docs/changelog.txt';
 $modversion['module_website_url']  = 'www.xoops.org';
 $modversion['module_website_name'] = 'XOOPS';
@@ -72,7 +67,15 @@ $modversion['tables'] = array(
 
 // Menu
 $modversion['hasMain'] = 1;
-//
+
+// ------------------- Help files ------------------- //
+$modversion['helpsection'] = array(
+    ['name' => _MI_XASSET_OVERVIEW, 'link' => 'page=help'],
+    ['name' => _MI_XASSET_DISCLAIMER, 'link' => 'page=disclaimer'],
+    ['name' => _MI_XASSET_LICENSE, 'link' => 'page=license'],
+    ['name' => _MI_XASSET_SUPPORT, 'link' => 'page=support'],
+);
+
 global $xoopsUser;
 //
 $hApps        = xoops_getModuleHandler('application', 'xasset');

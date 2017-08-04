@@ -123,7 +123,7 @@ define('_MI_XASSET_SUBMENU_MY_DETAILS', 'My Details');
 define('_MI_XASSET_SUBMENU_MY_DOWNLOADS', 'My Downloads');
 define('_MI_XASSET_SUBMENU_MY_SUBS', 'My Subscriptions');
 //module xoops_version constants
-define('_MI_XASSET_MODULE_NAME', 'xAsset - Secure Digital Distribution');
+define('_MI_XASSET_MODULE_NAME', 'xAsset');
 define('_MI_XASSET_MODULE_DESCRIPTION', 'Digital Management and Distribution');
 //email temapltes constats
 define('_MI_XASSET_APP_NEW_PURCHASE_NOTIFY', 'Client : Product Ordered');
@@ -164,3 +164,16 @@ define('_MI_XASSET_FILES', '%s Files');
 define('_MI_XASSET_LINKS', '%s Links');
 define('_MI_XASSET_DOWNLOADS', '%s Downloads');
 define('_MI_XASSET_EDITOR_OPTIONS', 'Select your Editor');
+
+//Help
+define('_MI_XASSET_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_XASSET_HELP_HEADER', __DIR__.'/help/helpheader.tpl');
+define('_MI_XASSET_BACK_2_ADMIN', 'Back to Administration of ');
+define('_MI_XASSET_OVERVIEW', 'Overview');
+
+//define('_MI_XASSET_HELP_DIR', __DIR__);
+
+//help multi-page
+define('_MI_XASSET_DISCLAIMER', 'Disclaimer');
+define('_MI_XASSET_LICENSE', 'License');
+define('_MI_XASSET_SUPPORT', 'Support');
