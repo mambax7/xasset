@@ -280,12 +280,36 @@ class XassetCurrencyHandler extends XassetBaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, NAME, CODE, decimal_places, symbol_left, symbol_right, decimal_point, thousands_point, VALUE, updated)
-                                      VALUES (%u, %s, %s, %u, %s, %s, %s, %s, %f, %u)', $this->_db->prefix($this->_dbtable), $id, $this->_db->quoteString($name), $this->_db->quoteString($code), $decimal_places, $this->_db->quoteString($symbol_left), $this->_db->quoteString($symbol_right),
-                           $this->_db->quoteString($decimal_point), $this->_db->quoteString($thousands_point), $value, $updated);
+            $sql = sprintf(
+                'INSERT INTO %s (id, NAME, CODE, decimal_places, symbol_left, symbol_right, decimal_point, thousands_point, VALUE, updated)
+                                      VALUES (%u, %s, %s, %u, %s, %s, %s, %s, %f, %u)',
+                $this->_db->prefix($this->_dbtable),
+                $id,
+                $this->_db->quoteString($name),
+                $this->_db->quoteString($code),
+                $decimal_places,
+                $this->_db->quoteString($symbol_left),
+                $this->_db->quoteString($symbol_right),
+                           $this->_db->quoteString($decimal_point),
+                $this->_db->quoteString($thousands_point),
+                $value,
+                $updated
+            );
         } else {
-            $sql = sprintf('UPDATE %s SET NAME = %s, CODE = %s, decimal_places = %u, symbol_left = %s, symbol_right = %s, decimal_point = %s, thousands_point = %s, VALUE = %f, updated = %u  WHERE id = %u', $this->_db->prefix($this->_dbtable), $this->_db->quoteString($name),
-                           $this->_db->quoteString($code), $decimal_places, $this->_db->quoteString($symbol_left), $this->_db->quoteString($symbol_right), $this->_db->quoteString($decimal_point), $this->_db->quoteString($thousands_point), $value, $updated, $id);
+            $sql = sprintf(
+                'UPDATE %s SET NAME = %s, CODE = %s, decimal_places = %u, symbol_left = %s, symbol_right = %s, decimal_point = %s, thousands_point = %s, VALUE = %f, updated = %u  WHERE id = %u',
+                $this->_db->prefix($this->_dbtable),
+                $this->_db->quoteString($name),
+                           $this->_db->quoteString($code),
+                $decimal_places,
+                $this->_db->quoteString($symbol_left),
+                $this->_db->quoteString($symbol_right),
+                $this->_db->quoteString($decimal_point),
+                $this->_db->quoteString($thousands_point),
+                $value,
+                $updated,
+                $id
+            );
         }
         //echo $sql;
         // Update DB

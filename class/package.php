@@ -465,9 +465,19 @@ class XassetPackageHandler extends XassetBaseObjectHandler
             $sql = sprintf('INSERT INTO %s (id, packagegroupid, filename, filesize, filetype, serverFilePath, protected, isVideo)
                                       VALUES (%u, %u, %s, %u, %s, %s, %u, %u)', $this->_db->prefix($this->_dbtable), $id, $packagegroupid, $this->_db->quoteString($filename), $filesize, $this->_db->quoteString($filetype), $this->_db->quoteString($serverFilePath), $protected, $isVideo);
         } else {
-            $sql = sprintf('UPDATE %s SET packagegroupid = %u, filename = %s, filesize = %u, filetype = %s,
-                                        serverFilePath = %s, protected = %u, isVideo = %u WHERE id = %u', $this->_db->prefix($this->_dbtable), $packagegroupid, $this->_db->quoteString($filename), $filesize, $this->_db->quoteString($filetype), $this->_db->quoteString($serverFilePath), $protected,
-                           $isVideo, $id);
+            $sql = sprintf(
+                'UPDATE %s SET packagegroupid = %u, filename = %s, filesize = %u, filetype = %s,
+                                        serverFilePath = %s, protected = %u, isVideo = %u WHERE id = %u',
+                $this->_db->prefix($this->_dbtable),
+                $packagegroupid,
+                $this->_db->quoteString($filename),
+                $filesize,
+                $this->_db->quoteString($filetype),
+                $this->_db->quoteString($serverFilePath),
+                $protected,
+                           $isVideo,
+                $id
+            );
         }
 
         // Update DB

@@ -638,17 +638,50 @@ class XassetApplicationHandler extends XassetBaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, NAME, description, platform, version, datePublished, requiresLicense,
+            $sql = sprintf(
+                'INSERT INTO %s (id, NAME, description, platform, version, datePublished, requiresLicense,
                                                       listInEval, hasSamples, richDescription, mainMenu, menuItem, productsVisible,
                                                       image, product_list_template)
-                                      VALUES (%u, %s, %s, %s, %s, %u, %u, %u, %u, %s, %u, %s, %u, %s, %s)', $this->_db->prefix($this->_dbtable), $id, $this->_db->quoteString($name), $this->_db->quoteString($description), $this->_db->quoteString($platform), $this->_db->quoteString($version),
-                           $datePublished, $requiresLicense, $listInEval, $hasSamples, $this->_db->quoteString($richDescription), $mainMenu, $this->_db->quoteString($menuItem), $productsVisible, $this->_db->quoteString($image), $this->_db->quoteString($product_list_template));
+                                      VALUES (%u, %s, %s, %s, %s, %u, %u, %u, %u, %s, %u, %s, %u, %s, %s)',
+                $this->_db->prefix($this->_dbtable),
+                $id,
+                $this->_db->quoteString($name),
+                $this->_db->quoteString($description),
+                $this->_db->quoteString($platform),
+                $this->_db->quoteString($version),
+                           $datePublished,
+                $requiresLicense,
+                $listInEval,
+                $hasSamples,
+                $this->_db->quoteString($richDescription),
+                $mainMenu,
+                $this->_db->quoteString($menuItem),
+                $productsVisible,
+                $this->_db->quoteString($image),
+                $this->_db->quoteString($product_list_template)
+            );
         } else {
-            $sql = sprintf('UPDATE %s SET NAME = %s, description = %s, platform = %s, version = %s, datePublished = %u,
+            $sql = sprintf(
+                'UPDATE %s SET NAME = %s, description = %s, platform = %s, version = %s, datePublished = %u,
                                         requiresLicense = %u, listInEval = %u, hasSamples = %u, richDescription = %s, mainMenu = %u,
-                                        menuItem = %s, productsVisible = %u, image = %s, product_list_template = %s  WHERE id = %u', $this->_db->prefix($this->_dbtable), $this->_db->quoteString($name), $this->_db->quoteString($description), $this->_db->quoteString($platform),
-                           $this->_db->quoteString($version), $datePublished, $requiresLicense, $listInEval, $hasSamples, $this->_db->quoteString($richDescription), $mainMenu, $this->_db->quoteString($menuItem), $productsVisible, $this->_db->quoteString($image),
-                           $this->_db->quoteString($product_list_template), $id);
+                                        menuItem = %s, productsVisible = %u, image = %s, product_list_template = %s  WHERE id = %u',
+                $this->_db->prefix($this->_dbtable),
+                $this->_db->quoteString($name),
+                $this->_db->quoteString($description),
+                $this->_db->quoteString($platform),
+                           $this->_db->quoteString($version),
+                $datePublished,
+                $requiresLicense,
+                $listInEval,
+                $hasSamples,
+                $this->_db->quoteString($richDescription),
+                $mainMenu,
+                $this->_db->quoteString($menuItem),
+                $productsVisible,
+                $this->_db->quoteString($image),
+                           $this->_db->quoteString($product_list_template),
+                $id
+            );
         }
         // Update DB
         if (false != $force) {

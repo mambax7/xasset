@@ -38,7 +38,7 @@ $modversion['adminmenu']   = 'admin/menu.php';
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
 // Tables created by sql file (without prefix!)
-$modversion['tables'] = array(
+$modversion['tables'] = [
     $moduleDirName . '_' . 'app_prod_memb',
     $moduleDirName . '_' . 'app_product',
     $moduleDirName . '_' . 'application',
@@ -63,18 +63,18 @@ $modversion['tables'] = array(
     $moduleDirName . '_' . 'user_products',
     $moduleDirName . '_' . 'userpackagestats',
     $moduleDirName . '_' . 'zone',
-);
+];
 
 // Menu
 $modversion['hasMain'] = 1;
 
 // ------------------- Help files ------------------- //
-$modversion['helpsection'] = array(
+$modversion['helpsection'] = [
     ['name' => _MI_XASSET_OVERVIEW, 'link' => 'page=help'],
     ['name' => _MI_XASSET_DISCLAIMER, 'link' => 'page=disclaimer'],
     ['name' => _MI_XASSET_LICENSE, 'link' => 'page=license'],
     ['name' => _MI_XASSET_SUPPORT, 'link' => 'page=support'],
-);
+];
 
 global $xoopsUser;
 //

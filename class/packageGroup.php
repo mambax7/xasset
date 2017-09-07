@@ -343,11 +343,27 @@ class XassetPackageGroupHandler extends XassetBaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, applicationid, NAME, grpDesc, version, datePublished) VALUES (%u, %u, %s, %s, %s, %u)', $this->_db->prefix($this->_dbtable), $id, $applicationid, $this->_db->quoteString($name), $this->_db->quoteString($grpDesc), $this->_db->quoteString($version),
-                           $datePublished);
+            $sql = sprintf(
+                'INSERT INTO %s (id, applicationid, NAME, grpDesc, version, datePublished) VALUES (%u, %u, %s, %s, %s, %u)',
+                $this->_db->prefix($this->_dbtable),
+                $id,
+                $applicationid,
+                $this->_db->quoteString($name),
+                $this->_db->quoteString($grpDesc),
+                $this->_db->quoteString($version),
+                           $datePublished
+            );
         } else {
-            $sql = sprintf('UPDATE %s SET applicationid = %u, NAME = %s, grpDesc = %s, version = %s, datePublished = %u WHERE id = %u', $this->_db->prefix($this->_dbtable), $applicationid, $this->_db->quoteString($name), $this->_db->quoteString($grpDesc), $this->_db->quoteString($version),
-                           $datePublished, $id);
+            $sql = sprintf(
+                'UPDATE %s SET applicationid = %u, NAME = %s, grpDesc = %s, version = %s, datePublished = %u WHERE id = %u',
+                $this->_db->prefix($this->_dbtable),
+                $applicationid,
+                $this->_db->quoteString($name),
+                $this->_db->quoteString($grpDesc),
+                $this->_db->quoteString($version),
+                           $datePublished,
+                $id
+            );
         }
         //echo $sql;
         // Update DB
