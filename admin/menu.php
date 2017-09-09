@@ -16,71 +16,71 @@ $moduleHelper->loadLanguage('modinfo');
 
 $adminmenu            = [];
 $i                      = 0;
-$adminmenu[$i]['title'] = _AM_MODULEADMIN_HOME;
-$adminmenu[$i]['link']  = 'admin/index.php';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/home.png';
+'title' =>  _AM_MODULEADMIN_HOME,
+'link' =>  'admin/index.php',
+'icon' =>  $pathIcon32 . '/home.png',
 //++$i;
-//$adminmenu[$i]['title'] = _AM_MODULEADMIN_HOME;
-//$adminmenu[$i]['link'] = "admin/main.php";
+//'title' =>  _AM_MODULEADMIN_HOME,
+//'link' =>  "admin/main.php",
 //$adminmenu[$i]["icon"]  = $pathIcon32 . '/manage.png';
 
 ++$i;
-$adminmenu[$i]['title'] = _MI_XASSET_MENU_MANAGE_APPLICATIONS;
-$adminmenu[$i]['link']  = 'admin/main.php?op=manageApplications';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/exec.png';
+'title' =>  _MI_XASSET_MENU_MANAGE_APPLICATIONS,
+'link' => manageApplications',
+'icon' =>  $pathIcon32 . '/exec.png',
 ++$i;
-$adminmenu[$i]['title'] = _MI_XASSET_MENU_MANAGE_LICENSES;
-$adminmenu[$i]['link']  = 'admin/main.php?op=manageLicenses';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/folder_txt.png';
+'title' =>  _MI_XASSET_MENU_MANAGE_LICENSES,
+'link' => manageLicenses',
+'icon' =>  $pathIcon32 . '/folder_txt.png',
 ++$i;
-$adminmenu[$i]['title'] = _MI_XASSET_MENU_MANAGE_LINKS;
-$adminmenu[$i]['link']  = 'admin/main.php?op=manageLinks';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/addlink.png';
+'title' =>  _MI_XASSET_MENU_MANAGE_LINKS,
+'link' => manageLinks',
+'icon' =>  $pathIcon32 . '/addlink.png',
 ++$i;
-$adminmenu[$i]['title'] = _MI_XASSET_MENU_MANAGE_PACKAGES;
-$adminmenu[$i]['link']  = 'admin/main.php?op=managePackages';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/block.png';
+'title' =>  _MI_XASSET_MENU_MANAGE_PACKAGES,
+'link' => managePackages',
+'icon' =>  $pathIcon32 . '/block.png',
 ++$i;
-$adminmenu[$i]['title'] = _MI_XASSET_MENU_MANAGE_STATS;
-$adminmenu[$i]['link']  = 'admin/main.php?op=viewDownloadStats';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/stats.png';
+'title' =>  _MI_XASSET_MENU_MANAGE_STATS,
+'link' => viewDownloadStats',
+'icon' =>  $pathIcon32 . '/stats.png',
 ++$i;
-$adminmenu[$i]['title'] = _MI_XASSET_MENU_MANAGE_REGIONS;
-$adminmenu[$i]['link']  = 'admin/main.php?op=manageRegion';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/groupmod.png';
+'title' =>  _MI_XASSET_MENU_MANAGE_REGIONS,
+'link' => manageRegion',
+'icon' =>  $pathIcon32 . '/groupmod.png',
 ++$i;
-$adminmenu[$i]['title'] = _MI_XASSET_MENU_MANAGE_COUNTRIES;
-$adminmenu[$i]['link']  = 'admin/main.php?op=manageCountries';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/languages.png';
+'title' =>  _MI_XASSET_MENU_MANAGE_COUNTRIES,
+'link' => manageCountries',
+'icon' =>  $pathIcon32 . '/languages.png',
 ++$i;
-$adminmenu[$i]['title'] = _MI_XASSET_MENU_MANAGE_ZONES;
-$adminmenu[$i]['link']  = 'admin/main.php?op=manageZones';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/globe.png';
+'title' =>  _MI_XASSET_MENU_MANAGE_ZONES,
+'link' => manageZones',
+'icon' =>  $pathIcon32 . '/globe.png',
 ++$i;
-$adminmenu[$i]['title'] = _MI_XASSET_MENU_MANAGE_TAXES;
-$adminmenu[$i]['link']  = 'admin/main.php?op=manageTaxes';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/calculator.png';
+'title' =>  _MI_XASSET_MENU_MANAGE_TAXES,
+'link' => manageTaxes',
+'icon' =>  $pathIcon32 . '/calculator.png',
 ++$i;
-$adminmenu[$i]['title'] = _MI_XASSET_MENU_MANAGE_CURRENCIES;
-$adminmenu[$i]['link']  = 'admin/main.php?op=manageCurrencies';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/cash_stack.png';
+'title' =>  _MI_XASSET_MENU_MANAGE_CURRENCIES,
+'link' => manageCurrencies',
+'icon' =>  $pathIcon32 . '/cash_stack.png',
 ++$i;
-$adminmenu[$i]['title'] = _MI_XASSET_MENU_MANAGE_GATEWAYS;
-$adminmenu[$i]['link']  = 'admin/main.php?op=manageGateways';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/delivery.png';
+'title' =>  _MI_XASSET_MENU_MANAGE_GATEWAYS,
+'link' => manageGateways',
+'icon' =>  $pathIcon32 . '/delivery.png',
 ++$i;
-$adminmenu[$i]['title'] = _MI_XASSET_MENU_MANAGE_ORDERS;
-$adminmenu[$i]['link']  = 'admin/main.php?op=orderTracking';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/cart_add.png';
+'title' =>  _MI_XASSET_MENU_MANAGE_ORDERS,
+'link' => orderTracking',
+'icon' =>  $pathIcon32 . '/cart_add.png',
 ++$i;
-$adminmenu[$i]['title'] = _MI_XASSET_MENU_MANAGE_GATE_LOGS;
-$adminmenu[$i]['link']  = 'admin/main.php?op=gatewayLogs';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/index.png';
+'title' =>  _MI_XASSET_MENU_MANAGE_GATE_LOGS,
+'link' => gatewayLogs',
+'icon' =>  $pathIcon32 . '/index.png',
 ++$i;
-$adminmenu[$i]['title'] = _MI_XASSET_MENU_MANAGE_MEMBERSHIP;
-$adminmenu[$i]['link']  = 'admin/main.php?op=membership';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/identity.png';
+'title' =>  _MI_XASSET_MENU_MANAGE_MEMBERSHIP,
+'link' => membership',
+'icon' =>  $pathIcon32 . '/identity.png',
 ++$i;
-$adminmenu[$i]['title'] = _AM_MODULEADMIN_ABOUT;
-$adminmenu[$i]['link']  = 'admin/about.php';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/about.png';
+'title' =>  _AM_MODULEADMIN_ABOUT,
+'link' =>  'admin/about.php',
+'icon' =>  $pathIcon32 . '/about.png',
