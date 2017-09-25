@@ -260,7 +260,7 @@ class ValidateLength extends Validator
         if (strlen($this->text) < $this->min_length) {
             $this->setError(_XHELP_MESSAGE_SHORT);
         }
-        if ($this->max_length <> false) {
+        if (false <> $this->max_length) {
             if (strlen($this->text) > $this->max_length) {
                 $this->setError(_XHELP_MESSAGE_LONG);
             }
@@ -435,14 +435,14 @@ class ValidatePassword extends Validator
         $hConfig         = xoops_getHandler('config');
         $xoopsConfigUser =& $hConfig->getConfigsByCat(XOOPS_CONF_USER);
 
-        if (!isset($this->pass) || $this->pass == '' || !isset($this->vpass) || $this->vpass == '') {
+        if (!isset($this->pass) || '' == $this->pass || !isset($this->vpass) || '' == $this->vpass) {
             $this->setError(_XHELP_MESSAGE_NOT_SUPPLIED);
             //$stop .= _US_ENTERPWD.'<br>';
         }
         if (isset($this->pass) && ($this->pass != $this->vpass)) {
             $this->setError(_XHELP_MESSAGE_NOT_SAME);
             //$stop .= _US_PASSNOTSAME.'<br>';
-        } elseif (($this->pass != '') && (strlen($this->pass) < $xoopsConfigUser['minpass'])) {
+        } elseif (('' != $this->pass) && (strlen($this->pass) < $xoopsConfigUser['minpass'])) {
             $this->setError(sprintf(_XHELP_MESSAGE_SHORT, $xoopsConfigUser['minpass']));
             //$stop .= sprintf(_US_PWDTOOSHORT,$xoopsConfigUser['minpass'])."<br>";
         }

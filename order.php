@@ -395,7 +395,7 @@ function addCustomer($post)
             }
             $_SESSION['xoopsUserId']     = $oUser->getVar('uid');
             $_SESSION['xoopsUserGroups'] = $oUser->getGroups();
-            if ($xoopsConfig['use_mysession'] && $xoopsConfig['session_name'] != '') {
+            if ($xoopsConfig['use_mysession'] && '' != $xoopsConfig['session_name']) {
                 setcookie($xoopsConfig['session_name'], session_id(), time() + (60 * $xoopsConfig['session_expire']), '/', '', 0);
             }
             //
@@ -405,7 +405,7 @@ function addCustomer($post)
     //we are here so the data looks good...save it
     if ($hCust->insert($cust)) {
         if (isset($_SESSION['stage'])) {
-            if ($_SESSION['stage'] == 1) {
+            if (1 == $_SESSION['stage']) {
                 //direct to stage 2
                 $_SESSION['stage'] = 2;
                 //redirect back
@@ -501,7 +501,7 @@ function updateOrderQuantities($post)
     //
     if (count($post['qty']) > 0) {
         foreach ($post['qty'] as $key => $value) {
-            if ($value == 0) {
+            if (0 == $value) {
                 $hODetail->deleteByID($key);
             } else {
                 $hODetail->updateOrderQty($key, $value);
@@ -526,7 +526,7 @@ function choosePayment()
             $items     = $order->getOrderDetailsArray();
             $cnt       = count($items);
             //
-            if (count($installed) == 0) {
+            if (0 == count($installed)) {
                 die('No payment gateways have been setup.');
             }
             //

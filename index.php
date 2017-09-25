@@ -462,7 +462,7 @@ function product($appid = null, $key = null)
         $showMaxDowns     = $hCommon->getModuleOption('prodShowMaxDownloads', 'xasset');
         $showMaxDays      = $hCommon->getModuleOption('prodShowMaxDays', 'xasset');
         $showExpires      = $hCommon->getModuleOption('prodShowExpires', 'xasset');
-        $showSamples      = $oApp->getVar('hasSamples') == 1;
+        $showSamples      = 1 == $oApp->getVar('hasSamples');
         $aPopup['width']  = $hCommon->getModuleOption('prodwin_width');
         $aPopup['height'] = $hCommon->getModuleOption('prodwin_height');
         //

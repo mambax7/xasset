@@ -83,9 +83,9 @@ class XassetOrder extends XassetBaseObject
         //
         $total = $tax['amount'] + $orderNet;
         //
-        if ($format == 'f') {
+        if ('f' == $format) {
             return $cur->valueFormat($total);
-        } elseif ($format == 's') {
+        } elseif ('s' == $format) {
             return $cur->valueOnlyFormat($total);
         }
     }
@@ -382,7 +382,7 @@ class XassetOrder extends XassetBaseObject
             //
             $inst .= $oAppProd->getVar('extra_instructions') . "\n\n";
         }
-        if ($inst <> '') {
+        if ('' <> $inst) {
             $inst = "Special Instructions\n\n" . $inst;
         }
 

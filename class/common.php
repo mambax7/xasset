@@ -147,7 +147,7 @@ class XassetCommonHandler extends XassetBaseObjectHandler
         for ($i = 0; $i < 24; ++$i) {
             for ($j = 0; $j < 60; $j = $j + $div) {
                 $key             = ($i * 3600) + ($j * 60);
-                $timearray[$key] = ($j != 0) ? $i . ':' . $j : $i . ':0' . $j;
+                $timearray[$key] = (0 != $j) ? $i . ':' . $j : $i . ':0' . $j;
             }
         }
         ksort($timearray);
@@ -324,17 +324,17 @@ class XassetCommonHandler extends XassetBaseObjectHandler
         $memberHandler = xoops_getHandler('member');
 
         $unamecount = 10;
-        if (strlen($password) == 0) {
+        if (0 == strlen($password)) {
             $password = substr(md5(uniqid(mt_rand(), 1)), 0, 6);
         }
 
         $usernames = $this->GenUserNames($email, $name, $unamecount);
         $newuser   = false;
         $i         = 0;
-        while ($newuser === false) {
+        while (false === $newuser) {
             $crit  = new Criteria('uname', $usernames[$i]);
             $count = $memberHandler->getUserCount($crit);
-            if ($count == 0) {
+            if (0 == $count) {
                 $newuser = true;
             } else {
                 //Move to next username
@@ -610,7 +610,7 @@ class XassetCommonHandler extends XassetBaseObjectHandler
         //
         $oUser =& $hMember->getUser($id);
         //can only activate if the use has not been activated before
-        if ($oUser->getVar('level') == 0) {
+        if (0 == $oUser->getVar('level')) {
             //now only activate if the key sent is the same as the key in the tables
             if ($oUser->getVar('actkey') == $actkey) {
                 return $hMember->activateUser($oUser);

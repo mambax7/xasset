@@ -168,9 +168,9 @@ class XassetApplicationProduct extends XassetBaseObject
         $oCur    =& $hCurrency->get($curID);
         $oAppCur =& $hCurrency->get($this->getVar('base_currency_id'));
         //
-        if ($format === 's') {
+        if ('s' === $format) {
             return $oCur->valueOnlyFormat($this->getVar('unit_price') / $oAppCur->value());
-        } elseif ($format === 'l') {
+        } elseif ('l' === $format) {
             return $oCur->valueFormat($this->getVar('unit_price') / $oAppCur->value());
         }
     }
@@ -194,7 +194,7 @@ class XassetApplicationProduct extends XassetBaseObject
      */
     public function getBuyNowButton($image = '')
     {
-        if ($image == '') {
+        if ('' == $image) {
             $image = XOOPS_URL . '/modules/xasset/assets/images/buyNow.png';
         }
         //
@@ -406,7 +406,7 @@ class XassetApplicationProductHandler extends XassetBaseObjectHandler
             foreach ($matches[1] as $key => $match) {
                 //check for BUY tag
                 $replace = $matches[0][$key];
-                if (!(strpos($match, '.BUY') === false)) {
+                if (!(false === strpos($match, '.BUY'))) {
                     if (preg_match('/(.*).BUY\[(.*)\]/', $match, $buy)) {
                         //here we have a buy with a pointer to a buy now image BUY[http://image...]
                         $oAppProd =& $this->getProductByCode($buy[1], $oApp->ID());
@@ -424,7 +424,7 @@ class XassetApplicationProductHandler extends XassetBaseObjectHandler
                     }
                 }
                 //matches will be of form {TAG.app.PRICE}
-                if (!(strpos($match, '.PRICE') === false)) {
+                if (!(false === strpos($match, '.PRICE'))) {
                     if (preg_match('/(.*).PRICE/', $match, $buy)) {
                         $oAppProd =& $this->getProductByCode($buy[1], $oApp->ID());
                         $price    = $oAppProd->getPrice('l');
@@ -433,7 +433,7 @@ class XassetApplicationProductHandler extends XassetBaseObjectHandler
                     }
                 }
                 //matches will be of form {TAG.app.DESC}
-                if (!(strpos($match, '.DESC') === false)) {
+                if (!(false === strpos($match, '.DESC'))) {
                     if (preg_match('/(.*).DESC/', $match, $buy)) {
                         $oAppProd =& $this->getProductByCode($buy[1], $oApp->ID());
                         $desc     = $oAppProd->getRichDescription();
@@ -443,7 +443,7 @@ class XassetApplicationProductHandler extends XassetBaseObjectHandler
                 }
 
                 //matches will be of form {TAG.app.VIDEO}
-                if (!(strpos($match, '.VIDEO') === false)) {
+                if (!(false === strpos($match, '.VIDEO'))) {
                     if (preg_match('/(.*).VIDEO\[(.*)\]/', $match, $buy)) {
                         //here we have a buy with a pointer to a buy now image BUY[http://image...]
                         $oAppProd =& $this->getProductByCode($buy[1], $oApp->ID());

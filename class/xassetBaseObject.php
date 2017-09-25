@@ -120,7 +120,7 @@ class XassetBaseObject extends XoopsObject
                 $cleanv = is_string($cleanv) ? trim($cleanv) : $cleanv;
                 switch ($v['data_type']) {
                     case XOBJ_DTYPE_TXTBOX:
-                        if ($v['required'] && $cleanv != '0' && $cleanv == '') {
+                        if ($v['required'] && '0' != $cleanv && '' == $cleanv) {
                             //                            $this->setErrors($k, "$v[pretty] is required.");
                             $this->setErrors(sprintf("$v[pretty] is required.", $k));
                             continue 2;
@@ -137,7 +137,7 @@ class XassetBaseObject extends XoopsObject
                         }
                         break;
                     case XOBJ_DTYPE_TXTAREA:
-                        if ($v['required'] && $cleanv != '0' && $cleanv == '') {
+                        if ($v['required'] && '0' != $cleanv && '' == $cleanv) {
                             //                            $this->setErrors($k, "$v[pretty] is required.");
                             $this->setErrors(sprintf("$v[pretty] is required.", $k));
                             continue 2;
@@ -159,12 +159,12 @@ class XassetBaseObject extends XoopsObject
                         $cleanv = (int)$cleanv;
                         break;
                     case XOBJ_DTYPE_EMAIL:
-                        if ($v['required'] && $cleanv == '') {
+                        if ($v['required'] && '' == $cleanv) {
                             // $this->setErrors($k, "$v[pretty] is required.");
                             $this->setErrors(sprintf("$v[pretty] is required.", $k));
                             continue 2;
                         }
-                        if ($cleanv != ''
+                        if ('' != $cleanv
                             && !preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+([\.][a-z0-9-]+)+$/i", $cleanv)) {
                             //                            $this->setErrors($k, 'Invalid Email');
                             $this->setErrors(sprintf('Invalid Email', $k));
@@ -175,12 +175,12 @@ class XassetBaseObject extends XoopsObject
                         }
                         break;
                     case XOBJ_DTYPE_URL:
-                        if ($v['required'] && $cleanv == '') {
+                        if ($v['required'] && '' == $cleanv) {
                             // $this->setErrors($k, "$v[pretty] is required.");
                             $this->setErrors(sprintf("$v[pretty] is required.", $k));
                             continue 2;
                         }
-                        if ($cleanv != '' && !preg_match("/^http[s]*:\/\//i", $cleanv)) {
+                        if ('' != $cleanv && !preg_match("/^http[s]*:\/\//i", $cleanv)) {
                             $cleanv = 'http://' . $cleanv;
                         }
                         if (!$v['not_gpc']) {
@@ -244,7 +244,7 @@ class XassetBaseObjectHandler extends XoopsObjectHandler
                 return false;
             }
             $numrows = $this->_db->getRowsNum($result);
-            if ($numrows == 1) {
+            if (1 == $numrows) {
                 $obj = new $this->classname($this->_db->fetchArray($result));
 
                 return $obj;
@@ -263,13 +263,13 @@ class XassetBaseObjectHandler extends XoopsObjectHandler
     public function postProcessSQL(&$sql, $criteria)
     {
         if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-            if ($criteria->renderWhere() != '') {
+            if ('' != $criteria->renderWhere()) {
                 $sql .= ' ' . $criteria->renderWhere();
             }
-            if ($criteria->groupby != '') {
+            if ('' != $criteria->groupby) {
                 $sql .= $criteria->getGroupby();
             }
-            if ($criteria->getSort() != '') {
+            if ('' != $criteria->getSort()) {
                 $sql .= ' ORDER BY ' . $criteria->getSort() . '
                   ' . $criteria->getOrder();
             }
@@ -322,7 +322,7 @@ class XassetBaseObjectHandler extends XoopsObjectHandler
         $sql = sprintf('SELECT * FROM %s', $this->_db->prefix($this->_dbtable));
         if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
             $sql .= ' ' . $criteria->renderWhere();
-            if ($criteria->getSort() != '') {
+            if ('' != $criteria->getSort()) {
                 $sql .= ' ORDER BY ' . $criteria->getSort() . '
                  ' . $criteria->getOrder();
             }
@@ -358,7 +358,7 @@ class XassetBaseObjectHandler extends XoopsObjectHandler
      */
     public function delete(XoopsObject $obj, $force = false)
     {
-        if (strcasecmp($this->classname, get_class($obj)) != 0) {
+        if (0 != strcasecmp($this->classname, get_class($obj))) {
             return false;
         }
 
@@ -453,7 +453,7 @@ class XassetBaseObjectHandler extends XoopsObjectHandler
         //    }
         $result = true;
         //
-        if (strcasecmp($this->classname, get_class($obj)) != 0) {
+        if (0 != strcasecmp($this->classname, get_class($obj))) {
             return false;
         }
 

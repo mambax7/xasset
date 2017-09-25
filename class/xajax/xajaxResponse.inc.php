@@ -253,10 +253,10 @@ class xajaxResponse
         //can't just use parse_url() cos we could be dealing with a relative URL which
         //  parse_url() can't deal with.
         $queryStart = strpos($sURL, '?', strrpos($sURL, '/'));
-        if ($queryStart !== false) {
+        if (false !== $queryStart) {
             ++$queryStart;
             $queryEnd = strpos($sURL, '#', $queryStart);
-            if ($queryEnd === false) {
+            if (false === $queryEnd) {
                 $queryEnd = strlen($sURL);
             }
             $queryPart = substr($sURL, $queryStart, $queryEnd - $queryStart);
@@ -541,10 +541,10 @@ class xajaxResponse
         foreach ($aAttributes as $sAttribute => $sValue) {
             $xml .= " $sAttribute=\"$sValue\"";
         }
-        if ($sData !== null && !stristr($sData, '<![CDATA[')) {
+        if (null !== $sData && !stristr($sData, '<![CDATA[')) {
             $xml .= "><![CDATA[$sData]]></cmd>";
         } else {
-            if ($sData !== null) {
+            if (null !== $sData) {
                 $xml .= ">$sData</cmd>";
             } else {
                 $xml .= '></cmd>';
@@ -567,7 +567,7 @@ class xajaxResponse
      */
     public function _buildObjXml($var)
     {
-        if (gettype($var) === 'object') {
+        if ('object' === gettype($var)) {
             $var = get_object_vars($var);
         }
         if (!is_array($var)) {

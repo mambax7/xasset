@@ -54,7 +54,7 @@ class XAssetPackage extends XassetBaseObject
      */
     public function fileProtected()
     {
-        return $this->getVar('protected') == 1;
+        return 1 == $this->getVar('protected');
     }
 
     /////////////////////////////////////////////////
@@ -148,11 +148,11 @@ class XAssetPackage extends XassetBaseObject
         $file_saved   = $this->getVar('serverFilePath');
         $file_display = $this->getVar('filename');
         //
-        if ($this->getVar('filetype') <> '') {
-            if (substr_count($file_display, '.') == 0) {
+        if ('' <> $this->getVar('filetype')) {
+            if (0 == substr_count($file_display, '.')) {
                 $file_display = $this->getVar('filename') . '.' . $this->getVar('filetype');
             }
-        } elseif (substr(strrchr($file_display, '.'), 1) <> '') { //file extension in file_display itself
+        } elseif ('' <> substr(strrchr($file_display, '.'), 1)) { //file extension in file_display itself
             $this->setVar('filetype', strtolower(substr(strrchr($file_display, '.'), 1)));
         }
         //
@@ -162,7 +162,7 @@ class XAssetPackage extends XassetBaseObject
         //now get mime type based on extension
         $mimetype = 'application/x-download';
         @$extensionToMime = include XOOPS_ROOT_PATH . '/class/mimetypes.inc.php';
-        if ($this->getVar('filetype') <> '') {
+        if ('' <> $this->getVar('filetype')) {
             if (isset($extensionToMime[$this->getVar('filetype')])) {
                 $mimetype = $extensionToMime[$this->getVar('filetype')];
             }

@@ -149,8 +149,8 @@ class XassetApplicationProductMembHandler extends XassetBaseObjectHandler
      */
     public function AddGroupExpiry($oOrdDetail, $oAppProd, $oUserDetails, $group = '1')
     {
-        $grpField = $group == '1' ? 'add_to_group' : 'add_to_group' . $group;
-        $expField = $group == '1' ? 'group_expire_date' : 'group_expire_date' . $group;
+        $grpField = '1' == $group ? 'add_to_group' : 'add_to_group' . $group;
+        $expField = '1' == $group ? 'group_expire_date' : 'group_expire_date' . $group;
         //
         $qty = $oOrdDetail->getVar('qty');
         //now determine if this is a new entry or an update.

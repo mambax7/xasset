@@ -51,7 +51,7 @@ class XassetNotificationServiceHandler extends XoopsObjectHandler
         $this->_ts           = MyTextSanitizer::getInstance();
         $this->_template_dir = $this->_getTemplateDir($xoopsConfig['language']);
         //
-        if (isset($xoopsModule) && $xoopsModule->getVar('dirname') === 'xasset') {
+        if (isset($xoopsModule) && 'xasset' === $xoopsModule->getVar('dirname')) {
             $this->_module =& $xoopsModule;
         } else {
             $this->_module =& $hModule->getByDirname('xasset');

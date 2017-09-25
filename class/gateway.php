@@ -134,7 +134,7 @@ class XassetGatewayHandler extends XassetBaseObjectHandler
         $crit = new Criteria('code', $code);
         $objs = $this->getObjects($crit);
         //
-        if (count($objs) == 0) {
+        if (0 == count($objs)) {
             $res = false;
 
             return $res;
@@ -157,7 +157,7 @@ class XassetGatewayHandler extends XassetBaseObjectHandler
         $crit = new Criteria('code', $code);
         $objs = $this->getObjects($crit);
         //
-        if (count($objs) == 0) {
+        if (0 == count($objs)) {
             $res = false;
 
             return $res;

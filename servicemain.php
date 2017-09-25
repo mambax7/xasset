@@ -43,8 +43,8 @@ $xoopsConfig     = $configHandler->getConfigsByCat(XOOPS_CONF);
 $xoopsConfigUser = $configHandler->getConfigsByCat(XOOPS_CONF_USER);
 //
 
-if ($xoopsModule->getVar('hasconfig') == 1 || $xoopsModule->getVar('hascomments') == 1
-    || $xoopsModule->getVar('hasnotification') == 1) {
+if (1 == $xoopsModule->getVar('hasconfig') || 1 == $xoopsModule->getVar('hascomments')
+    || 1 == $xoopsModule->getVar('hasnotification')) {
     $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
 }
 

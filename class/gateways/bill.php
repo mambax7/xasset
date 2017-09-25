@@ -106,7 +106,7 @@ class bill extends baseGateway
         $oOrder->setVar('status', $oOrder->orderStatusValidate());
         $oOrder->setVar('value', $oOrder->getOrderTotal('s'));
         //
-        $dest = $hCommon->getModuleOption('orderCompleteRedirect') <> '' ? $hCommon->getModuleOption('orderCompleteRedirect') : 'index.php';
+        $dest = '' <> $hCommon->getModuleOption('orderCompleteRedirect') ? $hCommon->getModuleOption('orderCompleteRedirect') : 'index.php';
         $time = $hCommon->getModuleOption('orderCompleteWait');
         //
         if ($hOrder->insert($oOrder, true)) {

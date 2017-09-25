@@ -48,7 +48,7 @@ class baseGateway
     {
         if ($gate =& $this->_hGate->getByCode($this->code)) {
             $this->id        = $gate->getVar('id');
-            $this->enabled   = $gate->getVar('enabled') === true;
+            $this->enabled   = true === $gate->getVar('enabled');
             $this->installed = true;
             //load up constants from db
             $this->loadConstants();
@@ -180,7 +180,7 @@ class baseGateway
         $sql = "select enabled from $this->_tableIndex where code = $code";
         if ($res = $this->_db->query($sql)) {
             if ($row = $this->_db->fetcharray['enabled']) {
-                $this->enabled = $row['enabled'] == 1;
+                $this->enabled = 1 == $row['enabled'];
 
                 return $this->enabled;
             }
@@ -278,7 +278,7 @@ class baseGateway
     {
         switch ($type) {
             case 'text':
-                $value   = $value <> '' ? 'value="' . $value . '"' : '';
+                $value   = '' <> $value ? 'value="' . $value . '"' : '';
                 $control = '<label for="' . $name . '" style="float:left;width:30%;padding-left:5px;">' . $label . '</label><input type="text" name="' . $name . '" id="' . $name . '" ' . $value . '>';
                 break;
             case 'select':

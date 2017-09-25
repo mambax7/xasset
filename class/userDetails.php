@@ -94,25 +94,25 @@ class XassetUserDetails extends XassetBaseObject
     public function &addressArray()
     {
         $address = [];
-        if ($this->getVar('street_address1') <> '') {
+        if ('' <> $this->getVar('street_address1')) {
             $address[] = $this->getVar('street_address1');
         }
-        if ($this->getVar('street_address2') <> '') {
+        if ('' <> $this->getVar('street_address2')) {
             $address[] = $this->getVar('street_address2');
         }
-        if ($this->getVar('town') <> '') {
+        if ('' <> $this->getVar('town')) {
             $address[] = $this->getVar('town');
         }
-        if ($this->getVar('state') <> '') {
+        if ('' <> $this->getVar('state')) {
             $address[] = $this->getVar('state');
         }
-        if ($this->getVar('zip') <> '') {
+        if ('' <> $this->getVar('zip')) {
             $address[] = $this->getVar('zip');
         }
-        if ($this->getVar('tel_no') <> '') {
+        if ('' <> $this->getVar('tel_no')) {
             $address[] = $this->getVar('tel_no');
         }
-        if ($this->getVar('fax_no') <> '') {
+        if ('' <> $this->getVar('fax_no')) {
             $address[] = $this->getVar('fax_no');
         }
 
@@ -184,7 +184,7 @@ class XassetUserDetails extends XassetBaseObject
         $aPackages =& $hThis->getUserDownloads($this->ID());
         foreach ($aPackages as $aPackage) {
             if ($aPackage['packageID'] == $pPackageID) {
-                if ($aPackage['status'] == 5) {
+                if (5 == $aPackage['status']) {
                     $result = true;
                     if ($aPackage['max_days'] > 0) {
                         $firstDowned = $hPackStats->getFirstDownloadDate($pPackageID, $this->getVar('uid'));

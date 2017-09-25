@@ -139,7 +139,7 @@ class XassetTaxZoneHandler extends XassetBaseObjectHandler
             while ($row = $this->_db->fetchArray($res)) {
                 $actions = '<a href="main.php?op=editTaxZone&id=' . $row['id'] . '">' . $imagearray['editimg'] . '</a>' . '<a href="main.php?op=deleteTaxZone&id=' . $row['id'] . '">' . $imagearray['deleteimg'] . '</a>';
                 //
-                $row['zone'] == '' ? $zone = 'All Zones' : $zone = $row['zone'];
+                '' == $row['zone'] ? $zone = 'All Zones' : $zone = $row['zone'];
                 //
                 $ary[] = [
                     'id'         => $row['id'],

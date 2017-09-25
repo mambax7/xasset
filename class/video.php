@@ -22,7 +22,7 @@ class XassetVideo extends XassetBaseObject
         $video = new Video();
         $video->setFile($file);
         $video->setBitrate($bandwidth * 1024);
-        $video->enableThrottle($hCommon->getModuleOption('Enablebandwidth') == 1);
+        $video->enableThrottle(1 == $hCommon->getModuleOption('Enablebandwidth'));
         $video->streamVideo($position);
     }
 }

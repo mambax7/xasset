@@ -175,7 +175,7 @@ class xajax
         $this->aObjects              = [];
         $this->aFunctionIncludeFiles = [];
         $this->sRequestURI           = $sRequestURI;
-        if ($this->sRequestURI == '') {
+        if ('' == $this->sRequestURI) {
             $this->sRequestURI = $this->_detectURI();
         }
         $this->sWrapperPrefix  = $sWrapperPrefix;
@@ -545,7 +545,7 @@ class xajax
             return;
         }
 
-        if ($requestMode == XAJAX_POST) {
+        if (XAJAX_POST == $requestMode) {
             $sFunctionName = $_POST['xajax'];
 
             if (!empty($_POST['xajaxargs'])) {
@@ -608,12 +608,12 @@ class xajax
         if ($bFoundFunction) {
             for ($i = 0, $iMax = count($aArgs); $i < $iMax; ++$i) {
                 // If magic quotes is on, then we need to strip the slashes from the args
-                if (get_magic_quotes_gpc() == 1 && is_string($aArgs[$i])) {
+                if (1 == get_magic_quotes_gpc() && is_string($aArgs[$i])) {
                     $aArgs[$i] = stripslashes($aArgs[$i]);
                 }
-                if (stristr($aArgs[$i], '<xjxobj>') !== false) {
+                if (false !== stristr($aArgs[$i], '<xjxobj>')) {
                     $aArgs[$i] = $this->_xmlToArray('xjxobj', $aArgs[$i]);
-                } elseif (stristr($aArgs[$i], '<xjxquery>') !== false) {
+                } elseif (false !== stristr($aArgs[$i], '<xjxquery>')) {
                     $aArgs[$i] = $this->_xmlToArray('xjxquery', $aArgs[$i]);
                 } elseif ($this->bDecodeUTF8Input) {
                     $aArgs[$i] = $this->_decodeUTF8Data($aArgs[$i]);
@@ -622,7 +622,7 @@ class xajax
 
             if ($this->sPreFunction) {
                 $mPreResponse = $this->_callFunction($this->sPreFunction, [$sFunctionNameForSpecial, $aArgs]);
-                if (is_array($mPreResponse) && $mPreResponse[0] === false) {
+                if (is_array($mPreResponse) && false === $mPreResponse[0]) {
                     $bEndRequest  = true;
                     $sPreResponse = $mPreResponse[1];
                 } else {
@@ -650,11 +650,11 @@ class xajax
                 if (is_a($sResponse, 'xajaxResponse')) {
                     $sResponse = $sResponse->getXML();
                 }
-                if (!is_string($sResponse) || strpos($sResponse, '<xjx>') === false) {
+                if (!is_string($sResponse) || false === strpos($sResponse, '<xjx>')) {
                     $objResponse = new xajaxResponse();
                     $objResponse->addAlert("No XML Response Was Returned By Function $sFunctionName.");
                     $sResponse = $objResponse->getXML();
-                } elseif ($sPreResponse != '') {
+                } elseif ('' != $sPreResponse) {
                     $sNewResponse = new xajaxResponse($this->sEncoding, $this->bOutputEntities);
                     $sNewResponse->loadXML($sPreResponse);
                     $sNewResponse->loadXML($sResponse);
@@ -807,11 +807,11 @@ class xajax
      */
     public function getJavascriptInclude($sJsURI = '', $sJsFile = null)
     {
-        if ($sJsFile == null) {
+        if (null == $sJsFile) {
             $sJsFile = 'xajax_js/xajax.js';
         }
 
-        if ($sJsURI != '' && substr($sJsURI, -1) != '/') {
+        if ('' != $sJsURI && '/' != substr($sJsURI, -1)) {
             $sJsURI .= '/';
         }
 
@@ -882,7 +882,7 @@ class xajax
                 $aURL['scheme'] = $_SERVER['HTTP_SCHEME'];
             } else {
                 $aURL['scheme'] = (!empty($_SERVER['HTTPS'])
-                                   && strtolower($_SERVER['HTTPS']) != 'off') ? 'https' : 'http';
+                                   && 'off' != strtolower($_SERVER['HTTPS'])) ? 'https' : 'http';
             }
         }
 
@@ -935,9 +935,9 @@ class xajax
 
         // Add the port if needed
         if (!empty($aURL['port'])
-            && (($aURL['scheme'] == 'http' && $aURL['port'] != 80)
-                || ($aURL['scheme'] == 'https'
-                    && $aURL['port'] != 443))) {
+            && (('http' == $aURL['scheme'] && 80 != $aURL['port'])
+                || ('https' == $aURL['scheme']
+                    && 443 != $aURL['port']))) {
             $sURL .= ':' . $aURL['port'];
         }
 
@@ -1073,7 +1073,7 @@ class xajax
     {
         $aArray = [];
 
-        if ($rootTag == 'xjxobj') {
+        if ('xjxobj' == $rootTag) {
             while (!stristr($this->aObjArray[$this->iPos], '</xjxobj>')) {
                 $this->iPos++;
                 if (stristr($this->aObjArray[$this->iPos], '<e>')) {
@@ -1112,7 +1112,7 @@ class xajax
             }
         }
 
-        if ($rootTag == 'xjxquery') {
+        if ('xjxquery' == $rootTag) {
             $sQuery = '';
             $this->iPos++;
             while (!stristr($this->aObjArray[$this->iPos], '</xjxquery>')) {
@@ -1132,7 +1132,7 @@ class xajax
             }
             // If magic quotes is on, then we need to strip the slashes from the
             // array values because of the parse_str pass which adds slashes
-            if (get_magic_quotes_gpc() == 1) {
+            if (1 == get_magic_quotes_gpc()) {
                 $newArray = [];
                 foreach ($aArray as $sKey => $sValue) {
                     if (is_string($sValue)) {
@@ -1166,7 +1166,7 @@ class xajax
                 $sFuncToUse = 'iconv';
             } elseif (function_exists('mb_convert_encoding')) {
                 $sFuncToUse = 'mb_convert_encoding';
-            } elseif ($this->sEncoding == 'ISO-8859-1') {
+            } elseif ('ISO-8859-1' == $this->sEncoding) {
                 $sFuncToUse = 'utf8_decode';
             } else {
                 trigger_error('The incoming xajax data could not be converted from UTF-8', E_USER_NOTICE);
@@ -1174,9 +1174,9 @@ class xajax
 
             if ($sFuncToUse) {
                 if (is_string($sValue)) {
-                    if ($sFuncToUse == 'iconv') {
+                    if ('iconv' == $sFuncToUse) {
                         $sValue = iconv('UTF-8', $this->sEncoding . '//TRANSLIT', $sValue);
-                    } elseif ($sFuncToUse == 'mb_convert_encoding') {
+                    } elseif ('mb_convert_encoding' == $sFuncToUse) {
                         $sValue = mb_convert_encoding($sValue, $this->sEncoding, 'UTF-8');
                     } else {
                         $sValue = utf8_decode($sValue);
@@ -1202,21 +1202,21 @@ class xajax
 function xajaxErrorHandler($errno, $errstr, $errfile, $errline)
 {
     $errorReporting = error_reporting();
-    if (($errno & $errorReporting) == 0) {
+    if (0 == ($errno & $errorReporting)) {
         return;
     }
 
-    if ($errno == E_NOTICE) {
+    if (E_NOTICE == $errno) {
         $errTypeStr = 'NOTICE';
-    } elseif ($errno == E_WARNING) {
+    } elseif (E_WARNING == $errno) {
         $errTypeStr = 'WARNING';
-    } elseif ($errno == E_USER_NOTICE) {
+    } elseif (E_USER_NOTICE == $errno) {
         $errTypeStr = 'USER NOTICE';
-    } elseif ($errno == E_USER_WARNING) {
+    } elseif (E_USER_WARNING == $errno) {
         $errTypeStr = 'USER WARNING';
-    } elseif ($errno == E_USER_ERROR) {
+    } elseif (E_USER_ERROR == $errno) {
         $errTypeStr = 'USER FATAL ERROR';
-    } elseif ($errno == E_STRICT) {
+    } elseif (E_STRICT == $errno) {
         return;
     } else {
         $errTypeStr = "UNKNOWN: $errno";

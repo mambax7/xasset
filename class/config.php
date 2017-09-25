@@ -109,7 +109,7 @@ class XassetConfigHandler extends XassetBaseObjectHandler
     public function getValueValue($key)
     {
         $objs = $this->getObjects(new Criteria('dkey', $key), true);
-        if (count($objs) == 1) {
+        if (1 == count($objs)) {
             foreach ($objs as $obj) {
                 return $obj->getVar('dvalue');
                 //        exit;

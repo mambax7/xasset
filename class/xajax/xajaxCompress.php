@@ -71,20 +71,20 @@ function xajaxCompressJavascript($sJS)
             //look for start of quote
             if (!$inQuote && !$inComment) {
                 //is this character a quote or a comment
-                if (($c === "\"" || $c === "'") && !$inComment && !$inNormalComment) {
+                if (("\"" === $c || "'" === $c) && !$inComment && !$inNormalComment) {
                     $inQuote   = true;
                     $inComment = false;
                     $escaped   = false;
                     $quoteChar = $c;
                     $literal   = $c;
-                } elseif ($d === '/*' && !$inNormalComment) {
+                } elseif ('/*' === $d && !$inNormalComment) {
                     $inQuote   = false;
                     $inComment = true;
                     $escaped   = false;
                     $quoteChar = $d;
                     $literal   = $d;
                     ++$j;
-                } elseif ($d === '//') { //ignore string markers that are found inside comments
+                } elseif ('//' === $d) { //ignore string markers that are found inside comments
                     $inNormalComment = true;
                     $clean           .= $c;
                 } else {
@@ -100,7 +100,7 @@ function xajaxCompressJavascript($sJS)
 
                     //push the string onto our array
                     array_push($literal_strings, $literal);
-                } elseif ($inComment && $d === '*/') {
+                } elseif ($inComment && '*/' === $d) {
                     $inComment = false;
                     $literal   .= $d;
 
@@ -112,7 +112,7 @@ function xajaxCompressJavascript($sJS)
 
                     ++$j;
                 } else {
-                    if ($c === "\\" && !$escaped) {
+                    if ("\\" === $c && !$escaped) {
                         $escaped = true;
                     } else {
                         $escaped = false;

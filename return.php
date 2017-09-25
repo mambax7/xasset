@@ -15,7 +15,7 @@ if (isset($_SESSION['orderID']) && ($_SESSION['orderID'] > -1)) {
     $gateway =& $hGateway->get($order->getVar('gateway'));
     $payGate =& $hGateway->getGatewayModuleByID($gateway->getVar('id'));
     //
-    $dest = $hCommon->getModuleOption('orderCompleteRedirect') <> '' ? $hCommon->getModuleOption('orderCompleteRedirect') : 'index.php';
+    $dest = '' <> $hCommon->getModuleOption('orderCompleteRedirect') ? $hCommon->getModuleOption('orderCompleteRedirect') : 'index.php';
     $time = $hCommon->getModuleOption('orderCompleteWait');
     //check if this order is open and if this gateway validates (ie paypal IPN)
     //if this gateway validates then the return does not process the order... just show confirmation

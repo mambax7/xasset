@@ -128,7 +128,7 @@ class XassetApplicationGroupHandler extends XassetBaseObjectHandler
         //
         if ($uid > 0) {
             for ($i = 0, $iMax = count($aGroups); $i < $iMax; ++$i) {
-                if ($i == 0) {
+                if (0 == $i) {
                     $crit->add(new Criteria('group_id', $aGroups[$i]));
                 } else {
                     $crit->add(new Criteria('group_id', $aGroups[$i]), 'or');

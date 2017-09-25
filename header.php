@@ -1,6 +1,6 @@
 <?php
 //need to catch processOptionForm as this needs special processing
-if (isset($_GET['op']) && ($_GET['op'] === 'processOptionForm') && isset($_GET['ssl']) && isset($_GET['url'])) {
+if (isset($_GET['op']) && ('processOptionForm' === $_GET['op']) && isset($_GET['ssl']) && isset($_GET['url'])) {
     $xoopsOption['nocommon'] = 1;
     require_once __DIR__ . '/../../mainfile.php';
     runkit_constant_redefine('XOOPS_URL', base64_decode(urldecode($_GET['url'])));

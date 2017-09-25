@@ -80,7 +80,7 @@ class XassetApplication extends XassetBaseObject
      */
     public function requiresLicense()
     {
-        return $this->getVar('requiresLicense') == 1;
+        return 1 == $this->getVar('requiresLicense');
     }
 
     ///////////////////////////////////////////////
@@ -90,7 +90,7 @@ class XassetApplication extends XassetBaseObject
      */
     public function listInEval()
     {
-        return $this->getVar('listInEval') == 1;
+        return 1 == $this->getVar('listInEval');
     }
 
     ///////////////////////////////////////////////
@@ -446,7 +446,7 @@ class XassetApplicationHandler extends XassetBaseObjectHandler
         //
         $subCrit = new CriteriaCompo();
         foreach ($aGrps as $key => $group) {
-            if ($key == 0) {
+            if (0 == $key) {
                 $subCrit->add(new Criteria('id', $group->getVar('application_id')));
             } else {
                 $subCrit->add(new Criteria('id', $group->getVar('application_id'), 'or'));
@@ -486,7 +486,7 @@ class XassetApplicationHandler extends XassetBaseObjectHandler
         //
         $subCrit = new CriteriaCompo();
         foreach ($aGrps as $key => $group) {
-            if ($key == 0) {
+            if (0 == $key) {
                 $subCrit->add(new Criteria('id', $group->getVar('application_id')));
             } else {
                 $subCrit->add(new Criteria('id', $group->getVar('application_id'), 'or'));
@@ -546,7 +546,7 @@ class XassetApplicationHandler extends XassetBaseObjectHandler
             foreach ($matches[1] as $key => $match) {
                 $replace = $matches[0][$key];
                 //matches LIST tag
-                if (!(strpos($match, 'LIST') === false)) {
+                if (!(false === strpos($match, 'LIST'))) {
                     $desc = $oApp->poductListPage();
                     $body = str_replace($replace, $desc, $body);
                 }
