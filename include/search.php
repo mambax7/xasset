@@ -11,16 +11,16 @@
  */
 function xasset_search($queryarray, $andor, $limit, $offset, $userid)
 {
-    $hApp     = xoops_getModuleHandler('application', 'xasset');
-    $hAppProd = xoops_getModuleHandler('applicationProduct', 'xasset');
-    $hCommon  = xoops_getModuleHandler('common', 'xasset');
+    $hApp     = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+    $hAppProd = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+    $hCommon  = new xasset\CommonHandler($GLOBALS['xoopsDB']);
     //
-    $aApps  =& $hApp->seachApplication($queryarray, $andor, $limit, $offset, $userid);
-    $aProds =& $hAppProd->searchApplicationProduct($queryarray, $andor, $limit, $offset, $userid);
+    $aApps  = $hApp->seachApplication($queryarray, $andor, $limit, $offset, $userid);
+    $aProds = $hAppProd->searchApplicationProduct($queryarray, $andor, $limit, $offset, $userid);
     //first the apps
     $ret = [];
     $i   = 0;
-    if (count($aApps) > 0 && isset($oApp)) {
+    if (is_array($aApps) && count($aApps) > 0 && isset($oApp)) {
         foreach ($aApps as $key => $oApp) {
             $ret[$i]['image'] = 'assets/images/main.png';
             $ret[$i]['link']  = 'index.php?op=product&id=' . $oApp->ID() . '&key=' . $oApp->getKey();
@@ -31,7 +31,7 @@ function xasset_search($queryarray, $andor, $limit, $offset, $userid)
         }
     }
     //next the products
-    if (count($aProds) > 0) {
+    if (is_array($aProds) && count($aProds) > 0) {
         foreach ($aProds as $key => $oProduct) {
             $ret[$i]['image'] = 'assets/images/claimOwner.png';
             $ret[$i]['link']  = 'index.php?op=product&id=' . $oProduct->applicationID() . '&key=' . $hCommon->cryptValue($oProduct->applicationID(), $hApp->_weight);

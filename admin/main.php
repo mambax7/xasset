@@ -1,5 +1,7 @@
 <?php
 
+use Xoopsmodules\xasset;
+
 //require_once __DIR__ . '/../../../include/cp_header.php';
 require_once __DIR__ . '/admin_header.php';
 
@@ -391,22 +393,23 @@ function manageApplications()
 
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_application_index.tpl';
     //
-    $hApps      = xoops_getModuleHandler('application', 'xasset');
-    $hTaxClass  = xoops_getModuleHandler('taxClass', 'xasset');
-    $hCurrency  = xoops_getModuleHandler('currency', 'xasset');
-    $hGroups    = xoops_getModuleHandler('applicationGroup', 'xasset');
-    $hPackGroup = xoops_getModuleHandler('packageGroup', 'xasset');
+    $hApps      = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);// xoops_getModuleHandler('application', 'xasset');
+    $hTaxClass  = new xasset\TaxClassHandler($GLOBALS['xoopsDB']);// new xasset\TaxClassHandler($GLOBALS['xoopsDB']);
+    $hCurrency  = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);//new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+    $hGroups    = new xasset\ApplicationGroupHandler($GLOBALS['xoopsDB']);//new xasset\ApplicationGroupHandler($GLOBALS['xoopsDB']);
+    $hPackGroup = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);//xoops_getModuleHandler('packageGroup', 'xasset');
+
     //  $hEditor    = xoops_getModuleHandler('editor','xasset');
     $hMember = xoops_getHandler('member');
     //
     $classArray = $hTaxClass->getSelectArray();
     $currArray  = $hCurrency->getSelectArray();
     $appsArray  = $hApps->getApplicationSelectArray();
-    $aPackages  =& $hPackGroup->getAllGroupsSelectArray();
+    $aPackages  = $hPackGroup->getAllGroupsSelectArray();
     //
     $showProdBlock = (count($classArray) > 0) && (count($currArray) > 0) && (count($appsArray) > 0);
     //
-    $criteria = new CriteriaCompo();
+    $criteria = new \CriteriaCompo();
     $criteria->setSort('name');
     //
     $ar                    = [];
@@ -448,9 +451,9 @@ function manageApplications()
             'width'  => '100%',
             'height' => '250px'
         ];
-        $editor  = new XoopsFormEditor('', $xoopsModuleConfig['editor_options'], $configs, false, $onfailure = 'textarea');
+        $editor  = new \XoopsFormEditor('', $xoopsModuleConfig['editor_options'], $configs, false, $onfailure = 'textarea');
     } else {
-        $editor = new XoopsFormDhtmlTextArea('', 'richDescription', $this->getVar('richDescription', 'e'), '100%', '100%');
+        $editor = new \XoopsFormDhtmlTextArea('', 'richDescription', $this->getVar('richDescription', 'e'), '100%', '100%');
     }
 
     $xoopsTpl->assign('xasset_app_memo_field', $editor->render());
@@ -466,9 +469,9 @@ function manageApplications()
             'width'  => '100%',
             'height' => '250px'
         ];
-        $editor  = new XoopsFormEditor('', $xoopsModuleConfig['editor_options'], $configs, false, $onfailure = 'textarea');
+        $editor  = new \XoopsFormEditor('', $xoopsModuleConfig['editor_options'], $configs, false, $onfailure = 'textarea');
     } else {
-        $editor = new XoopsFormDhtmlTextArea('', 'item_rich_descriptionn', $this->getVar('item_rich_description', 'e'), '100%', '100%');
+        $editor = new \XoopsFormDhtmlTextArea('', 'item_rich_descriptionn', $this->getVar('item_rich_description', 'e'), '100%', '100%');
     }
 
     $xoopsTpl->assign('xasset_appprod_memo_field', $editor->render());
@@ -485,8 +488,8 @@ function manageApplications()
  */
 function addApplication($post)
 {
-    $hApp = xoops_getModuleHandler('application', 'xasset');
-    $hGrp = xoops_getModuleHandler('applicationGroup', 'xasset');
+    $hApp = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+    $hGrp = new xasset\ApplicationGroupHandler($GLOBALS['xoopsDB']);
     //
     if (isset($post['appid'])) {
         $app = $hApp->get($post['appid']);
@@ -526,7 +529,7 @@ function deleteApplication($id)
  */
 function doDeleteApplication($id)
 {
-    $hApp = xoops_getModuleHandler('application', 'xasset');
+    $hApp = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
     if ($hApp->deleteApplication($id)) {
         redirect_header('main.php?op=manageApplications', 3, 'Application Deleted.');
     }
@@ -541,11 +544,11 @@ function editApplication($appid)
     global $xoopsTpl, $xoopsModuleConfig;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_application_add.tpl';
     //
-    $hApp    = xoops_getModuleHandler('application', 'xasset');
-    $hGroups = xoops_getModuleHandler('applicationGroup', 'xasset');
+    $hApp    = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+    $hGroups = new xasset\ApplicationGroupHandler($GLOBALS['xoopsDB']);
     //  $hEditor = xoops_getModuleHandler('editor','xasset');
     //
-    $app =& $hApp->get($appid);
+    $app = $hApp->get($appid);
     //
     $ar                   =& $app->getArray();
     $ar['permission_cbs'] = $hGroups->getCBGroupString($appid);
@@ -565,9 +568,9 @@ function editApplication($appid)
             'width'  => '100%',
             'height' => '250px'
         ];
-        $editor  = new XoopsFormEditor('', $xoopsModuleConfig['editor_options'], $configs, false, $onfailure = 'textarea');
+        $editor  = new \XoopsFormEditor('', $xoopsModuleConfig['editor_options'], $configs, false, $onfailure = 'textarea');
     } else {
-        $editor = new XoopsFormDhtmlTextArea('', 'richDescription', $this->getVar('richDescription', 'e'), '100%', '100%');
+        $editor = new \XoopsFormDhtmlTextArea('', 'richDescription', $this->getVar('richDescription', 'e'), '100%', '100%');
     }
 
     $xoopsTpl->assign('xasset_app_memo_field', $editor->render());
@@ -586,8 +589,8 @@ function manageLicenses()
     $adminObject->displayNavigation('main.php?op=manageLicenses');
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_license_index.tpl';
     //
-    $hApp = xoops_getModuleHandler('application', 'xasset');
-    $hLic = xoops_getModuleHandler('license', 'xasset');
+    $hApp = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+    $hLic = new xasset\LicenseHandler($GLOBALS['xoopsDB']);
     //
     //  $xoopsTpl->assign('xasset_navigation',$oAdminButton->renderButtons('manLic'));
     $xoopsTpl->assign('xasset_lic_list', $hLic->getLicenseSummary());
@@ -605,7 +608,7 @@ function manageLicenses()
  */
 function addLicense($post)
 {
-    $hLic = xoops_getModuleHandler('license', 'xasset');
+    $hLic = new xasset\LicenseHandler($GLOBALS['xoopsDB']);
     //
     if (isset($post['id']) && ($post['id'] > 0)) {
         $lic = $hLic->get($post['id']);
@@ -637,10 +640,10 @@ function viewAppLicenses($appid)
     global $xoopsTpl;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_license_application.tpl';
     //
-    $hLic = xoops_getModuleHandler('license', 'xasset');
-    $hApp = xoops_getModuleHandler('application', 'xasset');
+    $hLic = new xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    $hApp = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
     //
-    $app =& $hApp->get($appid);
+    $app = $hApp->get($appid);
     //
     //  $xoopsTpl->assign('xasset_navigation',$oAdminButton->renderButtons('manLic'));
     $xoopsTpl->assign('xasset_appid', $appid);
@@ -665,13 +668,13 @@ function viewClientLicenses($uid, $appid)
     global $xoopsTpl;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_license_client.tpl';
     //
-    $hLic          = xoops_getModuleHandler('license', 'xasset');
-    $hApp          = xoops_getModuleHandler('application', 'xasset');
+    $hLic          = new xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    $hApp          = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
     $memberHandler = xoops_getHandler('member');
     //
     $lics = $hLic->getClientLicenses($appid, $uid);
     $user = $memberHandler->getUser($uid);
-    $app  =& $hApp->get($appid);
+    $app  = $hApp->get($appid);
     //
     //  $xoopsTpl->assign('xasset_navigation',$oAdminButton->renderButtons('manLic'));
     $xoopsTpl->assign('xasset_appid', $appid);
@@ -696,10 +699,10 @@ function editClientLicense($id)
     global $xoopsTpl;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_license_add.tpl';
     //
-    $hLic = xoops_getModuleHandler('license', 'xasset');
-    $hApp = xoops_getModuleHandler('application', 'xasset');
+    $hLic = new xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    $hApp = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
     //
-    $lic =& $hLic->get($id);
+    $lic = $hLic->get($id);
     //
     $xoopsTpl->assign('xasset_operation_short', 'modify');
     $xoopsTpl->assign('xasset_operation', 'Modify');
@@ -719,7 +722,7 @@ function editClientLicense($id)
  */
 function deleteClientLicense($id)
 {
-    $hLic = xoops_getModuleHandler('license', 'xasset');
+    $hLic = new xasset\LicenseHandler($GLOBALS['xoopsDB']);
     //
     if ($hLic->deleteByID($id, true)) {
         redirect_header('main.php?op=manageLicenses', 3, 'License Deleted.');
@@ -739,10 +742,10 @@ function managePackages($appid = 0)
     $activeAppName                           = '';
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_packages_index.tpl';
     //
-    $hApp     = xoops_getModuleHandler('application', 'xasset');
-    $hPackGrp = xoops_getModuleHandler('packageGroup', 'xasset');
+    $hApp     = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+    $hPackGrp = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
     //
-    $criteria = new CriteriaCompo();
+    $criteria = new \CriteriaCompo();
     $criteria->setSort('name');
     //
     $apps = $hApp->getApplicationsArray($criteria);
@@ -780,7 +783,7 @@ function managePackages($appid = 0)
  */
 function addPackageGroup($post)
 {
-    $hPackGrp = xoops_getModuleHandler('packageGroup', 'xasset');
+    $hPackGrp = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
     //
     if (isset($post['id']) && ($post['id'] > 0)) {
         $grp = $hPackGrp->get($post['id']);
@@ -817,7 +820,7 @@ function deletePackage($id)
  */
 function doDeletePackage($id)
 {
-    $hPack = xoops_getModuleHandler('package', 'xasset');
+    $hPack = new xasset\PackageHandler($GLOBALS['xoopsDB']);
     $hPack->deleteByID($id);
     redirect_header('main.php?op=managePackages', 2, 'Package Deleted');
 }
@@ -832,10 +835,10 @@ function editPackage($id)
     //
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_package_edit.tpl';
     //
-    $crit = new CriteriaCompo(new Criteria('id', $id));
+    $crit = new \CriteriaCompo(new \Criteria('id', $id));
     //
-    $hPackGrp = xoops_getModuleHandler('packageGroup', 'xasset');
-    $hPack    = xoops_getModuleHandler('package', 'xasset');
+    $hPackGrp = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
+    $hPack    = new xasset\PackageHandler($GLOBALS['xoopsDB']);
     $pack     = $hPack->getPackagesArray($crit);
     //
     $appid = $hPack->getPackageApplication($id);
@@ -856,7 +859,7 @@ function editPackage($id)
  */
 function deletePackageGroup($id)
 {
-    $hPackGrp = xoops_getModuleHandler('packageGroup', 'xasset');
+    $hPackGrp = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
     $hPackGrp->deleteByID($id, true);
     //
     redirect_header('main.php?op=managePackages', 2, 'Package Group Deleted');
@@ -873,9 +876,9 @@ function editPackageGroup($id, $appid)
     //
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_packagegroup_edit.tpl';
     //
-    $hPackGrp = xoops_getModuleHandler('packageGroup', 'xasset');
+    $hPackGrp = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
     //
-    $crit = new CriteriaCompo(new Criteria('id', $id));
+    $crit = new \CriteriaCompo(new \Criteria('id', $id));
     $pGrp = $hPackGrp->getPackageGroupArray($crit);
     //
     //  $xoopsTpl->assign('xasset_navigation',$oAdminButton->renderButtons('manPack'));
@@ -894,7 +897,7 @@ function editPackageGroup($id, $appid)
  */
 function addPackage($post)
 {
-    $hPack = xoops_getModuleHandler('package', 'xasset');
+    $hPack = new xasset\PackageHandler($GLOBALS['xoopsDB']);
     //check if editing or creating
     if (isset($post['id']) && ($post['id'] > 0)) {
         $pack = $hPack->get($post['id']);
@@ -924,8 +927,8 @@ function manageLinks($appid = null)
     $adminObject->displayNavigation('main.php?op=manageLinks');
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_links_index.tpl';
     //
-    $hApp  = xoops_getModuleHandler('application', 'xasset');
-    $hLink = xoops_getModuleHandler('link', 'xasset');
+    $hApp  = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+    $hLink = new xasset\LinkHandler($GLOBALS['xoopsDB']);
     //
     $apps = $hApp->getApplicationsArray();
     //
@@ -958,7 +961,7 @@ function manageLinks($appid = null)
  */
 function addLink($post)
 {
-    $hLink = xoops_getModuleHandler('link', 'xasset');
+    $hLink = new xasset\LinkHandler($GLOBALS['xoopsDB']);
     //
     if (isset($post['id'])) {
         $link = $hLink->get($post['id']);
@@ -982,7 +985,7 @@ function addLink($post)
  */
 function deleteLink($linkid)
 {
-    $hLink = xoops_getModuleHandler('link', 'xasset');
+    $hLink = new xasset\LinkHandler($GLOBALS['xoopsDB']);
     //
     if ($hLink->deleteByID($linkid)) {
         redirect_header('main.php?op=manageLinks', 3, 'Link Deleted.');
@@ -998,10 +1001,10 @@ function editLink($linkid)
     global $xoopsTpl;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_links_index.tpl';
     //
-    $hLink = xoops_getModuleHandler('link', 'xasset');
-    $hApp  = xoops_getModuleHandler('application', 'xasset');
+    $hLink = new xasset\LinkHandler($GLOBALS['xoopsDB']);
+    $hApp  = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
     //
-    $link =& $hLink->get($linkid);
+    $link = $hLink->get($linkid);
     //
     $xasset_link['id']    = $link->getVar('id');
     $xasset_link['appid'] = $link->getVar('applicationid');
@@ -1028,13 +1031,13 @@ function viewDownloadStats($appid = null)
     $adminObject->displayNavigation('main.php?op=viewDownloadStats');
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_download_stats_index.tpl';
     //
-    $hPackGrp = xoops_getModuleHandler('packageGroup', 'xasset');
-    $hApp     = xoops_getModuleHandler('application', 'xasset');
+    $hPackGrp = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
+    $hApp     = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
     //
     if (!($appid > 0)) {
-        $crit = new criteriaCompo();
+        $crit = new \CriteriaCompo();
         $crit->setLimit(1);
-        $objs =& $hApp->getApplicationsArray($crit);
+        $objs = $hApp->getApplicationsArray($crit);
         if (count($objs) > 0) {
             $appid = $objs[0]['id'];
         } else {
@@ -1044,7 +1047,7 @@ function viewDownloadStats($appid = null)
             exit;
         }
     }
-    $app  =& $hApp->get($appid);
+    $app  = $hApp->get($appid);
     $apps = $hApp->getApplicationsSummaryArray();
     //
     //  $xoopsTpl->assign('xasset_navigation',$oAdminButton->renderButtons('manStat'));
@@ -1064,7 +1067,7 @@ function viewDownloadStats($appid = null)
  */
 function deleteStat($id)
 {
-    $hStat = xoops_getModuleHandler('userPackageStats', 'xasset');
+    $hStat = new xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
     if ($hStat->deleteByID($id, true)) {
         redirect_header('main.php?op=viewDownloadStats', 3, 'Stat Deleted.');
     }
@@ -1074,11 +1077,12 @@ function deleteStat($id)
 function manageCountries()
 {
     global $xoopsTpl;
+    $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_country_index.tpl';
     $adminObject = \Xmf\Module\Admin::getInstance();
     $adminObject->displayNavigation('main.php?op=manageCountries');
-    $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_country_index.tpl';
+
     //
-    $hCnt = xoops_getModuleHandler('country', 'xasset');
+    $hCnt = new xasset\CountryHandler($GLOBALS['xoopsDB']);
     $cnts = $hCnt->getCountriesArray();
     //
     //  $xoopsTpl->assign('xasset_navigation',$oAdminButton->renderButtons('manCount'));
@@ -1097,7 +1101,7 @@ function manageCountries()
  */
 function addCountry($post)
 {
-    $hCnt = xoops_getModuleHandler('country', 'xasset');
+    $hCnt = new xasset\CountryHandler($GLOBALS['xoopsDB']);
     //
     if (isset($post['countryid']) && ($post['countryid'] > 0)) {
         $cnt = $hCnt->get($post['countryid']);
@@ -1123,8 +1127,8 @@ function editCountry($id)
     global $xoopsTpl;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_country_index.tpl';
     //
-    $hCnt = xoops_getModuleHandler('country', 'xasset');
-    $cnt  =& $hCnt->get($id);
+    $hCnt = new xasset\CountryHandler($GLOBALS['xoopsDB']);
+    $cnt  = $hCnt->get($id);
     //
     $ary['id']   = $cnt->getVar('id');
     $ary['name'] = $cnt->getVar('name');
@@ -1148,8 +1152,8 @@ function manageZones()
     $adminObject->displayNavigation('main.php?op=manageZones');
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_zone_index.tpl';
     //
-    $hZone  = xoops_getModuleHandler('zone', 'xasset');
-    $hCount = xoops_getModuleHandler('country', 'xasset');
+    $hZone  = new xasset\ZoneHandler($GLOBALS['xoopsDB']);
+    $hCount = new xasset\CountryHandler($GLOBALS['xoopsDB']);
     //
     $zones = $hZone->getZonesArray();
     //
@@ -1170,7 +1174,7 @@ function manageZones()
  */
 function addZone($post)
 {
-    $hZone = xoops_getModuleHandler('zone', 'xasset');
+    $hZone = new xasset\ZoneHandler($GLOBALS['xoopsDB']);
     //
     if (isset($post['zoneid']) && ($post['zoneid'] > 0)) {
         $zone = $hZone->get($post['zoneid']);
@@ -1196,10 +1200,10 @@ function editZone($id)
     global $xoopsTpl;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_zone_index.tpl';
     //
-    $hZone  = xoops_getModuleHandler('zone', 'xasset');
-    $hCount = xoops_getModuleHandler('country', 'xasset');
+    $hZone  = new xasset\ZoneHandler($GLOBALS['xoopsDB']);
+    $hCount = new xasset\CountryHandler($GLOBALS['xoopsDB']);
     //
-    $zone =& $hZone->get($id);
+    $zone = $hZone->get($id);
     //
     $ary['id']         = $zone->getVar('id');
     $ary['country_id'] = $zone->getVar('country_id');
@@ -1222,7 +1226,7 @@ function editZone($id)
  */
 function deleteZone($id)
 {
-    $hZone = xoops_getModuleHandler('zone', 'xasset');
+    $hZone = new xasset\ZoneHandler($GLOBALS['xoopsDB']);
     if ($hZone->deleteByID($id, true)) {
         redirect_header('main.php?op=manageZones', 2, 'Zone Deleted.');
     }
@@ -1236,26 +1240,26 @@ function manageTaxes()
     $adminObject->displayNavigation('main.php?op=manageTaxes');
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_taxrates_index.tpl';
     //
-    $hZone     = xoops_getModuleHandler('zone', 'xasset');
-    $hCount    = xoops_getModuleHandler('country', 'xasset');
-    $hTaxClass = xoops_getModuleHandler('taxClass', 'xasset');
-    $hTaxRate  = xoops_getModuleHandler('taxRate', 'xasset');
-    $hTaxZone  = xoops_getModuleHandler('taxZone', 'xasset');
-    $hRegion   = xoops_getModuleHandler('region', 'xasset');
+    $hZone     = new xasset\ZoneHandler($GLOBALS['xoopsDB']);
+    $hCount    = new xasset\CountryHandler($GLOBALS['xoopsDB']);
+    $hTaxClass = new xasset\TaxClassHandler($GLOBALS['xoopsDB']);
+    $hTaxRate  = new xasset\TaxRateHandler($GLOBALS['xoopsDB']);
+    $hTaxZone  = new xasset\TaxZoneHandler($GLOBALS['xoopsDB']);
+    $hRegion   = new xasset\RegionHandler($GLOBALS['xoopsDB']);
     //
     $classes  = $hTaxClass->getClassArray();
     $rates    = $hTaxRate->getRegionOrderedRatesArray(); //getRatesArray();
     $classSel = $hTaxClass->getSelectArray();
     //
-    $countArray   =& $hCount->getCountriesSelect();
-    $regionArray  =& $hRegion->getSelectArray();
-    $taxZoneArray =& $hTaxZone->getAllTaxZoneArray();
+    $countArray   = $hCount->getCountriesSelect();
+    $regionArray  = $hRegion->getSelectArray();
+    $taxZoneArray = $hTaxZone->getAllTaxZoneArray();
     //
     $zoneArray = [];
     if (count($countArray) > 0) {
         $tmp       = reset($countArray);
         $tmp       = !empty($tmp['id']) ? $tmp['id'] : 0; // PHP 5.4 changes how empty() behaves when passed string offsets.
-        $zoneArray =& $hZone->getZonesByCountry($tmp);
+        $zoneArray = $hZone->getZonesByCountry($tmp);
     }
     $zoneArrayCnt = count($zoneArray);
     //$zonesScript = $hCount->constructSelectJavascript('zone_id','country_id');
@@ -1291,7 +1295,7 @@ function manageTaxes()
  */
 function addTaxClass($post)
 {
-    $hClass = xoops_getModuleHandler('taxClass', 'xasset');
+    $hClass = new xasset\TaxClassHandler($GLOBALS['xoopsDB']);
     //
     if (isset($post['taxclassid']) && ($post['taxclassid'] > 0)) {
         $class = $hClass->get($post['taxclassid']);
@@ -1313,7 +1317,7 @@ function addTaxClass($post)
  */
 function addTaxZone($post)
 {
-    $hTZone = xoops_getModuleHandler('taxZone', 'xasset');
+    $hTZone = new xasset\TaxZoneHandler($GLOBALS['xoopsDB']);
     //
     if (isset($post['taxzoneid']) && ($post['taxzoneid'] > 0)) {
         $zone = $hTZone->get($post['taxzoneid']);
@@ -1337,21 +1341,21 @@ function editTaxZone($id)
     global $xoopsTpl;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_tax_region_zone.tpl';
     //
-    $hZone   = xoops_getModuleHandler('zone', 'xasset');
-    $hTZone  = xoops_getModuleHandler('taxZone', 'xasset');
-    $hRegion = xoops_getModuleHandler('region', 'xasset');
-    $hCount  = xoops_getModuleHandler('country', 'xasset');
+    $hZone   = new xasset\ZoneHandler($GLOBALS['xoopsDB']);
+    $hTZone  = new xasset\TaxZoneHandler($GLOBALS['xoopsDB']);
+    $hRegion = new xasset\RegionHandler($GLOBALS['xoopsDB']);
+    $hCount  = new xasset\CountryHandler($GLOBALS['xoopsDB']);
     //
     echo insertHeaderCountriesJavaScript();
     //
-    $taxZone     =& $hTZone->get($id);
-    $countArray  =& $hCount->getCountriesSelect();
-    $regionArray =& $hRegion->getSelectArray();
+    $taxZone     = $hTZone->get($id);
+    $countArray  = $hCount->getCountriesSelect();
+    $regionArray = $hRegion->getSelectArray();
     //
     $ary =& $taxZone->getArray();
     //
     if ($ary['country_id'] > 0) {
-        $zoneSelect =& $hZone->getZonesByCountry($ary['country_id']);
+        $zoneSelect = $hZone->getZonesByCountry($ary['country_id']);
     }
     //
     //  $xoopsTpl->assign('xasset_navigation',$oAdminButton->renderButtons('manTax'));
@@ -1373,7 +1377,7 @@ function editTaxZone($id)
  */
 function deleteTaxZone($id)
 {
-    $hZone = xoops_getModuleHandler('taxZone', 'xasset');
+    $hZone = new xasset\TaxZoneHandler($GLOBALS['xoopsDB']);
     if ($hZone->deleteByID($id, true)) {
         redirect_header('main.php?op=manageTaxes', 3, 'Tax Zone Deleted.');
     }
@@ -1385,7 +1389,7 @@ function deleteTaxZone($id)
  */
 function addTaxRate($post)
 {
-    $hRate = xoops_getModuleHandler('taxRate', 'xasset');
+    $hRate = new xasset\TaxRateHandler($GLOBALS['xoopsDB']);
     //
     if (isset($post['taxrateid']) && ($post['taxrateid'] > 0)) {
         $rate = $hRate->get($post['taxrateid']);
@@ -1409,8 +1413,8 @@ function editTaxClass($id)
     global $xoopsTpl;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_taxrates_index.tpl';
     //
-    $hClass = xoops_getModuleHandler('taxClass', 'xasset');
-    $class  =& $hClass->get($id);
+    $hClass = new xasset\TaxClassHandler($GLOBALS['xoopsDB']);
+    $class  = $hClass->get($id);
     //
     $ary['id']          = $class->getVar('id');
     $ary['code']        = $class->getVar('code');
@@ -1435,11 +1439,11 @@ function editTaxRate($id)
     global $xoopsTpl;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_taxrates_index.tpl';
     //
-    $hRate     = xoops_getModuleHandler('taxRate', 'xasset');
-    $hRegion   = xoops_getModuleHandler('region', 'xasset');
-    $hTaxClass = xoops_getModuleHandler('taxClass', 'xasset');
+    $hRate     = new xasset\TaxRateHandler($GLOBALS['xoopsDB']);
+    $hRegion   = new xasset\RegionHandler($GLOBALS['xoopsDB']);
+    $hTaxClass = new xasset\TaxClassHandler($GLOBALS['xoopsDB']);
     //
-    $rate =& $hRate->get($id);
+    $rate = $hRate->get($id);
     //
     $ary =& $rate->getArray();
     //
@@ -1462,7 +1466,7 @@ function editTaxRate($id)
  */
 function deleteTaxClass($id)
 {
-    $hClass = xoops_getModuleHandler('taxClass', 'xasset');
+    $hClass = new xasset\TaxClassHandler($GLOBALS['xoopsDB']);
     if ($hClass->deleteClass($id)) {
         redirect_header('main.php?op=manageTaxes', 3, 'Tax Class Deleted.');
     }
@@ -1474,7 +1478,7 @@ function deleteTaxClass($id)
  */
 function deleteTaxRate($id)
 {
-    $hRate = xoops_getModuleHandler('taxRate', 'xasset');
+    $hRate = new xasset\TaxRateHandler($GLOBALS['xoopsDB']);
     if ($hRate->deleteRate($id, true)) {
         redirect_header('main.php?op=manageTaxes', 3, 'Tax Rate Deleted.');
     }
@@ -1488,7 +1492,7 @@ function manageCurrencies()
     $adminObject->displayNavigation('main.php?op=manageCurrencies');
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_currency_index.tpl';
     //
-    $hCurrency = xoops_getModuleHandler('currency', 'xasset');
+    $hCurrency = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
     //
     $currs = $hCurrency->getCurrencyArray();
     //
@@ -1508,7 +1512,7 @@ function manageCurrencies()
  */
 function addCurrency($post)
 {
-    $hCurrency = xoops_getModuleHandler('currency', 'xasset');
+    $hCurrency = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
     //
     if (isset($post['currencyid']) && ($post['currencyid'] > 0)) {
         $curr = $hCurrency->get($post['currencyid']);
@@ -1540,9 +1544,9 @@ function editCurrency($id)
     global $xoopsTpl;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_currency_index.tpl';
     //
-    $hCurrency = xoops_getModuleHandler('currency', 'xasset');
+    $hCurrency = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
     //
-    $curr =& $hCurrency->get($id);
+    $curr = $hCurrency->get($id);
     //
     $ar['id']              = $curr->getVar('id');
     $ar['name']            = $curr->getVar('name');
@@ -1570,7 +1574,7 @@ function editCurrency($id)
  */
 function deleteCurrency($id)
 {
-    $hCurrency = xoops_getModuleHandler('currency', 'xasset');
+    $hCurrency = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
     if ($hCurrency->deleteByID($id, true)) {
         redirect_header('main.php?op=manageCurrency', 3, 'Currency Deleted.');
     }
@@ -1582,7 +1586,7 @@ function deleteCurrency($id)
  */
 function addAppProduct($post)
 {
-    $hAppProd = xoops_getModuleHandler('applicationProduct', 'xasset');
+    $hAppProd = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
     //
     if (isset($post['appprodid']) && ($post['appprodid'] > 0)) {
         $prod = $hAppProd->get($post['appprodid']);
@@ -1633,7 +1637,7 @@ function deleteAppProduct($id)
  */
 function doDeleteAppProduct($id)
 {
-    $hAppProd = xoops_getModuleHandler('applicationProduct', 'xasset');
+    $hAppProd = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
     if ($hAppProd->deleteByID($id)) {
         redirect_header('main.php?op=manageApplications', 3, 'Application Product Deleted.');
     }
@@ -1648,11 +1652,11 @@ function editAppProduct($id)
     global $xoopsTpl, $xoopsModuleConfig;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_application_product_add.tpl';
     //
-    $hApps      = xoops_getModuleHandler('application', 'xasset');
-    $hTaxClass  = xoops_getModuleHandler('taxClass', 'xasset');
-    $hCurrency  = xoops_getModuleHandler('currency', 'xasset');
-    $hAppProd   = xoops_getModuleHandler('applicationProduct', 'xasset');
-    $hPackGroup = xoops_getModuleHandler('packageGroup', 'xasset');
+    $hApps      = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+    $hTaxClass  = new xasset\TaxClassHandler($GLOBALS['xoopsDB']);
+    $hCurrency  = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+    $hAppProd   = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+    $hPackGroup = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
     //  $hEditor    = xoops_getModuleHandler('editor','xasset');
     $hMember = xoops_getHandler('member');
     //
@@ -1660,8 +1664,8 @@ function editAppProduct($id)
     $currArray  = $hCurrency->getSelectArray();
     $appsArray  = $hApps->getApplicationSelectArray();
     //
-    $prod      =& $hAppProd->get($id);
-    $aPackages =& $hPackGroup->getAllGroupsSelectArray();
+    $prod      = $hAppProd->get($id);
+    $aPackages = $hPackGroup->getAllGroupsSelectArray();
     $ar        =& $prod->getArray();
     //
     $aMembers   = $hMember->getGroups();
@@ -1694,9 +1698,9 @@ function editAppProduct($id)
             'width'  => '100%',
             'height' => '250px'
         ];
-        $editor  = new XoopsFormEditor('', $xoopsModuleConfig['editor_options'], $configs, false, $onfailure = 'textarea');
+        $editor  = new \XoopsFormEditor('', $xoopsModuleConfig['editor_options'], $configs, false, $onfailure = 'textarea');
     } else {
-        $editor = new XoopsFormDhtmlTextArea('', 'item_rich_description', $this->getVar('item_rich_description', 'e'), '100%', '100%');
+        $editor = new \XoopsFormDhtmlTextArea('', 'item_rich_description', $this->getVar('item_rich_description', 'e'), '100%', '100%');
     }
 
     $xoopsTpl->assign('xasset_appprod_memo_field', $editor->render());
@@ -1722,18 +1726,18 @@ function manageGateways($id = null)
     $adminObject->displayNavigation('main.php?op=manageGateways');
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_gateway_index.tpl';
     //
-    $hGateway = xoops_getModuleHandler('gateway', 'xasset');
+    $hGateway = new xasset\GatewayHandler($GLOBALS['xoopsDB']);
     //
     $gateway   = 0;
     $gateways  = $hGateway->parseGatewayModules();
     $installed = $hGateway->getInstalledGatewayArray();
     //
     if (isset($id) && ($id > 0)) {
-        $gateway =& $hGateway->get($id);
+        $gateway = $hGateway->get($id);
     } else {
         if (count($gateways) > 0) {
             $gateway = reset($installed);
-            $gateway =& $hGateway->get($gateway['id']);
+            $gateway = $hGateway->get($gateway['id']);
         }
     }
     //
@@ -1759,7 +1763,7 @@ function manageGateways($id = null)
  */
 function toggleGateway($post)
 {
-    $hGateway = xoops_getModuleHandler('gateway', 'xasset');
+    $hGateway = new xasset\GatewayHandler($GLOBALS['xoopsDB']);
     //
     foreach ($post['gateway'] as $class) {
         if (isset($post['bEnable'])) {
@@ -1780,9 +1784,9 @@ function updateGatewayValues($post)
 {
     $id = $post['gateway_id'];
     //
-    $hGateway = xoops_getModuleHandler('gateway', 'xasset');
+    $hGateway = new xasset\GatewayHandler($GLOBALS['xoopsDB']);
     //
-    $gateway =& $hGateway->get($id);
+    $gateway = $hGateway->get($id);
     //
     foreach ($post['values'] as $key => $value) {
         $gateway->saveConfigValue($key, $value);
@@ -1801,7 +1805,7 @@ function gatewayLogs()
     $adminObject->displayNavigation('main.php?op=gatewayLogs');
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_gateway_log_index.tpl';
     //
-    $hGateway = xoops_getModuleHandler('gatewayLog', 'xasset');
+    $hGateway = new xasset\GatewayLogHandler($GLOBALS['xoopsDB']);
     //
     $gateLogs = $hGateway->getLogs();
     //
@@ -1821,7 +1825,7 @@ function showLogDetail($id)
     global $xoopsTpl;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_gateway_log_detail.tpl';
     //
-    $hGateway = xoops_getModuleHandler('gatewayLog', 'xasset');
+    $hGateway = new xasset\GatewayLogHandler($GLOBALS['xoopsDB']);
     $oGateLog = $hGateway->get($id);
     $aGateLog = $oGateLog->getArray();
     //
@@ -1838,7 +1842,7 @@ function showLogDetail($id)
  */
 function removeLogItem($id)
 {
-    $hGate = xoops_getModuleHandler('gatewayLog', 'xasset');
+    $hGate = new xasset\GatewayLogHandler($GLOBALS['xoopsDB']);
     if ($hRate->deleteByID($id, true)) {
         redirect_header('main.php?op=gatewayLogs', 3, 'Gatway Log Enry deleted.');
     }
@@ -1850,8 +1854,8 @@ function config()
     global $xoopsTpl;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_config.tpl';
     //
-    $hConfig = xoops_getModuleHandler('config', 'xasset');
-    $hCurr   = xoops_getModuleHandler('currency', 'xasset');
+    $hConfig = new xasset\ConfigHandler($GLOBALS['xoopsDB']);
+    $hCurr   = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
     $hMember = xoops_getHandler('member');
     //
     $groups = $hMember->getGroups();
@@ -1879,7 +1883,7 @@ function manageRegion()
     $adminObject->displayNavigation('main.php?op=manageRegion');
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_region_index.tpl';
     //
-    $hRegion = xoops_getModuleHandler('region', 'xasset');
+    $hRegion = new xasset\RegionHandler($GLOBALS['xoopsDB']);
     //
     $regions = $hRegion->getRegionArray();
     //
@@ -1899,7 +1903,7 @@ function manageRegion()
  */
 function addRegion($post)
 {
-    $hRegion = xoops_getModuleHandler('region', 'xasset');
+    $hRegion = new xasset\RegionHandler($GLOBALS['xoopsDB']);
     //
     if (isset($post['regionid']) && ($post['regionid'] > 0)) {
         $region = $hRegion->get($post['regionid']);
@@ -1923,8 +1927,8 @@ function editRegion($id)
     global $xoopsTpl;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_region_index.tpl';
     //
-    $hRegion = xoops_getModuleHandler('region', 'xasset');
-    $region  =& $hRegion->get($id);
+    $hRegion = new xasset\RegionHandler($GLOBALS['xoopsDB']);
+    $region  = $hRegion->get($id);
     //
     $ary =& $region->getArray();
     //
@@ -1943,7 +1947,7 @@ function editRegion($id)
  */
 function deleteRegion($id)
 {
-    $hRegion = xoops_getModuleHandler('region', 'xasset');
+    $hRegion = new xasset\RegionHandler($GLOBALS['xoopsDB']);
     //can we delete if this region is used in tax zones
     if ($hRegion->deleteByID($id, true)) {
         redirect_header('main.php?op=manageRegion', 3, 'Region Deleted.');
@@ -1956,7 +1960,7 @@ function deleteRegion($id)
  */
 function updateConfig($post)
 {
-    $hConfig = xoops_getModuleHandler('config', 'xasset');
+    $hConfig = new xasset\ConfigHandler($GLOBALS['xoopsDB']);
     //
     $hConfig->setGroup($post['group_id']);
     $hConfig->setEmailGroup($post['email_group_id']);
@@ -1976,8 +1980,8 @@ function orderTracking()
     $adminObject->displayNavigation('main.php?op=orderTracking');
 
     //
-    $hOrder  = xoops_getModuleHandler('order', 'xasset');
-    $aOrders =& $hOrder->getOrders();
+    $hOrder  = new xasset\OrderHandler($GLOBALS['xoopsDB']);
+    $aOrders = $hOrder->getOrders();
     //
     //  $xoopsTpl->assign('xasset_navigation',$oAdminButton->renderButtons('orderTrack'));
     $xoopsTpl->assign('xasset_orders', $aOrders);
@@ -1997,14 +2001,14 @@ function showOrderLogDetail($orderID)
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_order_details.tpl';
     xoops_cp_header();
     //
-    $hOrder   = xoops_getModuleHandler('order', 'xasset');
-    $hGateway = xoops_getModuleHandler('gatewayLog', 'xasset');
+    $hOrder   = new xasset\OrderHandler($GLOBALS['xoopsDB']);
+    $hGateway = new xasset\GatewayLogHandler($GLOBALS['xoopsDB']);
     //
-    $oOrder =& $hOrder->get($orderID);
+    $oOrder = $hOrder->get($orderID);
     //
     $aOrder       =& $oOrder->getArray();
     $aOrderDetail =& $oOrder->getOrderDetailsArray();
-    $aGateLogs    =& $hGateway->getLogsByOrder($orderID);
+    $aGateLogs    = $hGateway->getLogsByOrder($orderID);
     //
     //  $xoopsTpl->assign('xasset_navigation',$oAdminButton->renderButtons('orderTrack'));
     $xoopsTpl->assign('xasset_order', $aOrder);
@@ -2020,7 +2024,7 @@ function checkTables()
 {
     xoops_cp_header();
     //
-    $hCommon = xoops_getModuleHandler('common', 'xasset');
+    $hCommon = new xasset\CommonHandler($GLOBALS['xoopsDB']);
     $success = true;
     //check xasset_app_product for enabled field for versiob 0.82
     echo '<p>Please note that the xAsset table checker works with xAsset versions 0.8 and upwards. You must un-install any previous xAsset prior to version 0.8 and install the latest release. To confirm. There is no update path from xAsset versions earlier to 0.8.</p>';
@@ -2221,10 +2225,10 @@ function support()
 function opCompOrder($post)
 {
     if (count($post['ID']) > 0) {
-        $hOrder = xoops_getModuleHandler('order', 'xasset');
+        $hOrder = new xasset\OrderHandler($GLOBALS['xoopsDB']);
         //
         foreach ($post['ID'] as $key => $id) {
-            $oOrder =& $hOrder->get($id);
+            $oOrder = $hOrder->get($id);
             $oOrder->setVar('status', $oOrder->orderStatusComplete());
             $hOrder->insert($oOrder);
             $oOrder->processPurchase();
@@ -2242,7 +2246,7 @@ function opCompOrder($post)
 function opDelOrder($post)
 {
     if (count($post['ID']) > 0) {
-        $hOrder = xoops_getModuleHandler('order', 'xasset');
+        $hOrder = new xasset\OrderHandler($GLOBALS['xoopsDB']);
         //
         foreach ($post['ID'] as $key => $id) {
             $hOrder->delete($id);
@@ -2264,7 +2268,7 @@ function membership()
     //
     //  $xoopsTpl->assign('xasset_navigation',$oAdminButton->renderButtons('manMember'));
     //
-    $hMembers = xoops_getModuleHandler('applicationProductMemb', 'xasset');
+    $hMembers = new xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);
     //
     $aMembers = $hMembers->getMembers();
     //
@@ -2290,7 +2294,7 @@ function removeFromGroup($id)
  */
 function doRemoveFromGroup($id)
 {
-    $hMembers = xoops_getModuleHandler('applicationProductMemb', 'xasset');
+    $hMembers = new xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);
     if ($hMembers->removeFromGroup($id)) {
         redirect_header('main.php?op=membership', 2, 'User removed from Xoops Groups');
     }

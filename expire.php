@@ -1,4 +1,7 @@
 <?php
+
+use Xoopsmodules\xasset;
+
 //hack to kill referrer check..we don't want this as it comes from gateway and not xoops
 define('XOOPS_XMLRPC', 1);
 require_once __DIR__ . '/servicemain.php';
@@ -7,14 +10,14 @@ require_once __DIR__ . '/servicemain.php';
 //1. generate expiry warning emails
 //2. remove expired members from groups
 //first get members who are about to expire
-$hMembers = xoops_getModuleHandler('applicationProductMemb', 'xasset');
-$hCommon  = xoops_getModuleHandler('common', 'xasset');
-$hNotify  = xoops_getModuleHandler('notificationService', 'xasset');
+$hMembers = new xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);
+$hCommon  = new xasset\CommonHandler($GLOBALS['xoopsDB']);
+$hNotify  = new xasset\NotificationServiceHandler($GLOBALS['xoopsDB']);
 //
 $days = $hCommon->getModuleOption('memExpireDaysWarn');
 $days = 30;
-$crit = new CriteriaCompo(new Criteria('expiry_date', time() + ($days * 60 * 60 * 24), '<'));
-$crit->add(new Criteria('expiry_date', time(), '>'));
+$crit = new \CriteriaCompo(new \Criteria('expiry_date', time() + ($days * 60 * 60 * 24), '<'));
+$crit->add(new \Criteria('expiry_date', time(), '>'));
 //
 $aMembers = $hMembers->getObjects($crit);
 //
@@ -33,8 +36,8 @@ foreach ($aMembers as $id => $oMember) {
 
 //next expire any members who have not renewed
 
-$crit     = new Criteria('expiry_date', time(), '<');
-$aMembers =& $hMembers->getMembers($crit);
+$crit     = new \Criteria('expiry_date', time(), '<');
+$aMembers = $hMembers->getMembers($crit);
 //
 if ((is_array($aMembers) > 0) && count($aMembers)) {
     echo 'Expiring ' . count($aMembers) . ' member accounts.<br>';

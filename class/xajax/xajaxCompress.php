@@ -1,4 +1,4 @@
-<?php
+<?php namespace Xoopsmodules\xasset\xajax;
 /**
  * xajaxCompress.php :: function to compress Javascript
  *
@@ -71,7 +71,7 @@ function xajaxCompressJavascript($sJS)
             //look for start of quote
             if (!$inQuote && !$inComment) {
                 //is this character a quote or a comment
-                if (("\"" === $c || "'" === $c) && !$inComment && !$inNormalComment) {
+                if (('"' === $c || "'" === $c) && !$inComment && !$inNormalComment) {
                     $inQuote   = true;
                     $inComment = false;
                     $escaped   = false;

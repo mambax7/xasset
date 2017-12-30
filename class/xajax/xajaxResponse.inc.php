@@ -1,4 +1,4 @@
-<?php
+<?php namespace Xoopsmodules\xasset\xajax;
 /**
  * xajaxResponse.inc.php :: xajax XML response class
  *
@@ -324,7 +324,7 @@ class xajaxResponse
     public function addCreate($sParent, $sTag, $sId, $sType = '')
     {
         if ($sType) {
-            trigger_error("The \$sType parameter of addCreate has been deprecated.  Use the addCreateInput() method instead.", E_USER_WARNING);
+            trigger_error('The $sType parameter of addCreate has been deprecated.  Use the addCreateInput() method instead.', E_USER_WARNING);
 
             return;
         }
@@ -484,9 +484,9 @@ class xajaxResponse
      */
     public function getXML()
     {
-        $sXML = "<?xml version=\"1.0\"";
+        $sXML = '<?xml version="1.0"';
         if ($this->sEncoding && strlen(trim($this->sEncoding)) > 0) {
-            $sXML .= " encoding=\"" . $this->sEncoding . "\"";
+            $sXML .= ' encoding="' . $this->sEncoding . '"';
         }
         $sXML .= ' ?' . '><xjx>' . $this->xml . '</xjx>';
 

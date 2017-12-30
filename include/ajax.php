@@ -1,5 +1,7 @@
 <?php
 
+use Xoopsmodules\xasset;
+
 require_once __DIR__ . '/../../../mainfile.php';
 
 /**
@@ -12,13 +14,13 @@ function onSampleClick($packageID, $packageKey)
 {
     global $xoopsUser;
     //
-    $hPackage = xoops_getModuleHandler('package', 'xasset');
-    $hCommon  = xoops_getModuleHandler('common', 'xasset');
+    $hPackage = new xasset\PackageHandler($GLOBALS['xoopsDB']);
+    $hCommon  = new xasset\CommonHandler($GLOBALS['xoopsDB']);
     //
-    $objResponse = new xajaxResponse();
+    $objResponse = new \XajaxResponse();
     //
     if ($hCommon->keyMatches($packageID, $packageKey, $hPackage->_weight)) {
-        $oPackage =& $hPackage->get($packageID);
+        $oPackage = $hPackage->get($packageID);
         //
         $objResponse->addAssign('movie_player', 'innerHTML', '');
         $objResponse->addScriptCall('renderPlayer', $packageID, $oPackage->fileSize(), $xoopsUser ? $hCommon->pspEncrypt($xoopsUser->uid()) : $hCommon->pspEncrypt(0));
@@ -30,7 +32,7 @@ function onSampleClick($packageID, $packageKey)
     return $objResponse;
 }
 
-$hAjax = xoops_getModuleHandler('ajax', 'xasset');
+$hAjax = new xasset\AjaxHandler($GLOBALS['xoopsDB']);
 $oAjax = $hAjax->create();
 //
 $oAjax->registerFunction('onSampleClick');

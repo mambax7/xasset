@@ -1,4 +1,7 @@
 <?php
+
+use Xoopsmodules\xasset;
+
 //Include XOOPS Global Includes
 error_reporting(0); //THIS SHOULD ALWAYS BE SET TO 0 OTHERWISE PAYPAL GET BROKEN
 $xoopsOption['nocommon'] = 1;
@@ -26,12 +29,12 @@ define('XASSET_BASE_PATH', XOOPS_ROOT_PATH . '/modules/xasset');
 define('XASSET_CLASS_PATH', XASSET_BASE_PATH . '/class');
 
 //Initialize XOOPS Logger
-$xoopsLogger = XoopsLogger::getInstance();
+$xoopsLogger = \XoopsLogger::getInstance();
 $xoopsLogger->startTime();
 
 //Initialize DB Connection
 require_once XOOPS_ROOT_PATH . '/class/database/databasefactory.php';
-$xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
+$xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
 //
 /** @var XoopsModuleHandler $moduleHandler */
 $moduleHandler = xoops_getHandler('module');
@@ -55,8 +58,8 @@ if (file_exists(XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/gl
     require_once XOOPS_ROOT_PATH . '/language/english/global.php';
 }
 
-if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/main.php')) {
-    require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/main.php';
-} else {
-    require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/english/main.php';
-}
+//if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/main.php')) {
+//    require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/main.php';
+//} else {
+//    require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/english/main.php';
+//}

@@ -3,6 +3,11 @@
 //include "header.php";
 //require XOOPS_ROOT_PATH."/header.php";
 //require_once __DIR__ . '/include/info.php';
+
+use Xoopsmodules\xasset;
+
+require_once __DIR__ . '/preloads/autoloader.php';
+
 $moduleDirName = basename(__DIR__);
 
 $modversion['version']       = '1.00';
@@ -78,12 +83,12 @@ $modversion['helpsection'] = [
 
 global $xoopsUser;
 //
-$hApps        = xoops_getModuleHandler('application', 'xasset');
-$hUserDetails = xoops_getModuleHandler('userDetails', 'xasset');
-$hOrder       = xoops_getModuleHandler('order', 'xasset');
-$hMembers     = xoops_getModuleHandler('applicationProductMemb', 'xasset');
+$hApps        = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);// xoops_getModuleHandler('application', 'xasset');
+$hUserDetails = new xasset\UserDetailsHandler($GLOBALS['xoopsDB']);//new xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
+$hOrder       = new xasset\OrderHandler($GLOBALS['xoopsDB']);//new xasset\OrderHandler($GLOBALS['xoopsDB']);
+$hMembers     = new xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);//new xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);
 
-$oApps =& $hApps->getApplicationMainMenuObjects();
+$oApps = $hApps->getApplicationMainMenuObjects();
 $i     = 1;
 foreach ($oApps as $key => $oApp) {
     $modversion['sub'][$i]['name'] = $oApp->getVar('menuItem');
@@ -93,7 +98,7 @@ foreach ($oApps as $key => $oApp) {
 }
 
 if ($xoopsUser) {
-    if ($oUserDetails =& $hUserDetails->getUserDetailByID($xoopsUser->uid())) {
+    if ($oUserDetails = $hUserDetails->getUserDetailByID($xoopsUser->uid())) {
         $aDownloads =& $oUserDetails->getUserDownloads();
         if (count($aDownloads) > 0) {
             //show only if we have downloads
@@ -366,7 +371,7 @@ $modversion['config'][$i]['formtype']    = 'select';
 $modversion['config'][$i]['valuetype']   = 'text';
 $modversion['config'][$i]['default']     = 'dhtml';
 xoops_load('xoopseditorhandler');
-$editorHandler                       = XoopsEditorHandler::getInstance();
+$editorHandler                       = \XoopsEditorHandler::getInstance();
 $modversion['config'][$i]['options'] = array_flip($editorHandler->getList());
 
 //notification

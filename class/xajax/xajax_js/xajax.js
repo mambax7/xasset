@@ -15,7 +15,7 @@ function Xajax() {
             }
             text = text.replace(/&/g, "&amp;")
             text = text.replace(/</g, "&lt;")
-            text = text.replace(/>/g, "&gt;")
+            text = text.replace(/>/g, ">")
             debugTag = this.debugWindow.document.getElementById('debugTag');
             debugTag.innerHTML = ('<b>' + (new Date()).toString() + '</b>: ' + text + '<hr/>') + debugTag.innerHTML;
         } catch (e) {

@@ -7,10 +7,10 @@
  */
 function b_xasset_currencies($options)
 {
-    $hCurrency = xoops_getModuleHandler('currency', 'xasset');
+    $hCurrency = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
     //
     $blocks                = [];
-    $blocks['select']      =& $hCurrency->getSelectArray();
+    $blocks['select']      = $hCurrency->getSelectArray();
     $blocks['current']     = isset($_SESSION['currency_id']) ? $_SESSION['currency_id'] : 0;
     $blocks['application'] = isset($_SESSION['application_id']) ? $_SESSION['application_id'] : 0;
 
@@ -26,10 +26,10 @@ function b_xasset_currencies($options)
  */
 function b_xasset_downloads($options)
 {
-    $hStats = xoops_getModuleHandler('userPackageStats', 'xasset');
+    $hStats = new xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
     //
     $block              = [];
-    $block['downloads'] =& $hStats->getTopDownloads('' <> $options[0] ? $options[0] : null);
+    $block['downloads'] = $hStats->getTopDownloads('' <> $options[0] ? $options[0] : null);
     $block['showDowns'] = isset($options[1]) ? $options[1] : 0;
 
     //
@@ -44,7 +44,7 @@ function b_xasset_downloads($options)
  */
 function b_xasset_pics($options)
 {
-    $hApp = xoops_getModuleHandler('application', 'xasset');
+    $hApp = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
     //
     $block            = [];
     $block['columns'] = (isset($options[0]) and ('' <> $options[0])) ? $options[0] : 3;
@@ -63,9 +63,9 @@ function b_xasset_pics($options)
  */
 function b_xasset_apps($options)
 {
-    $hApp = xoops_getModuleHandler('application', 'xasset');
+    $hApp = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
     //
-    $aApps =& $hApp->getUserApplications();
+    $aApps = $hApp->getUserApplications();
     //
     $i     = 0;
     $block = [];
@@ -87,7 +87,7 @@ function b_xasset_apps($options)
  */
 function b_xasset_downloads_opt($options)
 {
-    $hCommon = xoops_getModuleHandler('common', 'xasset');
+    $hCommon = new xasset\CommonHandler($GLOBALS['xoopsDB']);
     //
     $ary['xasset_block_top'] = [
         'count'     => (isset($options[0]) and ('' <> $options[0])) ? $options[0] : 10,
@@ -105,7 +105,7 @@ function b_xasset_downloads_opt($options)
  */
 function b_xasset_pics_opt($options)
 {
-    $hCommon = xoops_getModuleHandler('common', 'xasset');
+    $hCommon = new xasset\CommonHandler($GLOBALS['xoopsDB']);
     //
     $ary['xasset_block_pic'] = [
         'columns' => (isset($options[0]) and ('' <> $options[0])) ? $options[0] : 3,

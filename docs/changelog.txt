@@ -13,7 +13,7 @@
 - update Help (mamba)
 - changed _handler to Handler (mamba)
 - changed to ->renderButton('left') (mamba)
-- removed '/' from void HTML elements (&lt;br&gt;, &lt;img&gt;, etc) (mamba)
+- removed '/' from void HTML elements (&lt;br>, &lt;img>, etc) (mamba)
 - HTML 5: removed 'selected' and 'checked' (mamba)
 - short array syntax (mamba)
 - added install checks for PHP 5.5 and XOOPS 2.5.8 (mamba)

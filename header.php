@@ -1,4 +1,7 @@
 <?php
+
+use Xoopsmodules\xasset;
+
 //need to catch processOptionForm as this needs special processing
 if (isset($_GET['op']) && ('processOptionForm' === $_GET['op']) && isset($_GET['ssl']) && isset($_GET['url'])) {
     $xoopsOption['nocommon'] = 1;

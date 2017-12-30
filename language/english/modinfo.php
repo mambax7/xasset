@@ -45,6 +45,8 @@ define('_MI_XASSET_MENU_MANAGE_GATEWAYS', 'Gateways');
 define('_MI_XASSET_MENU_MANAGE_GATE_LOGS', 'Gateway Logs');
 define('_MI_XASSET_MENU_MANAGE_ORDERS', 'Orders');
 define('_MI_XASSET_MENU_MANAGE_MEMBERSHIP', 'Memberships');
+define('_MI_XASSET_MENU_HOME', 'Home');
+define('_MI_XASSET_MENU_ABOUT', 'About');
 //template names
 define('_MI_XASSET_VERSION_ADMIN_INDEX', 'Admin Index Page');
 define('_MI_XASSET_VERSION_ADMIN_APP_MAINTENANCE', 'Admin Application Maintenance');

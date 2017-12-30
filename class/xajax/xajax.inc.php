@@ -1,4 +1,4 @@
-<?php
+<?php namespace Xoopsmodules\xasset\xajax;
 /**
  * xajax.inc.php :: Main xajax class and setup file
  *
@@ -573,7 +573,7 @@ class xajax
         if ($this->sPreFunction) {
             if (!$this->_isFunctionCallable($this->sPreFunction)) {
                 $bFoundFunction = false;
-                $objResponse    = new xajaxResponse();
+                $objResponse    = new \XajaxResponse();
                 $objResponse->addAlert('Unknown Pre-Function ' . $this->sPreFunction);
                 $sResponse = $objResponse->getXML();
             }
@@ -593,13 +593,13 @@ class xajax
                     $bFunctionIsCatchAll = true;
                 } else {
                     $bFoundFunction = false;
-                    $objResponse    = new xajaxResponse();
+                    $objResponse    = new \XajaxResponse();
                     $objResponse->addAlert("Unknown Function $sFunctionName.");
                     $sResponse = $objResponse->getXML();
                 }
             } elseif ($this->aFunctionRequestTypes[$sFunctionName] != $requestMode) {
                 $bFoundFunction = false;
-                $objResponse    = new xajaxResponse();
+                $objResponse    = new \XajaxResponse();
                 $objResponse->addAlert('Incorrect Request Type.');
                 $sResponse = $objResponse->getXML();
             }
@@ -638,7 +638,7 @@ class xajax
 
             if (!$bEndRequest) {
                 if (!$this->_isFunctionCallable($sFunctionName)) {
-                    $objResponse = new xajaxResponse();
+                    $objResponse = new \XajaxResponse();
                     $objResponse->addAlert("The Registered Function $sFunctionName Could Not Be Found.");
                     $sResponse = $objResponse->getXML();
                 } else {
@@ -651,11 +651,11 @@ class xajax
                     $sResponse = $sResponse->getXML();
                 }
                 if (!is_string($sResponse) || false === strpos($sResponse, '<xjx>')) {
-                    $objResponse = new xajaxResponse();
+                    $objResponse = new \XajaxResponse();
                     $objResponse->addAlert("No XML Response Was Returned By Function $sFunctionName.");
                     $sResponse = $objResponse->getXML();
                 } elseif ('' != $sPreResponse) {
-                    $sNewResponse = new xajaxResponse($this->sEncoding, $this->bOutputEntities);
+                    $sNewResponse = new \XajaxResponse($this->sEncoding, $this->bOutputEntities);
                     $sNewResponse->loadXML($sPreResponse);
                     $sNewResponse->loadXML($sResponse);
                     $sResponse = $sNewResponse->getXML();
@@ -669,7 +669,7 @@ class xajax
         }
         header($sContentHeader);
         if ($this->bErrorHandler && !empty($GLOBALS['xajaxErrorHandlerText'])) {
-            $sErrorResponse = new xajaxResponse();
+            $sErrorResponse = new \XajaxResponse();
             $sErrorResponse->addAlert('** PHP Error Messages: **' . $GLOBALS['xajaxErrorHandlerText']);
             if ($this->sLogFile) {
                 $fH = @fopen($this->sLogFile, 'a');
@@ -770,7 +770,7 @@ class xajax
     public function getJavascriptConfig()
     {
         $html = "\t<script type=\"text/javascript\">\n";
-        $html .= "var xajaxRequestUri=\"" . $this->sRequestURI . "\";\n";
+        $html .= 'var xajaxRequestUri="' . $this->sRequestURI . "\";\n";
         $html .= 'var xajaxDebug=' . ($this->bDebug ? 'true' : 'false') . ";\n";
         $html .= 'var xajaxStatusMessages=' . ($this->bStatusMessages ? 'true' : 'false') . ";\n";
         $html .= 'var xajaxWaitCursor=' . ($this->bWaitCursor ? 'true' : 'false') . ";\n";
@@ -824,7 +824,7 @@ class xajax
     }
 
     /**
-     * This method can be used to create a new xajax.js file out of the
+     * This method can be used to create a new \Xajax.js file out of the
      * xajax_uncompressed.js file (which will only happen if xajax.js doesn't
      * already exist on the filesystem).
      *

@@ -43,13 +43,16 @@ define('_AM_XASSET_INDEX', 'Index');
 define('_AM_XASSET_TEXT_ADD_DEPT', 'Add Department:');
 
 //image admin icon
-/*define("_AM_XASSET_ICO_EDIT","Edit This Item");
+define("_AM_XASSET_ICO_EDIT","Edit This Item");
 define("_AM_XASSET_ICO_DELETE","Delete This Item");
 define("_AM_XASSET_ICO_ONLINE","Online");
 define("_AM_XASSET_ICO_OFFLINE","Offline");
 define("_AM_XASSET_ICO_APPROVED","Approved");
 define("_AM_XASSET_ICO_NOTAPPROVED","Not Approved");
-define("_AM_XASSET_ICO_VIEW_LICENSE","View Licenses"); */
+define("_AM_XASSET_ICO_VIEW_LICENSE","View Licenses");
+define('_AM_XASSET_ICO_DOWNLOAD', 'Download');
+define('_AM_XASSET_ICO_PROTECTED', 'Protected');
+define('_AM_XASSET_ICO_BUYNOW', 'Buy Now');
 
 define('_AM_XASSET_ICO_LINK', 'Related Link');
 define('_AM_XASSET_ICO_URL', 'Add Related URL');
@@ -68,3 +71,7 @@ define('_AM_XASSET_ERROR_COLUMN', 'Could not create column in database : %s');
 define('_AM_XASSET_ERROR_BAD_XOOPS', 'This module requires XOOPS %s+ (%s installed)');
 define('_AM_XASSET_ERROR_BAD_PHP', 'This module requires PHP version %s+ (%s installed)');
 define('_AM_XASSET_ERROR_TAG_REMOVAL', 'Could not remove tags from Tag Module');
+
+
+
+

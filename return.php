@@ -1,4 +1,7 @@
 <?php
+
+use Xoopsmodules\xasset;
+
 //hack to kill referrer check..we don't want this as it comes from gateway and not xoops
 define('XOOPS_XMLRPC', 1);
 require_once __DIR__ . '/header.php';
@@ -6,14 +9,14 @@ require_once __DIR__ . '/header.php';
 //this will get called from a payment gateway. Grab the Order ID, Payment Gatway and the post and process it.
 //check for valid order id
 if (isset($_SESSION['orderID']) && ($_SESSION['orderID'] > -1)) {
-    $hGateway = xoops_getModuleHandler('gateway', 'xasset');
-    $hOrder   = xoops_getModuleHandler('order', 'xasset');
-    $hLog     = xoops_getModuleHandler('gatewayLog', 'xasset');
-    $hCommon  = xoops_getModuleHandler('common', 'xasset');
+    $hGateway = new xasset\GatewayHandler($GLOBALS['xoopsDB']);
+    $hOrder   = new xasset\OrderHandler($GLOBALS['xoopsDB']);
+    $hLog     = new xasset\GatewayLogHandler($GLOBALS['xoopsDB']);
+    $hCommon  = new xasset\CommonHandler($GLOBALS['xoopsDB']);
     //
-    $order   =& $hOrder->get($_SESSION['orderID']);
-    $gateway =& $hGateway->get($order->getVar('gateway'));
-    $payGate =& $hGateway->getGatewayModuleByID($gateway->getVar('id'));
+    $order   = $hOrder->get($_SESSION['orderID']);
+    $gateway = $hGateway->get($order->getVar('gateway'));
+    $payGate = $hGateway->getGatewayModuleByID($gateway->getVar('id'));
     //
     $dest = '' <> $hCommon->getModuleOption('orderCompleteRedirect') ? $hCommon->getModuleOption('orderCompleteRedirect') : 'index.php';
     $time = $hCommon->getModuleOption('orderCompleteWait');

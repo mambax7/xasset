@@ -10,6 +10,8 @@ define('_AM_XASSET_ICO_BUYNOW', 'Buy Now');
 define('_AM_XASSET_ICO_APPROVED', 'Approved');
 define('_AM_XASSET_ICO_NOTAPPROVED', 'Not Approved');
 define('_AM_XASSET_ICO_VIEW_LICENSE', 'View Licenses');
+
+
 //template lang constants
 define('_LANG_LICENSED_APPLICATIONS', 'Licensed Applications');
 define('_LANG_APPLICATION_NAME', 'Application Name');

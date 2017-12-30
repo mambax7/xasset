@@ -35,7 +35,7 @@ require_once XOOPS_ROOT_PATH . '/modules/xasset/language/' . $GLOBALS['xoopsConf
         if (calendar != null) {
             calendar.hide();
         } else {
-            var cal = new Calendar(true, "<?php if (isset($jstime)) {
+            var cal = new \Calendar(true, "<?php if (isset($jstime)) {
     echo $jstime;
 } else {
     echo 'null';

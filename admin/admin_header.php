@@ -17,44 +17,44 @@
  * @author       XOOPS Development Team
  */
 
+use Xoopsmodules\xasset;
+
 $path = dirname(dirname(dirname(__DIR__)));
-require_once $path . '/mainfile.php';
-//require_once $path . '/include/cp_functions.php';
 require_once $path . '/include/cp_header.php';
 
-$moduleDirName = basename(dirname(__DIR__));
+include __DIR__ . '/../preloads/autoloader.php';
 
-if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
-} else {
-    $moduleHelper = Xmf\Module\Helper::getHelper('system');
-}
+$moduleDirName = basename(dirname(__DIR__));
+/** @var xasset\Helper $helper */
+$helper = xasset\Helper::getInstance();
 $adminObject = \Xmf\Module\Admin::getInstance();
 
 $pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
 $pathIcon32    = \Xmf\Module\Admin::iconUrl('', 32);
-$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
+$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 
 // Load language files
-$moduleHelper->loadLanguage('admin');
-$moduleHelper->loadLanguage('modinfo');
-$moduleHelper->loadLanguage('main');
+$helper->loadLanguage('admin');
+$helper->loadLanguage('modinfo');
+//$helper->loadLanguage('main');
+$helper->loadLanguage('common');
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
 if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
     require_once $GLOBALS['xoops']->path('class/template.php');
-    $xoopsTpl = new XoopsTpl();
+    $xoopsTpl = new \XoopsTpl();
 }
 
 define('XASSET_BASE_PATH', XOOPS_ROOT_PATH . '/modules/xasset');
 define('XASSET_CLASS_PATH', XASSET_BASE_PATH . '/class');
 define('XASSET_ADMIN_PATH', XASSET_BASE_PATH . '/admin');
 
-require XASSET_BASE_PATH . '/admin/admin_buttons.php';
+require XASSET_BASE_PATH . '/admin/AdminButtons.php';
 require_once XASSET_BASE_PATH . '/include/functions.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 
 require_once __DIR__ . '/../include/images.php';
 
 //global $xoopsModule;
-$module_id = $moduleHelper->getModule()->getVar('mid');
+$module_id = $helper->getModule()->getVar('mid');

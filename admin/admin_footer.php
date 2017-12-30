@@ -18,7 +18,7 @@
  */
 
 $pathIcon32 = \Xmf\Module\Admin::iconUrl('', 32);
-//$xoopsTpl->xoops_setCaching(0);
+//$xoopsTpl->caching=(0);
 $xoopsTpl->caching = 0;
 if (isset($xoopsOption['template_main'])) {
     $xoopsTpl->display('db:' . $xoopsOption['template_main']);

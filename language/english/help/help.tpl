@@ -3,14 +3,14 @@
 
     <h4 class="odd">DESCRIPTION</h4>
 
-    <p class="even">xAsset is a Xoops module designed for digital media sales and distribution. Initially this was
+    <p class="even">xasset is a Xoops module designed for digital media sales and distribution. Initially this was
         designed for shareware authors but the module architecture has been extended to selling and distributing any
         digital asset such as MP3 files, EXE files or PDF documents. Anything that can be downloaded can be managed from
-        xAsset..<b> <b>
+        xasset..<b> <b>
 
-            xAsset also enables selling group membership, ideal for selling subscriptions to premium online content.
+            xasset also enables selling group membership, ideal for selling subscriptions to premium online content.
             Members
-            can be viewed along side their membership expiry details. An exciting upcoming feature to xAsset will be to
+            can be viewed along side their membership expiry details. An exciting upcoming feature to xasset will be to
             support videos and video pay per view specifically.<b> <b>
     </p>
 

@@ -1,5 +1,7 @@
 <?php
 
+use Xoopsmodules\xasset;
+
 ///////////////////////////////////////////////////
 /**
  * @param $body
@@ -12,7 +14,7 @@ function parseConstants($body, $moduleName)
     global $xoopsConfig;
     //
     $hModule = xoops_getHandler('module');
-    $module  =& $hModule->getByDirname($moduleName);
+    $module  = $hModule->getByDirname($moduleName);
     //
     $tags                 = [];
     $tags['X_MODULE']     = $module->getVar('name');
@@ -37,7 +39,7 @@ function getGroupClients()
 {
     global $xoopsOption;
     //
-    $hConfig = xoops_getModuleHandler('config', 'xasset');
+    $hConfig = new xasset\ConfigHandler($GLOBALS['xoopsDB']);
     $gid     = $hConfig->getGroup();
     //
     $hMember = xoops_getHandler('member');
@@ -67,7 +69,7 @@ function getDateField($name, $date = null)
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     //
     if (class_exists('XoopsFormCalendar')) {
-        $cal = new XoopsFormCalendar($name, $name, $date, [], ['value' => date('Y-m-d', $date)]);
+        $cal = new \XoopsFormCalendar($name, $name, $date, [], ['value' => date('Y-m-d', $date)]);
 
         return $cal->render();
     } else {
@@ -91,7 +93,7 @@ function keyMatches($id, $key, $weight, $error)
 {
     global $xoopsOption, $xoopsTpl, $xoopsConfig, $xoopsUser, $xoopsLogger, $xoopsUserIsAdmin, $xasset_module_header;
     //
-    $crypt = new XassetCrypt();
+    $crypt = new xasset\Crypt();
     //
     if ($crypt->keyMatches($id + $weight, $key)) {
         return true;
@@ -114,7 +116,7 @@ function keyMatches($id, $key, $weight, $error)
  */
 function getKey($id, $weight)
 {
-    $crypt = new XassetCrypt();
+    $crypt = new xasset\Crypt();
 
     return $crypt->cryptValue($id, $weight);
 }
@@ -125,7 +127,7 @@ function getKey($id, $weight)
  */
 function insertHeaderCountriesJavaScript()
 {
-    $hCommon = xoops_getModuleHandler('common', 'xasset');
+    $hCommon = new xasset\CommonHandler($GLOBALS['xoopsDB']);
 
     return $hCommon->insertHeaderCountriesJavaScript();
 }
@@ -136,7 +138,7 @@ function insertHeaderCountriesJavaScript()
  */
 function insertHeaderCountriesJavaScriptNoAllZones()
 {
-    $hCommon = xoops_getModuleHandler('common', 'xasset');
+    $hCommon = new xasset\CommonHandler($GLOBALS['xoopsDB']);
 
     return $hCommon->insertHeaderCountriesJavaScriptNoAllZones();
 }

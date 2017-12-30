@@ -1,14 +1,17 @@
 <?php
+
+use Xoopsmodules\xasset;
+
 define('XOOPS_XMLRPC', 1);
 require_once __DIR__ . '/servicemain.php';
 //
 if (count($_POST) > 0) {
-    $hGateway = xoops_getModuleHandler('gateway', 'xasset');
-    $hOrder   = xoops_getModuleHandler('order', 'xasset');
-    $hLog     = xoops_getModuleHandler('gatewayLog', 'xasset');
+    $hGateway = new xasset\GatewayHandler($GLOBALS['xoopsDB']);
+    $hOrder   = new xasset\OrderHandler($GLOBALS['xoopsDB']);
+    $hLog     = new xasset\GatewayLogHandler($GLOBALS['xoopsDB']);
     //determine the gateway and order id from $_POST
     if ($orderID = $hGateway->getGatewayFromPost($_POST, $gateway)) {
-        $order =& $hOrder->get($orderID);
+        $order = $hOrder->get($orderID);
         //check if this order is open;
         if ($order->getVar('status') == $order->orderStatusGateway()) {
             //log post
