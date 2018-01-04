@@ -1,14 +1,14 @@
 <?php
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 define('XOOPS_XMLRPC', 1);
 require_once __DIR__ . '/servicemain.php';
 //
 if (count($_POST) > 0) {
-    $hGateway = new xasset\GatewayHandler($GLOBALS['xoopsDB']);
-    $hOrder   = new xasset\OrderHandler($GLOBALS['xoopsDB']);
-    $hLog     = new xasset\GatewayLogHandler($GLOBALS['xoopsDB']);
+    $hGateway = new Xasset\GatewayHandler($GLOBALS['xoopsDB']);
+    $hOrder   = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
+    $hLog     = new Xasset\GatewayLogHandler($GLOBALS['xoopsDB']);
     //determine the gateway and order id from $_POST
     if ($orderID = $hGateway->getGatewayFromPost($_POST, $gateway)) {
         $order = $hOrder->get($orderID);

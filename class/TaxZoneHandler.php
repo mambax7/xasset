@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * class TaxZoneHandler
  */
-class TaxZoneHandler extends xasset\BaseObjectHandler
+class TaxZoneHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -28,7 +28,7 @@ class TaxZoneHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\TaxZoneHandler
+     * @return Xasset\TaxZoneHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {
@@ -92,9 +92,9 @@ class TaxZoneHandler extends xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        $hRegion  = new xasset\RegionHandler($GLOBALS['xoopsDB']);
-        $hZone    = new xasset\ZoneHandler($GLOBALS['xoopsDB']);
-        $hCountry = new xasset\CountryHandler($GLOBALS['xoopsDB']);
+        $hRegion  = new Xasset\RegionHandler($GLOBALS['xoopsDB']);
+        $hZone    = new Xasset\ZoneHandler($GLOBALS['xoopsDB']);
+        $hCountry = new Xasset\CountryHandler($GLOBALS['xoopsDB']);
         //
         $thisTable    = $this->_db->prefix($this->_dbtable);
         $regionTable  = $this->_db->prefix($hRegion->_dbtable);

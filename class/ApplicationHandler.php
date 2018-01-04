@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * Class ApplicationHandler
  */
-class ApplicationHandler extends xasset\BaseObjectHandler
+class ApplicationHandler extends Xasset\BaseObjectHandler
 {
     //vars
     /**
@@ -75,10 +75,10 @@ class ApplicationHandler extends xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        $hAppProd = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+        $hAppProd = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
         //
         $objs  = $this->getApplications($criteria);
-        $crypt = new xasset\Crypt();
+        $crypt = new Xasset\Crypt();
         $ary   = [];
         $i     = 0;
         //
@@ -122,11 +122,11 @@ class ApplicationHandler extends xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        $hLic     = new xasset\LicenseHandler($GLOBALS['xoopsDB']);
-        $hStats   = new xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
-        $hPack    = new xasset\PackageHandler($GLOBALS['xoopsDB']);
-        $hPackGrp = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
-        $hAppProd = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+        $hLic     = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+        $hStats   = new Xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
+        $hPack    = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
+        $hPackGrp = new Xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
+        $hAppProd = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
         //
         $appTable = $this->_db->prefix($this->_dbtable);
         $licTable = $this->_db->prefix($hLic->_dbtable);
@@ -147,7 +147,7 @@ class ApplicationHandler extends xasset\BaseObjectHandler
         $criteria->setGroupBy('a.id, a.name');
         $this->postProcessSQL($sql, $criteria);
         //
-        $crypt = new xasset\Crypt();
+        $crypt = new Xasset\Crypt();
         $ary   = [];
         //
         if ($res = $this->_db->query($sql)) {
@@ -232,7 +232,7 @@ class ApplicationHandler extends xasset\BaseObjectHandler
      */
     public function &getApplicationMainMenuObjects($uid = false)
     {
-        $hGroup = new xasset\ApplicationGroupHandler($GLOBALS['xoopsDB']);
+        $hGroup = new Xasset\ApplicationGroupHandler($GLOBALS['xoopsDB']);
         //
         if (!$uid) {
             global $xoopsUser;
@@ -268,7 +268,7 @@ class ApplicationHandler extends xasset\BaseObjectHandler
      */
     public function getUserApplications($uid = false, $allApps = true)
     {
-        $hGroup = new xasset\ApplicationGroupHandler($GLOBALS['xoopsDB']);
+        $hGroup = new Xasset\ApplicationGroupHandler($GLOBALS['xoopsDB']);
         //
         if (!$uid) {
             global $xoopsUser;
@@ -307,7 +307,7 @@ class ApplicationHandler extends xasset\BaseObjectHandler
      */
     public function cryptID($id)
     {
-        $crypt = new xasset\Crypt();
+        $crypt = new Xasset\Crypt();
 
         return $crypt->cryptValue($id, $this->_weight);
     }
@@ -317,7 +317,7 @@ class ApplicationHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\ApplicationHandler
+     * @return Xasset\ApplicationHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {

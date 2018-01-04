@@ -1,6 +1,6 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * class Link
@@ -33,7 +33,7 @@ class Link extends \XoopsObject
      */
     public function getApplication()
     {
-        $hDept = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+        $hDept = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
 
         return $hDept->get($this->getVar('applicationid'));
     }
@@ -49,7 +49,7 @@ class Link extends \XoopsObject
         if (!$id) {
             return false;
         }
-        $hApplication = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+        $hApplication = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
         $arr          = $hApplication->getObjects($this->getVar('applicationid'));
 
         //

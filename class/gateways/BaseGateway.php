@@ -1,7 +1,7 @@
-<?php namespace Xoopsmodules\xasset\gateways;
+<?php namespace XoopsModules\Xasset\gateways;
 
-use Xoopsmodules\xasset;
-use Xoopsmodules\xasset\gateways;
+use XoopsModules\Xasset;
+use XoopsModules\Xasset\gateways;
 
 /**
  * Class BaseGateway
@@ -32,8 +32,8 @@ class BaseGateway
      */
     public function __construct()
     {
-        $this->_hGate       = new xasset\GatewayHandler($GLOBALS['xoopsDB']);
-        $this->_hGateDetail = new xasset\GatewayDetailHandler($GLOBALS['xoopsDB']);
+        $this->_hGate       = new Xasset\GatewayHandler($GLOBALS['xoopsDB']);
+        $this->_hGateDetail = new Xasset\GatewayDetailHandler($GLOBALS['xoopsDB']);
         //
         $this->_returnURL = XOOPS_URL . '/modules/xasset/return.php';
         $this->_cancelURL = XOOPS_URL . '/modules/xasset/cancel.php';

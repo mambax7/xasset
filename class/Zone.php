@@ -1,6 +1,6 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * Class Zone
@@ -33,7 +33,7 @@ class Zone extends \XoopsObject
      */
     public function &getCountry()
     {
-        $country = new xasset\CountryHandler($GLOBALS['xoopsDB']);
+        $country = new Xasset\CountryHandler($GLOBALS['xoopsDB']);
 
         return $country->get($this->getVar('countryid'));
     }

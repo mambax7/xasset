@@ -1,7 +1,7 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
-//use Xoopsmodules\xasset\xajax;
+use XoopsModules\Xasset;
+//use XoopsModules\Xasset\xajax;
 
 /**
  * Class BaseObjectHandler

@@ -1,6 +1,6 @@
 <?php
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 require_once __DIR__ . '/header.php';
 require_once XOOPS_ROOT_PATH . '/header.php';
@@ -106,10 +106,10 @@ function loadIndex($appid = 0, $key = '')
         redirect_header('index.php?op=evaluation', 0, 'Redirecting...');
     }
     //
-    $hLic     = new xasset\LicenseHandler($GLOBALS['xoopsDB']);
-    $hPackGrp = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
-    $hLink    = new xasset\LinkHandler($GLOBALS['xoopsDB']);
-    $hApp     = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+    $hLic     = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    $hPackGrp = new Xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
+    $hLink    = new Xasset\LinkHandler($GLOBALS['xoopsDB']);
+    $hApp     = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
     //
     $userApps = $hLic->getUserApplicationArray($uid);
     $app      = $hApp->create();
@@ -167,7 +167,7 @@ function viewLicense($licID, $key)
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_license_index.tpl';
     require_once XOOPS_ROOT_PATH . '/header.php';
     //first check that the key matches requested ID
-    $hLic = new xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    $hLic = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
     //
     $lic = $hLic->get($licID);
     //
@@ -200,7 +200,7 @@ function viewAppGroups($groupid, $key)
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_package_index.tpl';
     require_once XOOPS_ROOT_PATH . '/header.php';
     //
-    $hPackGrp = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
+    $hPackGrp = new Xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
     //
     $packGrp = $hPackGrp->get($groupid);
     $app     =& $packGrp->getApplication();
@@ -225,7 +225,7 @@ function downloadPack($id, $key)
 {
     global $xoopsOption, $xoopsTpl, $xoopsConfig, $xoopsUser, $xoopsLogger, $xoopsUserIsAdmin, $xasset_module_header;
     //
-    $hPackage = new xasset\PackageHandler($GLOBALS['xoopsDB']);
+    $hPackage = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
     //
     $pack = $hPackage->get($id);
     //
@@ -247,7 +247,7 @@ function downloadLicPack($id, $key)
 {
     global $xoopsOption, $xoopsTpl, $xoopsConfig, $xoopsUser, $xoopsLogger, $xoopsUserIsAdmin, $xasset_module_header;
     //
-    $hPackage = new xasset\PackageHandler($GLOBALS['xoopsDB']);
+    $hPackage = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
     //
     $pack = $hPackage->get($id);
     //
@@ -265,7 +265,7 @@ function downloadSample($id, $key)
 {
     global $xoopsOption, $xoopsTpl, $xoopsConfig, $xoopsUser, $xoopsLogger, $xoopsUserIsAdmin, $xasset_module_header;
     //
-    $hPackage = new xasset\PackageHandler($GLOBALS['xoopsDB']);
+    $hPackage = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
     //
     $pack = $hPackage->get($id);
     //
@@ -292,14 +292,14 @@ function loadEvaluation($appid = 0, $key = '')
         $uid = 0;
     }
     //
-    $hLic     = new xasset\LicenseHandler($GLOBALS['xoopsDB']);
-    $hPackGrp = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
-    $hLink    = new xasset\LinkHandler($GLOBALS['xoopsDB']);
-    $hApp     = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
-    $hAppProd = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
-    $hCurr    = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
-    $hConfig  = new xasset\ConfigHandler($GLOBALS['xoopsDB']);
-    $hCommon  = new xasset\CommonHandler($GLOBALS['xoopsDB']);
+    $hLic     = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    $hPackGrp = new Xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
+    $hLink    = new Xasset\LinkHandler($GLOBALS['xoopsDB']);
+    $hApp     = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+    $hAppProd = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+    $hCurr    = new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+    $hConfig  = new Xasset\ConfigHandler($GLOBALS['xoopsDB']);
+    $hCommon  = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
     //
     if ($uid > 0) {
         $evalApps = $hLic->getEvalApplicationsArray($uid);
@@ -377,7 +377,7 @@ function updateCurrency($post)
     //redirect
     //if ($post['type'] == 'eval') {
     if ($post['app_id'] > 0) {
-        $hApp = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+        $hApp = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
         $oApp = $hApp->get($post['app_id']);
         //
         $url = 'index.php?op=product&id=' . $oApp->ID() . '&key=' . $oApp->getKey();
@@ -400,7 +400,7 @@ function product($appid = null, $key = null)
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_product.tpl';
     require_once XOOPS_ROOT_PATH . '/header.php';
     //
-    $hApps = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+    $hApps = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
     //
     if ($xoopsUser) {
         $uid = $xoopsUser->uid();
@@ -408,15 +408,15 @@ function product($appid = null, $key = null)
         $uid = 0;
     }
     //
-    $hLic     = new xasset\LicenseHandler($GLOBALS['xoopsDB']);
-    $hPackGrp = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
-    $hLink    = new xasset\LinkHandler($GLOBALS['xoopsDB']);
-    $hApps    = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
-    $hAppProd = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
-    $hCurr    = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
-    $hConfig  = new xasset\ConfigHandler($GLOBALS['xoopsDB']);
-    $hAjax    = new xasset\AjaxHandler($GLOBALS['xoopsDB']);
-    $hCommon  = new xasset\CommonHandler($GLOBALS['xoopsDB']);
+    $hLic     = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    $hPackGrp = new Xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
+    $hLink    = new Xasset\LinkHandler($GLOBALS['xoopsDB']);
+    $hApps    = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+    $hAppProd = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+    $hCurr    = new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+    $hConfig  = new Xasset\ConfigHandler($GLOBALS['xoopsDB']);
+    $hAjax    = new Xasset\AjaxHandler($GLOBALS['xoopsDB']);
+    $hCommon  = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
     //
     $app   = $hApps->create();
     $aApps = $hApps->getApplicationMainMenuObjects();
@@ -504,7 +504,7 @@ function showMyDownloads()
     //get app products purchase by client id from order detail table
     //next get files linked to this. Take into account download limits and expiry dates then display.
     //
-    $hUserDetail = new xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
+    $hUserDetail = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
     //only register userDetail users will be able to access this page
     if ($xoopsUser) {
         if ($userDetail = $hUserDetail->getUserDetailByID($xoopsUser->uid())) {
@@ -529,7 +529,7 @@ function showUserSubs()
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_my_subscriptions.tpl';
     require_once XOOPS_ROOT_PATH . '/header.php';
     //
-    $hMembers = new xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);
+    $hMembers = new Xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);
     //only register userDetail users will be able to access this page
     if ($xoopsUser) {
         $crit = new \Criteria('am.uid', $xoopsUser->uid());
@@ -554,8 +554,8 @@ function showUserSubs()
  */
 function getVideo($id, $position, $token)
 {
-    /** @var \xassetVideoHandler $hVideo */
-    $hVideo = new xasset\VideoHandler($GLOBALS['xoopsDB']);
+    /** @var \XassetVideoHandler $hVideo */
+    $hVideo = new Xasset\VideoHandler($GLOBALS['xoopsDB']);
     $hVideo->getVideo($id, $token, $position);
 }
 
@@ -571,10 +571,10 @@ function ViewVideoLic($id, $key)
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_video_index.tpl';
     require_once XOOPS_ROOT_PATH . '/header.php';
     //
-    $hPack   = new xasset\PackageHandler($GLOBALS['xoopsDB']);
-    $hCommon = new xasset\CommonHandler($GLOBALS['xoopsDB']);
+    $hPack   = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
+    $hCommon = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
     //
-    /** @var \xasset\Package $oPackage */
+    /** @var \Xasset\Package $oPackage */
     $oPackage = $hPack->get($id);
     //
     if (keyMatches($id, $key, $oPackage->weight, 'Invalid Key. Cannot view video')) {
@@ -601,7 +601,7 @@ function viewProductDescription($id, $key)
     require_once __DIR__ . '/../../mainfile.php';
     xoops_header();
     //
-    $hAppProd = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+    $hAppProd = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
     $oAppProd = $hAppProd->get($id);
     //
     if (keyMatches($id, $key, $oAppProd->weight, 'Invalid Key')) {

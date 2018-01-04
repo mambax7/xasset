@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * Class ApplicationProductMembHandler
  */
-class ApplicationProductMembHandler extends xasset\BaseObjectHandler
+class ApplicationProductMembHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -96,8 +96,8 @@ class ApplicationProductMembHandler extends xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        $hUserDetails = new xasset\GatewayHandler($GLOBALS['xoopsDB']);
-        $hMember      = new xasset\OrderHandler($GLOBALS['xoopsDB']);
+        $hUserDetails = new Xasset\GatewayHandler($GLOBALS['xoopsDB']);
+        $hMember      = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
         //tables
         $thisTable  = $this->_db->prefix($this->_dbtable);
         $userTable  = $this->_db->prefix('users');
@@ -144,7 +144,7 @@ class ApplicationProductMembHandler extends xasset\BaseObjectHandler
      */
     public function getMembersForSubscription($crit)
     {
-        $hAppProd = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+        $hAppProd = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
         //two step process: first get members then another query to get products and buy now buttons
         $aSubs =& $this->getMembers($crit);
         //

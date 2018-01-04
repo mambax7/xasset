@@ -1,11 +1,11 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * class GatewayLog
  */
-class GatewayLog extends xasset\BaseObject
+class GatewayLog extends Xasset\BaseObject
 {
     /**
      * @param null $id

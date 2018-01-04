@@ -1,6 +1,6 @@
 <?php
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 require_once __DIR__ . '/header.php';
 //

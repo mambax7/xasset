@@ -1,6 +1,6 @@
 <?php
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 //hack to kill referrer check..we don't want this as it comes from gateway and not xoops
 define('XOOPS_XMLRPC', 1);
@@ -10,9 +10,9 @@ require_once __DIR__ . '/servicemain.php';
 //1. generate expiry warning emails
 //2. remove expired members from groups
 //first get members who are about to expire
-$hMembers = new xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);
-$hCommon  = new xasset\CommonHandler($GLOBALS['xoopsDB']);
-$hNotify  = new xasset\NotificationServiceHandler($GLOBALS['xoopsDB']);
+$hMembers = new Xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);
+$hCommon  = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
+$hNotify  = new Xasset\NotificationServiceHandler($GLOBALS['xoopsDB']);
 //
 $days = $hCommon->getModuleOption('memExpireDaysWarn');
 $days = 30;

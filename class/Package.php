@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * class Package
  */
-class Package extends xasset\BaseObject
+class Package extends Xasset\BaseObject
 {
     public $weight;
 
@@ -87,7 +87,7 @@ class Package extends xasset\BaseObject
             return $arr;
         }
         //
-        $hPackStats = new xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
+        $hPackStats = new Xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
         //
         $crit = new \CriteriaCompo(new \Criteria('packageid', $id));
         $crit->setSort('date');
@@ -105,7 +105,7 @@ class Package extends xasset\BaseObject
      */
     public function getTotalDownloads()
     {
-        $hPackStats = new xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
+        $hPackStats = new Xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
         $crit       = new \CriteriaCompo(new \Criteria('packageid', $this->ID()));
 
         //$totalDownloads = $hPackStats->getCount($crit)
@@ -117,7 +117,7 @@ class Package extends xasset\BaseObject
     {
         global $xoopsUser;
         //
-        $hClient = new xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
+        $hClient = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
         //
         if ($xoopsUser) {
             if ($oClient = $hClient->getUserDetailByID($xoopsUser->uid())) {
@@ -136,7 +136,7 @@ class Package extends xasset\BaseObject
     ///////////////////////////////////////////////////
     public function incrementDownload()
     {
-        $hStats = new xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
+        $hStats = new Xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
         $hStats->logPackageDownload($this);
     }
 
@@ -206,7 +206,7 @@ class Package extends xasset\BaseObject
      */
     public function &getPackageGroup()
     {
-        $hGrp = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
+        $hGrp = new Xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
 
         return $hGrp->get($this->getVar('packagegroupid'));
     }
@@ -218,7 +218,7 @@ class Package extends xasset\BaseObject
      */
     public function getKey()
     {
-        $crypt = new xasset\Crypt();
+        $crypt = new Xasset\Crypt();
 
         return $crypt->cryptValue($this->getVar('id'), $this->weight);
     }

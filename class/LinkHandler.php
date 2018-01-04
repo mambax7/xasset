@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * class LinkHandler
  */
-class LinkHandler extends xasset\BaseObjectHandler
+class LinkHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -103,7 +103,7 @@ class LinkHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\LinkHandler
+     * @return Xasset\LinkHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {

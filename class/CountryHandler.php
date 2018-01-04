@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * class CountryHandler
  */
-class CountryHandler extends xasset\BaseObjectHandler
+class CountryHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -28,7 +28,7 @@ class CountryHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\CountryHandler
+     * @return Xasset\CountryHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {
@@ -105,7 +105,7 @@ class CountryHandler extends xasset\BaseObjectHandler
      */
     public function constructSelectJavascript($zoneField, $countryField, $allZones = true)
     {
-        $hZone = new xasset\ZoneHandler($GLOBALS['xoopsDB']);
+        $hZone = new Xasset\ZoneHandler($GLOBALS['xoopsDB']);
         //
         $zones = $hZone->getCountryZones();
         $start = true;

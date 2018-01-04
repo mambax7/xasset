@@ -1,13 +1,13 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 
 /**
  * class PackageHandler
  */
-class PackageHandler extends xasset\BaseObjectHandler
+class PackageHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -74,7 +74,7 @@ class PackageHandler extends xasset\BaseObjectHandler
      */
     public function getDownloadSummary($crit)
     {
-        $hStats = new xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
+        $hStats = new Xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
         //
         $objs = $this->getObjects($crit);
         $ary  = [];
@@ -107,7 +107,7 @@ class PackageHandler extends xasset\BaseObjectHandler
         $crit->setSort('filename');
         //
         $objs  = $this->getObjects($crit);
-        $crypt = new xasset\Crypt();
+        $crypt = new Xasset\Crypt();
         $ar    = [];
         $i     = 0;
         //
@@ -163,8 +163,8 @@ class PackageHandler extends xasset\BaseObjectHandler
      */
     public function getPackageApplication($packID)
     {
-        $hGrp = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
-        $hApp = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+        $hGrp = new Xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
+        $hApp = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
         //
         $thisTable = $this->_db->prefix($this->_dbtable);
         $grpTable  = $this->_db->prefix($hGrp->_dbtable);
@@ -211,7 +211,7 @@ class PackageHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\PackageHandler
+     * @return Xasset\PackageHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {

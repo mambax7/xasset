@@ -1,11 +1,11 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * Class CommonHandler
  */
-class CommonHandler extends xasset\BaseObjectHandler
+class CommonHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -153,7 +153,7 @@ class CommonHandler extends xasset\BaseObjectHandler
      */
     public function cryptValue($id, $weight = 0)
     {
-        $crypt = new xasset\Crypt();
+        $crypt = new Xasset\Crypt();
 
         //
         return $crypt->cryptValue($id, $weight);
@@ -173,7 +173,7 @@ class CommonHandler extends xasset\BaseObjectHandler
     {
         global $xoopsOption, $xoopsTpl, $xoopsConfig, $xoopsUser, $xoopsLogger, $xoopsUserIsAdmin, $xasset_module_header;
         //
-        $crypt = new xasset\Crypt();
+        $crypt = new Xasset\Crypt();
         //
         if ($crypt->keyMatches($id + $weight, $key)) {
             return true;
@@ -193,7 +193,7 @@ class CommonHandler extends xasset\BaseObjectHandler
      */
     public function insertHeaderCountriesJavaScript()
     {
-        $hCount = new xasset\CountryHandler($GLOBALS['xoopsDB']);
+        $hCount = new Xasset\CountryHandler($GLOBALS['xoopsDB']);
         $script = $hCount->constructSelectJavascript('zone_id', 'country_id');
         //
         $javascript = "<script type='text/javascript'> <!-- \n $script \n //--></script>";
@@ -209,7 +209,7 @@ class CommonHandler extends xasset\BaseObjectHandler
      */
     public function insertHeaderCountriesJavaScriptNoAllZones()
     {
-        $hCount = new xasset\CountryHandler($GLOBALS['xoopsDB']);
+        $hCount = new Xasset\CountryHandler($GLOBALS['xoopsDB']);
         $script = $hCount->constructSelectJavascript('zone_id', 'country_id', false);
         //
         $javascript = "<script type='text/javascript'> <!-- ' \n $script \n //--></script>";
@@ -575,7 +575,7 @@ class CommonHandler extends xasset\BaseObjectHandler
      */
     public function &getSiteAdminEmails()
     {
-        $hConfig = new xasset\ConfigHandler($GLOBALS['xoopsDB']);
+        $hConfig = new Xasset\ConfigHandler($GLOBALS['xoopsDB']);
 
         //
         return $this->getGroupEmails($hConfig->getEmailGroup());

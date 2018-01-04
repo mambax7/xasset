@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * class UserDetailsHandler
  */
-class UserDetailsHandler extends xasset\BaseObjectHandler
+class UserDetailsHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -28,7 +28,7 @@ class UserDetailsHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\UserDetailsHandler
+     * @return Xasset\UserDetailsHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {

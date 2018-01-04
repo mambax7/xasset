@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * class UserAppProductsHandler
  */
-class UserAppProductsHandler extends xasset\BaseObjectHandler
+class UserAppProductsHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -28,7 +28,7 @@ class UserAppProductsHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\UserAppProductsHandler
+     * @return Xasset\UserAppProductsHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {
@@ -50,7 +50,7 @@ class UserAppProductsHandler extends xasset\BaseObjectHandler
      */
     public function getUserProductMaxDowns($uid, $prodid)
     {
-        $hAppProds = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+        $hAppProds = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
         //
         $thisTable = $this->_db->prefix($this->_dbtable);
         $prodTable = $this->_db->prefix($hAppProds->_dbtable);

@@ -1,11 +1,11 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * class PackageGroup
  */
-class PackageGroup extends xasset\BaseObject
+class PackageGroup extends Xasset\BaseObject
 {
     public $weight;
 
@@ -64,7 +64,7 @@ class PackageGroup extends xasset\BaseObject
             return $arr;
         }
         //
-        $hPackages = new xasset\PackageHandler($GLOBALS['xoopsDB']);
+        $hPackages = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
         //
         $crit = new \CriteriaCompo(new \Criteria('packagegroupid', $id));
         $crit->setSort('filename');
@@ -82,7 +82,7 @@ class PackageGroup extends xasset\BaseObject
      */
     public function getApplication()
     {
-        $hApp = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+        $hApp = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
 
         return $hApp->get($this->getVar('applicationid'));
     }

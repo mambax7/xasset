@@ -1,6 +1,6 @@
 <?php
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 require_once __DIR__ . '/header.php';
 //require_once('class/crypt.php');
@@ -100,8 +100,8 @@ function addToCart($itemID, $key, $qty = 1, $forceUser = null)
         return 0;
         //redirect_header('../../user.php',3,'Please login or register first to access your shopping cart.');
     }
-    $hOrder   = new xasset\OrderHandler($GLOBALS['xoopsDB']);
-    $hAppProd = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+    $hOrder   = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
+    $hAppProd = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
     //
     $appProdTmp = $hAppProd->create();
     //check id and key first
@@ -129,13 +129,13 @@ function addToCart($itemID, $key, $qty = 1, $forceUser = null)
     } else {
         //order record doesn't exist.. first item added to cart.
         //check if this user has a UserDetail record.
-        $hUserDetail = new xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
+        $hUserDetail = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
         //
         if ($userDetail = $hUserDetail->getUserDetailByID($xoopsUser->uid())) {
             if (isset($_SESSION['currency_id']) && ($_SESSION['currency_id'] > 0)) {
                 $currid = $_SESSION['currency_id'];
             } else {
-                $hConfig = new xasset\ConfigHandler($GLOBALS['xoopsDB']);
+                $hConfig = new Xasset\ConfigHandler($GLOBALS['xoopsDB']);
                 $currid  = $hConfig->GetBaseCurrency();
                 //
                 if (!$currid > 0) {
@@ -186,7 +186,7 @@ function askUserDetails($userDetails = null)
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_order_index.tpl';
     require_once XOOPS_ROOT_PATH . '/header.php';
     //
-    $hCountry = new xasset\CountryHandler($GLOBALS['xoopsDB']);
+    $hCountry = new Xasset\CountryHandler($GLOBALS['xoopsDB']);
     //
     $countriesSelect = $hCountry->getCountriesSelect();
     if (count($countriesSelect) > 0) {
@@ -267,8 +267,8 @@ function showUserDetails($userDetails = null)
         redirect_header(XOOPS_URL . '/user.php', 3, 'Not Logged In.');
     }
     //
-    $hCustDet = new xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
-    $hCount   = new xasset\CountryHandler($GLOBALS['xoopsDB']);
+    $hCustDet = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
+    $hCount   = new Xasset\CountryHandler($GLOBALS['xoopsDB']);
     //
     if (isset($userDetails)) {
         $cust = $userDetails;
@@ -330,11 +330,11 @@ function addCustomer($post)
 {
     global $xoopsOption, $xoopsTpl, $xoopsConfig, $xoopsUser, $xoopsLogger, $xoopsUserIsAdmin, $xasset_module_header;
     //
-    $hCust    = new xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
-    $hZone    = new xasset\ZoneHandler($GLOBALS['xoopsDB']);
-    $hCountry = new xasset\CountryHandler($GLOBALS['xoopsDB']);
-    $hCommon  = new xasset\CommonHandler($GLOBALS['xoopsDB']);
-    $hNotify  = new xasset\NotificationServiceHandler($GLOBALS['xoopsDB']);
+    $hCust    = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
+    $hZone    = new Xasset\ZoneHandler($GLOBALS['xoopsDB']);
+    $hCountry = new Xasset\CountryHandler($GLOBALS['xoopsDB']);
+    $hCommon  = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
+    $hNotify  = new Xasset\NotificationServiceHandler($GLOBALS['xoopsDB']);
     //
     if (isset($post['id']) && ($post['id'] > 0)) {
         $cust = $hCust->get($post['id']);
@@ -437,7 +437,7 @@ function showCart()
 {
     global $xoopsOption, $xoopsTpl, $xoopsConfig, $xoopsUser, $xoopsLogger, $xoopsUserIsAdmin, $xasset_module_header;
     //
-    $hOrder = new xasset\OrderHandler($GLOBALS['xoopsDB']);
+    $hOrder = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
     //get the order id from session
     if (isset($_SESSION['orderID']) && ($_SESSION['orderID'] > 0)) {
         $GLOBALS['xoopsOption']['template_main'] = 'xasset_order_index.tpl';
@@ -485,7 +485,7 @@ function showCart()
  */
 function removeOrderItem($id)
 {
-    $hODetail = new xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
+    $hODetail = new Xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
     //
     if ($hODetail->deleteByID($id, true)) {
         redirect_header('order.php?op=showCart', 2, 'Order Item Deleted.');
@@ -500,7 +500,7 @@ function removeOrderItem($id)
  */
 function updateOrderQuantities($post)
 {
-    $hODetail = new xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
+    $hODetail = new Xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
     //
     if (count($post['qty']) > 0) {
         foreach ($post['qty'] as $key => $value) {
@@ -521,8 +521,8 @@ function choosePayment()
     global $xoopsOption, $xoopsTpl, $xoopsConfig, $xoopsUser, $xoopsLogger, $xoopsUserIsAdmin, $xasset_module_header;
     //get the order id from session
     if (isset($_SESSION['orderID']) && ($_SESSION['orderID'] > 0)) {
-        $hOrder   = new xasset\OrderHandler($GLOBALS['xoopsDB']);
-        $hGateway = new xasset\GatewayHandler($GLOBALS['xoopsDB']);
+        $hOrder   = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
+        $hGateway = new Xasset\GatewayHandler($GLOBALS['xoopsDB']);
         //
         if ($order = $hOrder->get($_SESSION['orderID'])) {
             $installed = $hGateway->getInstalledGatewayWithDescArray();
@@ -574,10 +574,10 @@ function choosePayment()
  */
 function processPayment($post)
 { //print_r($post);
-    $hGateway = new xasset\GatewayHandler($GLOBALS['xoopsDB']);
-    $hOrder   = new xasset\OrderHandler($GLOBALS['xoopsDB']);
-    $hCommon  = new xasset\CommonHandler($GLOBALS['xoopsDB']);
-    $hNotify  = new xasset\NotificationServiceHandler($GLOBALS['xoopsDB']);
+    $hGateway = new Xasset\GatewayHandler($GLOBALS['xoopsDB']);
+    $hOrder   = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
+    $hCommon  = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
+    $hNotify  = new Xasset\NotificationServiceHandler($GLOBALS['xoopsDB']);
     //save gatewayid in order index for return
     $value = $post['gateway'];
     if (isset($_SESSION['orderID']) && ($_SESSION['orderID'] > -1)) {
@@ -614,8 +614,8 @@ function processOptionForm($gatewayID)
 {
     global $xoopsOption, $xoopsTpl, $xoopsConfig, $xoopsUser, $xoopsLogger, $xoopsUserIsAdmin, $xasset_module_header;
     //
-    $hGateway = new xasset\GatewayHandler($GLOBALS['xoopsDB']);
-    $hOrder   = new xasset\OrderHandler($GLOBALS['xoopsDB']);
+    $hGateway = new Xasset\GatewayHandler($GLOBALS['xoopsDB']);
+    $hOrder   = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
     //
     $gateway = $hGateway->getGatewayModuleByID($gatewayID);
     //
@@ -637,7 +637,7 @@ function processOptionForm($gatewayID)
  */
 function postOptionForm($post)
 {
-    $hGateway = new xasset\GatewayHandler($GLOBALS['xoopsDB']);
+    $hGateway = new Xasset\GatewayHandler($GLOBALS['xoopsDB']);
     //
     $oGateway = $hGateway->getGatewayModuleByID($_SESSION['gatewayID']);
     $errors   = '';

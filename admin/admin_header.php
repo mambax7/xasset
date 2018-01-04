@@ -17,7 +17,7 @@
  * @author       XOOPS Development Team
  */
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 $path = dirname(dirname(dirname(__DIR__)));
 require_once $path . '/include/cp_header.php';
@@ -25,8 +25,8 @@ require_once $path . '/include/cp_header.php';
 include __DIR__ . '/../preloads/autoloader.php';
 
 $moduleDirName = basename(dirname(__DIR__));
-/** @var xasset\Helper $helper */
-$helper = xasset\Helper::getInstance();
+/** @var Xasset\Helper $helper */
+$helper = Xasset\Helper::getInstance();
 $adminObject = \Xmf\Module\Admin::getInstance();
 
 $pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);

@@ -1,7 +1,7 @@
-<?php namespace Xoopsmodules\xasset\gateways;
+<?php namespace XoopsModules\Xasset\gateways;
 
-use Xoopsmodules\xasset;
-use Xoopsmodules\xasset\gateways;
+use XoopsModules\Xasset;
+use XoopsModules\Xasset\gateways;
 
 /**
  * Class bill
@@ -100,8 +100,8 @@ class Bill extends gateways\BaseGateway
     public function processReturn($oOrder, $post, &$error = null)
     {
         parent::processReturn($oOrder, $post);
-        $hCommon = new xasset\CommonHandler($GLOBALS['xoopsDB']);
-        $hOrder  = new xasset\OrderHandler($GLOBALS['xoopsDB']);
+        $hCommon = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
+        $hOrder  = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
         //
         $oOrder->setVar('trans_id', time());
         $oOrder->setVar('status', $oOrder->orderStatusValidate());

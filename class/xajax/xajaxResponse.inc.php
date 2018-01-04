@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\xasset\xajax;
+<?php namespace XoopsModules\Xasset\xajax;
 /**
  * xajaxResponse.inc.php :: xajax XML response class
  *

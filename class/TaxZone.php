@@ -1,11 +1,11 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * class TaxZone
  */
-class TaxZone extends xasset\BaseObject
+class TaxZone extends Xasset\BaseObject
 {
     /**
      * @param null $id

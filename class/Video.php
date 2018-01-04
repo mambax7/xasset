@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 //require_once __DIR__ . '/video/video.php';
 
 /**
  * Class Video
  */
-class Video extends xasset\BaseObject
+class Video extends Xasset\BaseObject
 {
     /**
      * @param $file
@@ -14,7 +14,7 @@ class Video extends xasset\BaseObject
      */
     public function streamVideo($file, $position)
     {
-        $hCommon = new xasset\CommonHandler($GLOBALS['xoopsDB']);
+        $hCommon = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
         //
         $bandwidth = $hCommon->getModuleOption('bandwidth');
         //

@@ -1,13 +1,13 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * Class Application
  */
-class Application extends xasset\BaseObject
+class Application extends Xasset\BaseObject
 {
     /**
      * @var int
@@ -139,7 +139,7 @@ class Application extends xasset\BaseObject
         }
         //
         if ($this->requiresLicense) {
-            $hLicense = new xasset\LicenseHandler($GLOBALS['xoopsDB']);
+            $hLicense = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
             //
             $crit = new \CriteriaCompo();
             $crit->add(new \Criteria('applicationid', $id));
@@ -167,7 +167,7 @@ class Application extends xasset\BaseObject
             return $arr;
         }
         //
-        $hpackGroups = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
+        $hpackGroups = new Xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
         //
         $crit = new \CriteriaCompo(new \Criteria('applicationid', $id));
         $crit->setSort('datePublished');
@@ -201,7 +201,7 @@ class Application extends xasset\BaseObject
      */
     public function getKey()
     {
-        $crypt = new xasset\Crypt();
+        $crypt = new Xasset\Crypt();
 
         return $crypt->cryptValue($this->getVar('id'), $this->weight);
     }

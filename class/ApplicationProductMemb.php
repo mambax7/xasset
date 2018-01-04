@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * Class ApplicationProductMemb
  */
-class ApplicationProductMemb extends xasset\BaseObject
+class ApplicationProductMemb extends Xasset\BaseObject
 {
     public $weight;
 
@@ -94,7 +94,7 @@ class ApplicationProductMemb extends xasset\BaseObject
      */
     public function &getOrderDetails()
     {
-        $hOrderDetail = new xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
+        $hOrderDetail = new Xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
 
         return $hOrderDetail->get($this->getVar('order_detail_id'));
     }

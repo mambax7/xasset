@@ -1,11 +1,11 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * Class ApplicationGroup
  */
-class ApplicationGroup extends xasset\BaseObject
+class ApplicationGroup extends Xasset\BaseObject
 {
     public $weight;
 

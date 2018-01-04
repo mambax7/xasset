@@ -1,6 +1,6 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * class Country
@@ -33,7 +33,7 @@ class Country extends \XoopsObject
      */
     public function hasZones()
     {
-        $hZones = new xasset\ZoneHandler($GLOBALS['xoopsDB']);
+        $hZones = new Xasset\ZoneHandler($GLOBALS['xoopsDB']);
         //
         $crit   = new \Criteria('country_id', $this->getVar('id'));
         $objCnt = $hZones->getCount($crit);
@@ -49,7 +49,7 @@ class Country extends \XoopsObject
      */
     public function &getZones()
     {
-        $hZones = new xasset\ZoneHandler($GLOBALS['xoopsDB']);
+        $hZones = new Xasset\ZoneHandler($GLOBALS['xoopsDB']);
         //
         $crit = new \Criteria('country_id', $this->getVar('id'));
 
@@ -63,7 +63,7 @@ class Country extends \XoopsObject
      */
     public function &getZonesSelect()
     {
-        $hZones = new xasset\ZoneHandler($GLOBALS['xoopsDB']);
+        $hZones = new Xasset\ZoneHandler($GLOBALS['xoopsDB']);
 
         //
         return $hZones->getZonesByCountry($this->getVar('id'), false);

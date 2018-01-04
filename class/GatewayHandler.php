@@ -1,13 +1,13 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
-use Xoopsmodules\xasset\gateways;
+use XoopsModules\Xasset;
+use XoopsModules\Xasset\gateways;
 
 
 /**
  * class GatewayHandler
  */
-class GatewayHandler extends xasset\BaseObjectHandler
+class GatewayHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -29,7 +29,7 @@ class GatewayHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\GatewayHandler
+     * @return Xasset\GatewayHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {
@@ -225,7 +225,7 @@ class GatewayHandler extends xasset\BaseObjectHandler
             require_once $directory_array[$i]['fullPath'];
             //get class name based on file
             $className  = substr($file, 0, strrpos($file, '.'));
-            $class = '\\Xoopsmodules\\xasset\\gateways\\' . $className;
+            $class = '\\XoopsModules\\Xasset\\gateways\\' . $className;
             $module = new $class;
             //check if this class is a subclass of BaseGateway
             if (is_subclass_of($module, BaseGateway::class) && ($xoopsModule->getVar('version') == $module->version())) {

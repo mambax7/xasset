@@ -1,11 +1,11 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * class Gateway
  */
-class Gateway extends xasset\BaseObject
+class Gateway extends Xasset\BaseObject
 {
     /**
      * @param null $id
@@ -32,7 +32,7 @@ class Gateway extends xasset\BaseObject
      */
     public function getDetails()
     {
-        $hgDetail = new xasset\GatewayDetailHandler($GLOBALS['xoopsDB']);
+        $hgDetail = new Xasset\GatewayDetailHandler($GLOBALS['xoopsDB']);
 
         return $hgDetail->getByIndex($this->getVar('id'));
     }
@@ -44,7 +44,7 @@ class Gateway extends xasset\BaseObject
      */
     public function getDetailArray()
     {
-        $hgDetail = new xasset\GatewayDetailHandler($GLOBALS['xoopsDB']);
+        $hgDetail = new Xasset\GatewayDetailHandler($GLOBALS['xoopsDB']);
 
         return $hgDetail->getConfigArrayByIndex($this->getVar('id'));
     }
@@ -59,7 +59,7 @@ class Gateway extends xasset\BaseObject
      */
     public function saveConfigValue($key, $value)
     {
-        $hGDetail = new xasset\GatewayDetailHandler($GLOBALS['xoopsDB']);
+        $hGDetail = new Xasset\GatewayDetailHandler($GLOBALS['xoopsDB']);
 
         return $hGDetail->saveConfigValue($this->getVar('id'), $key, $value);
     }
@@ -71,7 +71,7 @@ class Gateway extends xasset\BaseObject
      */
     public function toggleBinaryValues($values)
     {
-        $hGDetail = new xasset\GatewayDetailHandler($GLOBALS['xoopsDB']);
+        $hGDetail = new Xasset\GatewayDetailHandler($GLOBALS['xoopsDB']);
         //
         $aDetail = $hGDetail->getBinaryConfigArrayByIndex($this->getVar('id'));
         //should have an array of binary fields... check if these exist in the post values array

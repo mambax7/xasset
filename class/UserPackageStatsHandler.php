@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * class UserPackageStatsHandler
  */
-class UserPackageStatsHandler extends xasset\BaseObjectHandler
+class UserPackageStatsHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -179,12 +179,12 @@ class UserPackageStatsHandler extends xasset\BaseObjectHandler
      */
     public function getTopDownloads($count = 10)
     {
-        $hStats    = new xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
-        $hPackage  = new xasset\PackageHandler($GLOBALS['xoopsDB']);
-        $hPacGroup = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
-        $hAppProd  = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
-        $hApp      = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
-        $hCommon   = new xasset\CommonHandler($GLOBALS['xoopsDB']);
+        $hStats    = new Xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
+        $hPackage  = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
+        $hPacGroup = new Xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
+        $hAppProd  = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+        $hApp      = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+        $hCommon   = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
         //
         $statsTable     = $this->_db->prefix($hStats->_dbtable);
         $packageTable   = $this->_db->prefix($hPackage->_dbtable);
@@ -224,7 +224,7 @@ class UserPackageStatsHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\UserPackageStatsHandler
+     * @return Xasset\UserPackageStatsHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {

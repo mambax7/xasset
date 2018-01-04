@@ -1,10 +1,10 @@
 <?php
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 require_once __DIR__ . '/../class/Helper.php';
 //require_once __DIR__ . '/../include/common.php';
-$helper = xasset\Helper::getInstance();
+$helper = Xasset\Helper::getInstance();
 
 $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
 $pathModIcon32 = $helper->getModule()->getInfo('modicons32');

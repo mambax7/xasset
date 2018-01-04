@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * class GatewayLogHandler
  */
-class GatewayLogHandler extends xasset\BaseObjectHandler
+class GatewayLogHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -28,7 +28,7 @@ class GatewayLogHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\GatewayLogHandler
+     * @return Xasset\GatewayLogHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {
@@ -100,8 +100,8 @@ class GatewayLogHandler extends xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        $hGateway = new xasset\GatewayHandler($GLOBALS['xoopsDB']);
-        $hOrder   = new xasset\OrderHandler($GLOBALS['xoopsDB']);
+        $hGateway = new Xasset\GatewayHandler($GLOBALS['xoopsDB']);
+        $hOrder   = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
         //tables
         $thisTable = $this->_db->prefix($this->_dbtable);
         $gtTable   = $this->_db->prefix($hGateway->_dbtable);

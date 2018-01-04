@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * Class ApplicationProductHandler
  */
-class ApplicationProductHandler extends xasset\BaseObjectHandler
+class ApplicationProductHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -75,9 +75,9 @@ class ApplicationProductHandler extends xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        $hApp      = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
-        $hClass    = new xasset\TaxClassHandler($GLOBALS['xoopsDB']);
-        $hCurrency = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+        $hApp      = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+        $hClass    = new Xasset\TaxClassHandler($GLOBALS['xoopsDB']);
+        $hCurrency = new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
         //
         $thisTable  = $this->_db->prefix($this->_dbtable);
         $classTable = $this->_db->prefix($hClass->_dbtable);
@@ -102,9 +102,9 @@ class ApplicationProductHandler extends xasset\BaseObjectHandler
         //
         if ($res = $this->_db->query($sql)) {
             $i        = 0;
-            $hPackage = new xasset\PackageHandler($GLOBALS['xoopsDB']);
+            $hPackage = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
             //
-            $crypt = new xasset\Crypt();
+            $crypt = new Xasset\Crypt();
             $obj   = $this->create();
             //
             while ($row = $this->_db->fetcharray($res)) {
@@ -248,7 +248,7 @@ class ApplicationProductHandler extends xasset\BaseObjectHandler
     public function &getApplicationProductObjectsByOrderDetail($crit)
     {
         //first get prod_ids
-        $hOrderDetail = new xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
+        $hOrderDetail = new Xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
         $aDetails     = $hOrderDetail->getObjects($crit);
         $crit         = new \CriteriaCompo();
         //

@@ -1,6 +1,6 @@
 <?php
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 ///////////////////////////////////////////////////
 /**
@@ -39,7 +39,7 @@ function getGroupClients()
 {
     global $xoopsOption;
     //
-    $hConfig = new xasset\ConfigHandler($GLOBALS['xoopsDB']);
+    $hConfig = new Xasset\ConfigHandler($GLOBALS['xoopsDB']);
     $gid     = $hConfig->getGroup();
     //
     $hMember = xoops_getHandler('member');
@@ -93,7 +93,7 @@ function keyMatches($id, $key, $weight, $error)
 {
     global $xoopsOption, $xoopsTpl, $xoopsConfig, $xoopsUser, $xoopsLogger, $xoopsUserIsAdmin, $xasset_module_header;
     //
-    $crypt = new xasset\Crypt();
+    $crypt = new Xasset\Crypt();
     //
     if ($crypt->keyMatches($id + $weight, $key)) {
         return true;
@@ -116,7 +116,7 @@ function keyMatches($id, $key, $weight, $error)
  */
 function getKey($id, $weight)
 {
-    $crypt = new xasset\Crypt();
+    $crypt = new Xasset\Crypt();
 
     return $crypt->cryptValue($id, $weight);
 }
@@ -127,7 +127,7 @@ function getKey($id, $weight)
  */
 function insertHeaderCountriesJavaScript()
 {
-    $hCommon = new xasset\CommonHandler($GLOBALS['xoopsDB']);
+    $hCommon = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
 
     return $hCommon->insertHeaderCountriesJavaScript();
 }
@@ -138,7 +138,7 @@ function insertHeaderCountriesJavaScript()
  */
 function insertHeaderCountriesJavaScriptNoAllZones()
 {
-    $hCommon = new xasset\CommonHandler($GLOBALS['xoopsDB']);
+    $hCommon = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
 
     return $hCommon->insertHeaderCountriesJavaScriptNoAllZones();
 }

@@ -1,11 +1,11 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * class UserDetails
  */
-class UserDetails extends xasset\BaseObject
+class UserDetails extends Xasset\BaseObject
 {
     /**
      * @param null $id
@@ -47,7 +47,7 @@ class UserDetails extends xasset\BaseObject
      */
     public function &getZone()
     {
-        $zone = new xasset\ZoneHandler($GLOBALS['xoopsDB']);
+        $zone = new Xasset\ZoneHandler($GLOBALS['xoopsDB']);
 
         return $zone->get($this->getVar('zone_id'));
     }
@@ -127,7 +127,7 @@ class UserDetails extends xasset\BaseObject
      */
     public function addCredits($credits = 0)
     {
-        $handler = new xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
+        $handler = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
         //
         $this->setVar('credits', $this->getVar('credits') + $credits);
         $handler->insert($this, true);
@@ -161,7 +161,7 @@ class UserDetails extends xasset\BaseObject
      */
     public function &getUserDownloads()
     {
-        $hOrder = new xasset\OrderHandler($GLOBALS['xoopsDB']);
+        $hOrder = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
 
         //
         return $hOrder->getUserDownloads($this->ID());
@@ -177,8 +177,8 @@ class UserDetails extends xasset\BaseObject
      */
     public function canDownloadPackage($pPackageID, &$pError)
     {
-        $hPackStats = new xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
-        $hThis      = new xasset\OrderHandler($GLOBALS['xoopsDB']);
+        $hPackStats = new Xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
+        $hThis      = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
         //
         $result    = false;
         $aPackages = $hThis->getUserDownloads($this->ID());

@@ -1,13 +1,13 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
 
-use Xoopsmodules\xasset;
-use Xoopsmodules\xasset\xajax;
+use XoopsModules\Xasset;
+use XoopsModules\Xasset\xajax;
 
 /**
  * Class Ajax
  */
-class Ajax extends \Xoopsmodules\xasset\xajax\xajax
+class Ajax extends \XoopsModules\Xasset\xajax\xajax
 {
     public function xprojectajax()
     {

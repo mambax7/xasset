@@ -1,13 +1,13 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 
 /**
  * class PackageGroupHandler
  */
-class PackageGroupHandler extends xasset\BaseObjectHandler
+class PackageGroupHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -39,7 +39,7 @@ class PackageGroupHandler extends xasset\BaseObjectHandler
         }
         //
         $objs  = $this->getObjects($criteria, true);
-        $crypt = new xasset\Crypt();
+        $crypt = new Xasset\Crypt();
         $ar    = [];
         //
         $i = 0;
@@ -109,7 +109,7 @@ class PackageGroupHandler extends xasset\BaseObjectHandler
         //$crit = new \CriteriaCompo(new \Criteria('applicationid', $appid));
         //$crit->setSort('name');
         //
-        $hPack = new xasset\PackageHandler($GLOBALS['xoopsDB']);
+        $hPack = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
         //
         $objs = $this->getPackageGroupArray($crit);
         //
@@ -204,7 +204,7 @@ class PackageGroupHandler extends xasset\BaseObjectHandler
             $crit->setSort('id');
         }
         //
-        $hPack = new xasset\PackageHandler($GLOBALS['xoopsDB']);
+        $hPack = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
         //
         $objs = $this->getObjects($crit);
         $ary  = [];
@@ -227,7 +227,7 @@ class PackageGroupHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\PackageGroupHandler
+     * @return Xasset\PackageGroupHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {

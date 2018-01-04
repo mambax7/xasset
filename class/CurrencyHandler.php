@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * class CurrencyHandler
  */
-class CurrencyHandler extends xasset\BaseObjectHandler
+class CurrencyHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -28,7 +28,7 @@ class CurrencyHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\CurrencyHandler
+     * @return Xasset\CurrencyHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {
@@ -130,7 +130,7 @@ class CurrencyHandler extends xasset\BaseObjectHandler
     public function deleteClass($id)
     {
         //first delete all rates with this class
-        $hRate = new xasset\TaxRateHandler($GLOBALS['xoopsDB']);
+        $hRate = new Xasset\TaxRateHandler($GLOBALS['xoopsDB']);
         if ($hRate->deleteByClass($id, true)) {
             //delete class itself
             return $this->deleteByID($id, true);

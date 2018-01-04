@@ -1,11 +1,11 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * class Region
  */
-class Region extends xasset\BaseObject
+class Region extends Xasset\BaseObject
 {
     /**
      * @param null $id

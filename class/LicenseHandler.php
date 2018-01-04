@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * class LicenseHandler
  */
-class LicenseHandler extends xasset\BaseObjectHandler
+class LicenseHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -34,8 +34,8 @@ class LicenseHandler extends xasset\BaseObjectHandler
     public function userIsLicensed($uid, $packid)
     {
         //we have a package id.. find the appid
-        $hPack = new xasset\PackageHandler($GLOBALS['xoopsDB']);
-        $hGrp  = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
+        $hPack = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
+        $hGrp  = new Xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
         //
         $packTable = $this->_db->prefix($hPack->_dbtable);
         $grpTable  = $this->_db->prefix($hGrp->_dbtable);
@@ -49,7 +49,7 @@ class LicenseHandler extends xasset\BaseObjectHandler
             if ($row = $this->_db->fetcharray($res)) {
                 $appid = $row['applicationid'];
                 //now get a valid license
-                $hLic     = new xasset\LicenseHandler($GLOBALS['xoopsDB']);
+                $hLic     = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
                 $licTable = $this->_db->prefix($hLic->_dbtable);
                 //
                 $sql = "select count(*) cnt from $licTable
@@ -122,8 +122,8 @@ class LicenseHandler extends xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        $hLic = new xasset\LicenseHandler($GLOBALS['xoopsDB']);
-        $hApp = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+        $hLic = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+        $hApp = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
         //
         $appTable = $this->_db->prefix($hApp->_dbtable);
         $licTable = $this->_db->prefix($hLic->_dbtable);
@@ -202,8 +202,8 @@ class LicenseHandler extends xasset\BaseObjectHandler
      */
     public function getEvalApplicationsArray($uid)
     {
-        $hApp  = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
-        $crypt = new xasset\Crypt();
+        $hApp  = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+        $crypt = new Xasset\Crypt();
         //
         $appTable = $this->_db->prefix('xasset_application');
         $licTable = $this->_db->prefix($this->_dbtable);
@@ -259,8 +259,8 @@ class LicenseHandler extends xasset\BaseObjectHandler
      */
     public function getApplicationArray($crit)
     {
-        $hApp  = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
-        $crypt = new xasset\Crypt();
+        $hApp  = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+        $crypt = new Xasset\Crypt();
         //
         $appTable = $this->_db->prefix('xasset_application');
         $licTable = $this->_db->prefix($this->_dbtable);
@@ -362,7 +362,7 @@ class LicenseHandler extends xasset\BaseObjectHandler
         $lics = $this->getObjects($crit);
         $ar   = [];
         //
-        $crypt = new xasset\Crypt();
+        $crypt = new Xasset\Crypt();
         //
         foreach ($lics as $lic) {
             $actions = '<a href="main.php?op=editClientLicense&id=' . $lic->getVar('id') . '">' . $imagearray['editimg'] . '</a>' . '<a href="main.php?op=deleteClientLicense&id=' . $lic->getVar('id') . '">' . $imagearray['deleteimg'] . '</a>';
@@ -396,7 +396,7 @@ class LicenseHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\LicenseHandler
+     * @return Xasset\LicenseHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {

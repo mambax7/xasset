@@ -1,11 +1,11 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * class Currency
  */
-class Currency extends xasset\BaseObject
+class Currency extends Xasset\BaseObject
 {
     /**
      * @param null $id

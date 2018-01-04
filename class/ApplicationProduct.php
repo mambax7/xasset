@@ -1,11 +1,11 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * Class ApplicationProduct
  */
-class ApplicationProduct extends xasset\BaseObject
+class ApplicationProduct extends Xasset\BaseObject
 {
     public $weight;
 
@@ -147,7 +147,7 @@ class ApplicationProduct extends xasset\BaseObject
      */
     public function getKey()
     {
-        $crypt = new xasset\Crypt();
+        $crypt = new Xasset\Crypt();
 
         return $crypt->cryptValue($this->getVar('id'), $this->weight);
     }
@@ -161,7 +161,7 @@ class ApplicationProduct extends xasset\BaseObject
      */
     public function getPrice($format = 's')
     {
-        $hCurrency = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+        $hCurrency = new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
         //have two currency choices.. either the chosen currency in $_SESSION or the base currency;
         $curID   = isset($_SESSION['currency_id']) ? $_SESSION['currency_id'] : $this->getVar('base_currency_id');
         $oCur    = $hCurrency->get($curID);
@@ -229,8 +229,8 @@ class ApplicationProduct extends xasset\BaseObject
     {
         global $xoopsUser;
         //
-        $hCommon  = new xasset\CommonHandler($GLOBALS['xoopsDB']);
-        $hPackage = new xasset\PackageHandler($GLOBALS['xoopsDB']);
+        $hCommon  = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
+        $hPackage = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
         //
         if (!isset($movie_id)) {
             //get first sample video from packages

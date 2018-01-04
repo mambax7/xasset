@@ -4,7 +4,7 @@
 //require XOOPS_ROOT_PATH."/header.php";
 //require_once __DIR__ . '/include/info.php';
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 require_once __DIR__ . '/preloads/autoloader.php';
 
@@ -83,10 +83,10 @@ $modversion['helpsection'] = [
 
 global $xoopsUser;
 //
-$hApps        = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);// xoops_getModuleHandler('application', 'xasset');
-$hUserDetails = new xasset\UserDetailsHandler($GLOBALS['xoopsDB']);//new xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
-$hOrder       = new xasset\OrderHandler($GLOBALS['xoopsDB']);//new xasset\OrderHandler($GLOBALS['xoopsDB']);
-$hMembers     = new xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);//new xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);
+$hApps        = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);// xoops_getModuleHandler('application', 'xasset');
+$hUserDetails = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);//new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
+$hOrder       = new Xasset\OrderHandler($GLOBALS['xoopsDB']);//new Xasset\OrderHandler($GLOBALS['xoopsDB']);
+$hMembers     = new Xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);//new Xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);
 
 $oApps = $hApps->getApplicationMainMenuObjects();
 $i     = 1;

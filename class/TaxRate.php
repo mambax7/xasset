@@ -1,11 +1,11 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * class TaxRate
  */
-class TaxRate extends xasset\BaseObject
+class TaxRate extends Xasset\BaseObject
 {
     /**
      * @param null $id
@@ -35,7 +35,7 @@ class TaxRate extends xasset\BaseObject
      */
     public function &getZone()
     {
-        $zone = new xasset\ZoneHandler($GLOBALS['xoopsDB']);
+        $zone = new Xasset\ZoneHandler($GLOBALS['xoopsDB']);
 
         return $zone->get($this->getVar('zoneid'));
     }
@@ -47,7 +47,7 @@ class TaxRate extends xasset\BaseObject
      */
     public function &getTaxClass()
     {
-        $class = new xasset\TaxClassHandler($GLOBALS['xoopsDB']);
+        $class = new Xasset\TaxClassHandler($GLOBALS['xoopsDB']);
 
         return $class->get($this->getVar('taxclassid', 'xasset'));
     }

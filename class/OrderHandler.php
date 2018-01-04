@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * class OrderHandler
  */
-class OrderHandler extends xasset\BaseObjectHandler
+class OrderHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -29,7 +29,7 @@ class OrderHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\OrderHandler
+     * @return Xasset\OrderHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {
@@ -89,14 +89,14 @@ class OrderHandler extends xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        $hOrderDetail = new xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
-        $hAppProduct  = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
-        $hPackGroup   = new xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
-        $hPackage     = new xasset\PackageHandler($GLOBALS['xoopsDB']);
-        $hUserStats   = new xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
+        $hOrderDetail = new Xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
+        $hAppProduct  = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+        $hPackGroup   = new Xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
+        $hPackage     = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
+        $hUserStats   = new Xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
         $hOrder       = $this;
         //
-        $crypt = new xasset\Crypt();
+        $crypt = new Xasset\Crypt();
         //
         $tableOrderDetail = $this->_db->prefix($hOrderDetail->_dbtable);
         $tableAppProduct  = $this->_db->prefix($hAppProduct->_dbtable);
@@ -170,8 +170,8 @@ class OrderHandler extends xasset\BaseObjectHandler
             $crit->setSort('id');
         }
         //
-        $hClient   = new xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
-        $hCurrency = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+        $hClient   = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
+        $hCurrency = new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
         //
         $thisTable   = $this->_db->prefix($this->_dbtable);
         $clientTable = $this->_db->prefix($hClient->_dbtable);
@@ -236,7 +236,7 @@ class OrderHandler extends xasset\BaseObjectHandler
     public function delete(\XoopsObject $orderID, $force = false)
     {
         //delete items first
-        $hOrderDetail = new xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
+        $hOrderDetail = new Xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
         $hOrderDetail->deleteByOrder($orderID);
         //
         parent::deleteByID($orderID);

@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
 
 /**
@@ -205,8 +205,8 @@ class NotificationServiceHandler extends \XoopsObjectHandler
      */
     public function &_getSiteAdminEmails()
     {
-        $hCommon = new xasset\CommonHandler($GLOBALS['xoopsDB']);
-        $hConfig = new xasset\ConfigHandler($GLOBALS['xoopsDB']);
+        $hCommon = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
+        $hConfig = new Xasset\ConfigHandler($GLOBALS['xoopsDB']);
 
         //
         return $hCommon->getGroupEmails($hConfig->getEmailGroup());
@@ -296,7 +296,7 @@ class NotificationServiceHandler extends \XoopsObjectHandler
      */
     public function new_user($args)
     {
-        $hCommon = new xasset\CommonHandler($GLOBALS['xoopsDB']);
+        $hCommon = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
         //
         list($oUsr, $password) = $args;
         //
@@ -320,7 +320,7 @@ class NotificationServiceHandler extends \XoopsObjectHandler
      */
     public function expire_warning($args)
     {
-        $hUserDetail = new xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
+        $hUserDetail = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
         $hUser       = xoops_getHandler('user');
         //
         $oMember      = $args;
@@ -347,8 +347,8 @@ class NotificationServiceHandler extends \XoopsObjectHandler
      */
     public function expire_account($args)
     {
-        $hMembers    = new xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);
-        $hUserDetail = new xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
+        $hMembers    = new Xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);
+        $hUserDetail = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
         $hUser       = xoops_getHandler('user');
         //
         $aMember = $args;

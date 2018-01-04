@@ -1,11 +1,11 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * class OrderDetail
  */
-class OrderDetail extends xasset\BaseObject
+class OrderDetail extends Xasset\BaseObject
 {
     /**
      * @param null $id
@@ -43,7 +43,7 @@ class OrderDetail extends xasset\BaseObject
      */
     public function &getOrderIndex()
     {
-        $idx = new xasset\OrderHandler($GLOBALS['xoopsDB']);
+        $idx = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
 
         return $idx->get($this->getVar('order_index_id'));
     }
@@ -55,7 +55,7 @@ class OrderDetail extends xasset\BaseObject
      */
     public function &getAppProduct()
     {
-        $hProd = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+        $hProd = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
 
         return $hProd->get($this->getVar('app_prod_id'));
     }

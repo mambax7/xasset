@@ -1,6 +1,6 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * class UserPackageStats
@@ -51,7 +51,7 @@ class UserPackageStats extends \XoopsObject
      */
     public function getPackage()
     {
-        $hDept = new xasset\PackageHandler($GLOBALS['xoopsDB']);
+        $hDept = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
 
         return $hDept->get($this->getVar('packageid'));
     }

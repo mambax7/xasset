@@ -1,8 +1,8 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
 use Xmf\Request;
-use Xoopsmodules\xasset;
-use Xoopsmodules\xasset\common;
+use XoopsModules\Xasset;
+use XoopsModules\Xasset\Common;
 
 /**
  * Class Utility

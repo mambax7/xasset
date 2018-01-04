@@ -17,7 +17,7 @@
  * @author       XOOPS Development Team
  */
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 require_once __DIR__ . '/../../../include/cp_header.php';
 require_once __DIR__ . '/admin_header.php';
@@ -30,11 +30,11 @@ $adminObject = \Xmf\Module\Admin::getInstance();
 
 global $xoopsTpl;
 //
-$hApp   = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
-$hLic   = new xasset\LicenseHandler($GLOBALS['xoopsDB']);
-$hPack  = new xasset\PackageHandler($GLOBALS['xoopsDB']);
-$hStat  = new xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
-$hLinks = new xasset\LinkHandler($GLOBALS['xoopsDB']);
+$hApp   = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+$hLic   = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+$hPack  = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
+$hStat  = new Xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
+$hLinks = new Xasset\LinkHandler($GLOBALS['xoopsDB']);
 //
 $applicationsCount = $hApp->getAllApplicationsCount();
 $licensesCount     = $hLic->getAllLicensesCount();

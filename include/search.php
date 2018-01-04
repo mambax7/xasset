@@ -11,9 +11,9 @@
  */
 function xasset_search($queryarray, $andor, $limit, $offset, $userid)
 {
-    $hApp     = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
-    $hAppProd = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
-    $hCommon  = new xasset\CommonHandler($GLOBALS['xoopsDB']);
+    $hApp     = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+    $hAppProd = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+    $hCommon  = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
     //
     $aApps  = $hApp->seachApplication($queryarray, $andor, $limit, $offset, $userid);
     $aProds = $hAppProd->searchApplicationProduct($queryarray, $andor, $limit, $offset, $userid);

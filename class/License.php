@@ -1,11 +1,11 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * class License
  */
-class License extends xasset\BaseObject
+class License extends Xasset\BaseObject
 {
     public $weight;
 
@@ -74,7 +74,7 @@ class License extends xasset\BaseObject
      */
     public function &getApplication()
     {
-        $hApp = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+        $hApp = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
 
         return $hApp->get($this->getVar('applicationid'));
     }

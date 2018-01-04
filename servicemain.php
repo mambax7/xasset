@@ -1,6 +1,6 @@
 <?php
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 //Include XOOPS Global Includes
 error_reporting(0); //THIS SHOULD ALWAYS BE SET TO 0 OTHERWISE PAYPAL GET BROKEN

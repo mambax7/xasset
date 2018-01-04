@@ -1,6 +1,6 @@
 <?php
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 require_once __DIR__ . '/../../../mainfile.php';
 
@@ -14,8 +14,8 @@ function onSampleClick($packageID, $packageKey)
 {
     global $xoopsUser;
     //
-    $hPackage = new xasset\PackageHandler($GLOBALS['xoopsDB']);
-    $hCommon  = new xasset\CommonHandler($GLOBALS['xoopsDB']);
+    $hPackage = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
+    $hCommon  = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
     //
     $objResponse = new \XajaxResponse();
     //
@@ -32,7 +32,7 @@ function onSampleClick($packageID, $packageKey)
     return $objResponse;
 }
 
-$hAjax = new xasset\AjaxHandler($GLOBALS['xoopsDB']);
+$hAjax = new Xasset\AjaxHandler($GLOBALS['xoopsDB']);
 $oAjax = $hAjax->create();
 //
 $oAjax->registerFunction('onSampleClick');

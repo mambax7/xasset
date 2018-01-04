@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
 /**
  * Class BaseObject

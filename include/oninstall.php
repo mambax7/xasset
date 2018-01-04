@@ -31,7 +31,7 @@ function xoops_module_pre_install_xasset(\XoopsModule $module)
 
     include __DIR__ . '/../preloads/autoloader.php';
     /** @var \Utility $utility */
-    $utility = new \Xoopsmodules\xasset\Utility();
+    $utility = new \XoopsModules\Xasset\Utility();
     $xoopsSuccess = $utility::checkVerXoops($module);
     $phpSuccess   = $utility::checkVerPhp($module);
 
@@ -59,7 +59,7 @@ function xoops_module_install_xasset(\XoopsModule $module)
 
     $moduleDirName = basename(dirname(__DIR__));
 
-    $helper       = xasset\Helper::getInstance();
+    $helper       = Xasset\Helper::getInstance();
     $utility      = new \Xasset\Utility();
     $configurator = new \Xasset\Configurator();
     // Load language files

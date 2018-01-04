@@ -9,7 +9,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * @copyright    XOOPS Project https://xoops.org/

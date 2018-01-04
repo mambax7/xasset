@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * class RegionHandler
  */
-class RegionHandler extends xasset\BaseObjectHandler
+class RegionHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -28,7 +28,7 @@ class RegionHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\RegionHandler
+     * @return Xasset\RegionHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {

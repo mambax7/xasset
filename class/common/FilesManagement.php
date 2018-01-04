@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\xasset\common;
+<?php namespace XoopsModules\Xasset\Common;
 
 /*
  You may not change or alter any portion of this comment or credits

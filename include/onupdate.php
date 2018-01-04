@@ -45,9 +45,9 @@ function tableExists($tablename)
 function xoops_module_pre_update_xasset(\XoopsModule $module)
 {
     $moduleDirName = basename(dirname(__DIR__));
-    /** @var xasset\Helper $helper */
-    /** @var xasset\Utility $utility */
-    $helper       = xasset\Helper::getInstance();
+    /** @var Xasset\Helper $helper */
+    /** @var Xasset\Utility $utility */
+    $helper       = Xasset\Helper::getInstance();
     $utility      = new \Xasset\Utility();
 
     $xoopsSuccess = $utility::checkVerXoops($module);
@@ -69,10 +69,10 @@ function xoops_module_update_xasset(\XoopsModule $module, $previousVersion = nul
     $moduleDirName = basename(dirname(__DIR__));
     $capsDirName   = strtoupper($moduleDirName);
 
-    /** @var xasset\Helper $helper */
-    /** @var xasset\Utility $utility */
-    /** @var xasset\Configurator $configurator */
-    $helper  = xasset\Helper::getInstance();
+    /** @var Xasset\Helper $helper */
+    /** @var Xasset\Utility $utility */
+    /** @var Xasset\Configurator $configurator */
+    $helper  = Xasset\Helper::getInstance();
     $utility = new \Xasset\Utility();
     $configurator = new \Xasset\Configurator();
 

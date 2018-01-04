@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * class OrderDetailHandler
  */
-class OrderDetailHandler extends xasset\BaseObjectHandler
+class OrderDetailHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -62,9 +62,9 @@ class OrderDetailHandler extends xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        $hAppProd = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
-        $hApp     = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
-        $hCurr    = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+        $hAppProd = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+        $hApp     = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+        $hCurr    = new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
         //tables
         $thisTable = $this->_db->prefix($this->_dbtable);
         $apTable   = $this->_db->prefix($hAppProd->_dbtable);
@@ -115,8 +115,8 @@ class OrderDetailHandler extends xasset\BaseObjectHandler
      */
     public function &getOrderApplicationProducts($orderID)
     {
-        $hAppProd  = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
-        $hCurrency = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+        $hAppProd  = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+        $hCurrency = new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
         //
         $thisTable    = $this->_db->prefix($this->_dbtable);
         $appProdTable = $this->_db->prefix($hAppProd->_dbtable);
@@ -168,7 +168,7 @@ class OrderDetailHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\OrderDetailHandler
+     * @return Xasset\OrderDetailHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {

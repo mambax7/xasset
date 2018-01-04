@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * Class ZoneHandler
  */
-class ZoneHandler extends xasset\BaseObjectHandler
+class ZoneHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
@@ -28,7 +28,7 @@ class ZoneHandler extends xasset\BaseObjectHandler
     /**
      * @param $db
      *
-     * @return xasset\ZoneHandler
+     * @return Xasset\ZoneHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {
@@ -47,7 +47,7 @@ class ZoneHandler extends xasset\BaseObjectHandler
      */
     public function &getCountryZones()
     {
-        $hCountry = new xasset\CountryHandler($GLOBALS['xoopsDB']);
+        $hCountry = new Xasset\CountryHandler($GLOBALS['xoopsDB']);
         //
         $thisTable    = $this->_db->prefix($this->_dbtable);
         $countryTable = $this->_db->prefix($hCountry->_dbtable);
@@ -172,7 +172,7 @@ class ZoneHandler extends xasset\BaseObjectHandler
         $objs = $this->getObjects($criteria);
         $ary  = [];
         //
-        $hCnt = new xasset\CountryHandler($GLOBALS['xoopsDB']);
+        $hCnt = new Xasset\CountryHandler($GLOBALS['xoopsDB']);
         //
         $thisTable = $this->_db->prefix($this->_dbtable);
         $cntTable  = $this->_db->prefix($hCnt->_dbtable);

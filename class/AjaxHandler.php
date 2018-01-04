@@ -1,12 +1,12 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 
 /**
  * Class AjaxHandler
  */
-class AjaxHandler extends xasset\BaseObjectHandler
+class AjaxHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;

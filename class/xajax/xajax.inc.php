@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\xasset\xajax;
+<?php namespace XoopsModules\Xasset\xajax;
 /**
  * xajax.inc.php :: Main xajax class and setup file
  *

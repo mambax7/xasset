@@ -1,11 +1,11 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 /**
  * class Order
  */
-class Order extends xasset\BaseObject
+class Order extends Xasset\BaseObject
 {
     /**
      * @param null $id
@@ -40,9 +40,9 @@ class Order extends xasset\BaseObject
      */
     public function getOrderNet()
     {
-        $hODetail  = new xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
-        $hAppProd  = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
-        $hCurrency = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+        $hODetail  = new Xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
+        $hAppProd  = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+        $hCurrency = new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
         //tables
         $thisTable = $hODetail->_db->prefix($hODetail->_dbtable);
         $apTable   = $hODetail->_db->prefix($hAppProd->_dbtable);
@@ -74,7 +74,7 @@ class Order extends xasset\BaseObject
      */
     public function getOrderTotal($format = 'f')
     { //f=full s=short
-        $hCurr = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+        $hCurr = new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
         //
         $cur = $hCurr->get($this->getVar('currency_id'));
         //
@@ -97,7 +97,7 @@ class Order extends xasset\BaseObject
      */
     public function getOrdertaxTotalSum()
     {
-        $hCurr = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+        $hCurr = new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
         //
         $cur      = $hCurr->get($this->getVar('currency_id'));
         $taxArray =& $this->getOrderTax();
@@ -123,7 +123,7 @@ class Order extends xasset\BaseObject
      */
     public function getOrderTaxTotal()
     {
-        $hCurr = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+        $hCurr = new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
         //
         $cur      = $hCurr->get($this->getVar('currency_id'));
         $taxArray =& $this->getOrderTax();
@@ -149,13 +149,13 @@ class Order extends xasset\BaseObject
      */
     public function &getOrderTax()
     {
-        $hIndex   = new xasset\OrderHandler($GLOBALS['xoopsDB']);
-        $hODetail = new xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
-        $hAppProd = new xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
-        $hClient  = new xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
-        $hTaxRate = new xasset\TaxRateHandler($GLOBALS['xoopsDB']);
-        $hTaxZone = new xasset\TaxZoneHandler($GLOBALS['xoopsDB']);
-        $hCurr    = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+        $hIndex   = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
+        $hODetail = new Xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
+        $hAppProd = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
+        $hClient  = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
+        $hTaxRate = new Xasset\TaxRateHandler($GLOBALS['xoopsDB']);
+        $hTaxZone = new Xasset\TaxZoneHandler($GLOBALS['xoopsDB']);
+        $hCurr    = new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
         //tables
         $thisTable  = $hIndex->_db->prefix($hIndex->_dbtable);
         $ODetTable  = $hIndex->_db->prefix($hODetail->_dbtable);
@@ -224,8 +224,8 @@ class Order extends xasset\BaseObject
      */
     public function getOrderDetailsArray()
     {
-        $hODetail = new xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
-        $hCurr    = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+        $hODetail = new Xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
+        $hCurr    = new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
         //
         $currID = isset($_SESSION['currency_id']) ? $_SESSION['currency_id'] : $this->getVar('currency_id');
         //
@@ -252,7 +252,7 @@ class Order extends xasset\BaseObject
     public function addOrderItem($product, $qty)
     {
         //only save if the index record has been posted
-        $hODetail = new xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
+        $hODetail = new Xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
         //check if we ar updating or inserting
         $crit = new \CriteriaCompo(new \Criteria('order_index_id', $this->getVar('id')));
         $crit->add(new \Criteria('app_prod_id', $product));
@@ -279,7 +279,7 @@ class Order extends xasset\BaseObject
      */
     public function &orderDetails()
     {
-        $hODetails = new xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
+        $hODetails = new Xasset\OrderDetailHandler($GLOBALS['xoopsDB']);
 
         return $hODetails->getOrderDetailsObjectsByIndex($this->getVar('id'));
     }
@@ -289,7 +289,7 @@ class Order extends xasset\BaseObject
     {
         global $xoopsUser;
         //
-        $huAppProd = new xasset\UserAppProductsHandler($GLOBALS['xoopsDB']);
+        $huAppProd = new Xasset\UserAppProductsHandler($GLOBALS['xoopsDB']);
         $items     =& $this->orderDetails();
         //
         foreach ($items as $item) {
@@ -300,8 +300,8 @@ class Order extends xasset\BaseObject
     //////////////////////////////////////////////////
     public function processPurchase()
     {
-        $hNotify     = new xasset\NotificationServiceHandler($GLOBALS['xoopsDB']);
-        $hProdMember = new xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);
+        $hNotify     = new Xasset\NotificationServiceHandler($GLOBALS['xoopsDB']);
+        $hProdMember = new Xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);
         //we've got the order ID here. So iterate through order items and:
         //1. Add to xoops groups if required
         $aDetails =& $this->orderDetails();
@@ -340,7 +340,7 @@ class Order extends xasset\BaseObject
      */
     public function &getUserDetail()
     {
-        $hUserDetail = new xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
+        $hUserDetail = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
 
         return $hUserDetail->get($this->getVar('user_detail_id'));
     }
@@ -397,8 +397,8 @@ class Order extends xasset\BaseObject
      */
     public function &getArray()
     {
-        $hOrder = new xasset\OrderHandler($GLOBALS['xoopsDB']);
-        $hCurr  = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+        $hOrder = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
+        $hCurr  = new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
         //
         $oCurr = $hCurr->get($this->getVar('currency_id'));
         //

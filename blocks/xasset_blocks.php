@@ -7,7 +7,7 @@
  */
 function b_xasset_currencies($options)
 {
-    $hCurrency = new xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+    $hCurrency = new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
     //
     $blocks                = [];
     $blocks['select']      = $hCurrency->getSelectArray();
@@ -26,7 +26,7 @@ function b_xasset_currencies($options)
  */
 function b_xasset_downloads($options)
 {
-    $hStats = new xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
+    $hStats = new Xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
     //
     $block              = [];
     $block['downloads'] = $hStats->getTopDownloads('' <> $options[0] ? $options[0] : null);
@@ -44,7 +44,7 @@ function b_xasset_downloads($options)
  */
 function b_xasset_pics($options)
 {
-    $hApp = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+    $hApp = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
     //
     $block            = [];
     $block['columns'] = (isset($options[0]) and ('' <> $options[0])) ? $options[0] : 3;
@@ -63,7 +63,7 @@ function b_xasset_pics($options)
  */
 function b_xasset_apps($options)
 {
-    $hApp = new xasset\ApplicationHandler($GLOBALS['xoopsDB']);
+    $hApp = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
     //
     $aApps = $hApp->getUserApplications();
     //
@@ -87,7 +87,7 @@ function b_xasset_apps($options)
  */
 function b_xasset_downloads_opt($options)
 {
-    $hCommon = new xasset\CommonHandler($GLOBALS['xoopsDB']);
+    $hCommon = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
     //
     $ary['xasset_block_top'] = [
         'count'     => (isset($options[0]) and ('' <> $options[0])) ? $options[0] : 10,
@@ -105,7 +105,7 @@ function b_xasset_downloads_opt($options)
  */
 function b_xasset_pics_opt($options)
 {
-    $hCommon = new xasset\CommonHandler($GLOBALS['xoopsDB']);
+    $hCommon = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
     //
     $ary['xasset_block_pic'] = [
         'columns' => (isset($options[0]) and ('' <> $options[0])) ? $options[0] : 3,

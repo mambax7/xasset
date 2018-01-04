@@ -1,13 +1,13 @@
-<?php namespace Xoopsmodules\xasset;
+<?php namespace XoopsModules\Xasset;
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 //require_once __DIR__ . '/video/video.php';
 
 
 /**
  * Class xassetHandler
  */
-class VideoHandler extends xasset\BaseObjectHandler
+class VideoHandler extends Xasset\BaseObjectHandler
 {
     //
     public $_db;
@@ -76,18 +76,18 @@ class VideoHandler extends xasset\BaseObjectHandler
      */
     public function getVideo($id, $token, $position = 0)
     {
-        /** @var \xasset\PackageHandler $hPackage */
-        $hPackage = new xasset\PackageHandler($GLOBALS['xoopsDB']);
-        /** @var \xasset\UserDetailsHandler $hUserDetail */
-        $hUserDetail = new xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
+        /** @var \Xasset\PackageHandler $hPackage */
+        $hPackage = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
+        /** @var \Xasset\UserDetailsHandler $hUserDetail */
+        $hUserDetail = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
         /** @var \CommonHandler $hCommon */
-        $hCommon = new xasset\CommonHandler($GLOBALS['xoopsDB']);
+        $hCommon = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
         //
         $uid      = $hCommon->pspDecrypt($token);
         $oPackage = $hPackage->get($id);
         //
         if ($uid > 0) { //secure the video
-            /** @var \xasset\UserDetails $oClient */
+            /** @var \Xasset\UserDetails $oClient */
             $oClient = $hUserDetail->getUserDetailByID($uid);
             //
             $dummy = '';

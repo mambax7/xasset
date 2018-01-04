@@ -1,6 +1,6 @@
 <?php
 
-use Xoopsmodules\xasset;
+use XoopsModules\Xasset;
 
 //hack to kill referrer check..we don't want this as it comes from gateway and not xoops
 define('XOOPS_XMLRPC', 1);
@@ -9,10 +9,10 @@ require_once __DIR__ . '/header.php';
 //this will get called from a payment gateway. Grab the Order ID, Payment Gatway and the post and process it.
 //check for valid order id
 if (isset($_SESSION['orderID']) && ($_SESSION['orderID'] > -1)) {
-    $hGateway = new xasset\GatewayHandler($GLOBALS['xoopsDB']);
-    $hOrder   = new xasset\OrderHandler($GLOBALS['xoopsDB']);
-    $hLog     = new xasset\GatewayLogHandler($GLOBALS['xoopsDB']);
-    $hCommon  = new xasset\CommonHandler($GLOBALS['xoopsDB']);
+    $hGateway = new Xasset\GatewayHandler($GLOBALS['xoopsDB']);
+    $hOrder   = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
+    $hLog     = new Xasset\GatewayLogHandler($GLOBALS['xoopsDB']);
+    $hCommon  = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
     //
     $order   = $hOrder->get($_SESSION['orderID']);
     $gateway = $hGateway->get($order->getVar('gateway'));
