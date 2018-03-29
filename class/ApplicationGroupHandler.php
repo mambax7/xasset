@@ -2,7 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
 /**
  * Class ApplicationGroupHandler
  */
@@ -50,7 +49,7 @@ class ApplicationGroupHandler extends Xasset\BaseObjectHandler
     public function getGroupIDArray($appID)
     {
         $crit = new \Criteria('application_id', $appID);
-        $objs = $this->getObjects($crit);
+        $objs =& $this->getObjects($crit);
         //
         $ar = [];
         foreach ($objs as $key => $obj) {

@@ -2,7 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
 /**
  * class UserAppProductsHandler
  */
@@ -60,7 +59,7 @@ class UserAppProductsHandler extends Xasset\BaseObjectHandler
                   where ua.application_product_id = $prodid and ua.uid = $uid";
         //
         if ($res = $this->_db->query($sql)) {
-            if ($row = $this->_db->fetcharray($res)) {
+            if ($row = $this->_db->fetchArray($res)) {
                 return $row['sm'];
             }
         }
@@ -99,7 +98,7 @@ class UserAppProductsHandler extends Xasset\BaseObjectHandler
         $crit = new \CriteriaCompo(new \Criteria('application_product_id', $appProdID));
         $crit->add(new \Crtieria('uid', $uid));
         //
-        $objs = $this->getObjects($crit);
+        $objs =& $this->getObjects($crit);
 
         //
         return count($objs) > 0;
@@ -108,7 +107,7 @@ class UserAppProductsHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param object|XoopsObject $obj
+     * @param object|\XoopsObject $obj
      * @param bool               $force
      * @return bool
      */

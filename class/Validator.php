@@ -1,4 +1,5 @@
 <?php namespace XoopsModules\Xasset;
+
 //
 
 /**
@@ -441,7 +442,7 @@ class ValidatePassword extends Validator
         }
         if (isset($this->pass) && ($this->pass != $this->vpass)) {
             $this->setError(_XHELP_MESSAGE_NOT_SAME);
-            //$stop .= _US_PASSNOTSAME.'<br>';
+        //$stop .= _US_PASSNOTSAME.'<br>';
         } elseif (('' != $this->pass) && (strlen($this->pass) < $xoopsConfigUser['minpass'])) {
             $this->setError(sprintf(_XHELP_MESSAGE_SHORT, $xoopsConfigUser['minpass']));
             //$stop .= sprintf(_US_PWDTOOSHORT,$xoopsConfigUser['minpass'])."<br>";

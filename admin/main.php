@@ -1,6 +1,8 @@
 <?php
 
 use XoopsModules\Xasset;
+/** @var Xasset\Helper $helper */
+$helper = Xasset\Helper::getInstance();
 
 //require_once __DIR__ . '/../../../include/cp_header.php';
 require_once __DIR__ . '/admin_header.php';
@@ -387,17 +389,20 @@ function loadIndex()
 //////////////////////////////////////////////////
 function manageApplications()
 {
-    global $xoopsTpl, $xoopsModuleConfig;
+    global $xoopsTpl ;
+    /** @var Xasset\Helper $helper */
+    $helper = Xasset\Helper::getInstance();
+
     //    $adminObject = \Xmf\Module\Admin::getInstance();
     //    $adminObject->displayNavigation('main.php?op=manageApplications');
 
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_application_index.tpl';
     //
-    $hApps      = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);// xoops_getModuleHandler('application', 'xasset');
-    $hTaxClass  = new Xasset\TaxClassHandler($GLOBALS['xoopsDB']);// new Xasset\TaxClassHandler($GLOBALS['xoopsDB']);
-    $hCurrency  = new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);//new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
-    $hGroups    = new Xasset\ApplicationGroupHandler($GLOBALS['xoopsDB']);//new Xasset\ApplicationGroupHandler($GLOBALS['xoopsDB']);
-    $hPackGroup = new Xasset\PackageGroupHandler($GLOBALS['xoopsDB']);//xoops_getModuleHandler('packageGroup', 'xasset');
+    $hApps      =  Xasset\Helper::getInstance()->getHandler('Application');// xoops_getModuleHandler('application', 'xasset');
+    $hTaxClass  =  Xasset\Helper::getInstance()->getHandler('TaxClass');// new Xasset\TaxClassHandler($GLOBALS['xoopsDB']);
+    $hCurrency  =  Xasset\Helper::getInstance()->getHandler('Currency');//new Xasset\CurrencyHandler($GLOBALS['xoopsDB']);
+    $hGroups    =  Xasset\Helper::getInstance()->getHandler('ApplicationGroup');//new Xasset\ApplicationGroupHandler($GLOBALS['xoopsDB']);
+    $hPackGroup =  Xasset\Helper::getInstance()->getHandler('PackageGroup');//xoops_getModuleHandler('packageGroup', 'xasset');
 
     //  $hEditor    = xoops_getModuleHandler('editor','xasset');
     $hMember = xoops_getHandler('member');
@@ -451,7 +456,7 @@ function manageApplications()
             'width'  => '100%',
             'height' => '250px'
         ];
-        $editor  = new \XoopsFormEditor('', $xoopsModuleConfig['editor_options'], $configs, false, $onfailure = 'textarea');
+        $editor  = new \XoopsFormEditor('', $helper->getConfig('editor_options'), $configs, false, $onfailure = 'textarea');
     } else {
         $editor = new \XoopsFormDhtmlTextArea('', 'richDescription', $this->getVar('richDescription', 'e'), '100%', '100%');
     }
@@ -469,7 +474,7 @@ function manageApplications()
             'width'  => '100%',
             'height' => '250px'
         ];
-        $editor  = new \XoopsFormEditor('', $xoopsModuleConfig['editor_options'], $configs, false, $onfailure = 'textarea');
+        $editor  = new \XoopsFormEditor('', $helper->getConfig('editor_options'), $configs, false, $onfailure = 'textarea');
     } else {
         $editor = new \XoopsFormDhtmlTextArea('', 'item_rich_descriptionn', $this->getVar('item_rich_description', 'e'), '100%', '100%');
     }
@@ -541,7 +546,10 @@ function doDeleteApplication($id)
  */
 function editApplication($appid)
 {
-    global $xoopsTpl, $xoopsModuleConfig;
+    global $xoopsTpl;
+    /** @var Xasset\Helper $helper */
+    $helper = Xasset\Helper::getInstance();
+
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_application_add.tpl';
     //
     $hApp    = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
@@ -568,7 +576,7 @@ function editApplication($appid)
             'width'  => '100%',
             'height' => '250px'
         ];
-        $editor  = new \XoopsFormEditor('', $xoopsModuleConfig['editor_options'], $configs, false, $onfailure = 'textarea');
+        $editor  = new \XoopsFormEditor('', $helper->getConfig('editor_options'), $configs, false, $onfailure = 'textarea');
     } else {
         $editor = new \XoopsFormDhtmlTextArea('', 'richDescription', $this->getVar('richDescription', 'e'), '100%', '100%');
     }
@@ -1598,7 +1606,7 @@ function addAppProduct($post)
     $prod->setVar('enabled', isset($post['enabled']));
     // set expiry date
     if ($prod->getVar('add_to_group') > 0) {
-        if ($post['rbGrpExpire'] == -1) {
+        if (-1 == $post['rbGrpExpire']) {
             $prod->setVar('group_expire_date', $post['expire_days']);
         } else {
             $prod->setVar('group_expire_date', $post['rbGrpExpire']);
@@ -1607,7 +1615,7 @@ function addAppProduct($post)
         $prod->setVar('group_expire_date', 0);
     }
     if ($prod->getVar('add_to_group2') > 0) {
-        if ($post['rbGrpExpire2'] == -1) {
+        if (-1 == $post['rbGrpExpire2']) {
             $prod->setVar('group_expire_date2', $post['expire_days2']);
         } else {
             $prod->setVar('group_expire_date2', $post['rbGrpExpire2']);
@@ -1649,7 +1657,10 @@ function doDeleteAppProduct($id)
  */
 function editAppProduct($id)
 {
-    global $xoopsTpl, $xoopsModuleConfig;
+    global $xoopsTpl;
+    /** @var Xasset\Helper $helper */
+    $helper = Xasset\Helper::getInstance();
+
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_application_product_add.tpl';
     //
     $hApps      = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
@@ -1698,7 +1709,7 @@ function editAppProduct($id)
             'width'  => '100%',
             'height' => '250px'
         ];
-        $editor  = new \XoopsFormEditor('', $xoopsModuleConfig['editor_options'], $configs, false, $onfailure = 'textarea');
+        $editor  = new \XoopsFormEditor('', $helper->getConfig('editor_options'), $configs, false, $onfailure = 'textarea');
     } else {
         $editor = new \XoopsFormDhtmlTextArea('', 'item_rich_description', $this->getVar('item_rich_description', 'e'), '100%', '100%');
     }

@@ -2,7 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
 /**
  * Class ZoneHandler
  */
@@ -62,7 +61,7 @@ class ZoneHandler extends Xasset\BaseObjectHandler
             $zoneAry     = [];
             $lastCountry = '';
             //
-            while ($row = $this->_db->fetchArray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 if ($lastCountry != $row['name']) {
                     //add zones array
                     if ((count($zoneAry) > 0) && (count($cntAry) > 0)) {
@@ -124,7 +123,7 @@ class ZoneHandler extends Xasset\BaseObjectHandler
             $criteria->setSort('code');
         }
         //
-        $objs = $this->getObjects($criteria);
+        $objs =& $this->getObjects($criteria);
         //
         $ar = [];
         if ($allZones) {
@@ -169,7 +168,7 @@ class ZoneHandler extends Xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        $objs = $this->getObjects($criteria);
+        $objs =& $this->getObjects($criteria);
         $ary  = [];
         //
         $hCnt = new Xasset\CountryHandler($GLOBALS['xoopsDB']);
@@ -182,7 +181,7 @@ class ZoneHandler extends Xasset\BaseObjectHandler
         $this->postProcessSQL($sql, $criteria);
         //
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetcharray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $actions = '<a href="main.php?op=editZone&id=' . $row['id'] . '">' . $imagearray['editimg'] . '</a>' . '<a href="main.php?op=deleteZone&id=' . $row['id'] . '">' . $imagearray['deleteimg'] . '</a>';
                 //
                 $ary[] = [
@@ -209,7 +208,7 @@ class ZoneHandler extends Xasset\BaseObjectHandler
     public function getZoneNameByID($zoneID)
     {
         $crit = new \Criteria('id', $zoneID);
-        $objs = $this->getObjects($crit);
+        $objs =& $this->getObjects($crit);
         if (count($objs) > 0) {
             $obj = reset($objs);
 
@@ -232,7 +231,7 @@ class ZoneHandler extends Xasset\BaseObjectHandler
         $crit = new \CriteriaCompo(new \Criteria('country_id', $countryID));
         $crit->add(new \Criteria('id', $zoneID));
         //
-        $objs = $this->getObjects($crit);
+        $objs =& $this->getObjects($crit);
 
         //
         return count($objs) > 0;
@@ -241,7 +240,7 @@ class ZoneHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param object|XoopsObject $obj
+     * @param object|\XoopsObject $obj
      * @param bool               $force
      * @return bool
      */

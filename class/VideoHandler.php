@@ -1,6 +1,7 @@
 <?php namespace XoopsModules\Xasset;
 
 use XoopsModules\Xasset;
+
 //require_once __DIR__ . '/video/video.php';
 
 

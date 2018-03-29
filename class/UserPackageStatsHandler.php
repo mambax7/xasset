@@ -2,7 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
 /**
  * class UserPackageStatsHandler
  */
@@ -86,7 +85,7 @@ class UserPackageStatsHandler extends Xasset\BaseObjectHandler
         $ary = [];
         //
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetcharray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $actions = '<a href="main.php?op=deleteStat&id=' . $row['id'] . '">' . $imagearray['deleteimg'] . '</a>';
                 //
                 if (strlen($row['uid']) > 0) {
@@ -125,7 +124,7 @@ class UserPackageStatsHandler extends Xasset\BaseObjectHandler
         $sql = "select count(id) cnt from $thisTable where packageid = $packid and uid = $uid";
         //
         if ($res = $this->_db->query($sql)) {
-            if ($row = $this->_db->fetcharray($res)) {
+            if ($row = $this->_db->fetchArray($res)) {
                 return $row['cnt'];
             }
         }
@@ -158,7 +157,7 @@ class UserPackageStatsHandler extends Xasset\BaseObjectHandler
         $crit->add(new \Criteria('uid', $pUID));
         $crit->setOrder('date');
         //
-        $objs = $this->getObjects($crit);
+        $objs =& $this->getObjects($crit);
         //
         if (count($objs) > 0) {
             $obj = reset($objs);
@@ -206,7 +205,7 @@ class UserPackageStatsHandler extends Xasset\BaseObjectHandler
         //
         $i = 0;
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetchArray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $ary[$i]           = $row;
                 $ary[$i]['appKey'] = $hCommon->cryptValue($row['application_id'], $hApp->_weight);
                 ++$i;
@@ -239,7 +238,7 @@ class UserPackageStatsHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param object|XoopsObject $obj
+     * @param object|\XoopsObject $obj
      * @param bool               $force
      * @return bool
      */

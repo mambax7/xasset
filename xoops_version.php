@@ -83,10 +83,10 @@ $modversion['helpsection'] = [
 
 global $xoopsUser;
 //
-$hApps        = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);// xoops_getModuleHandler('application', 'xasset');
-$hUserDetails = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);//new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
-$hOrder       = new Xasset\OrderHandler($GLOBALS['xoopsDB']);//new Xasset\OrderHandler($GLOBALS['xoopsDB']);
-$hMembers     = new Xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);//new Xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);
+$hApps        =  Xasset\Helper::getInstance()->getHandler('Application'); // xoops_getModuleHandler('application', 'xasset');
+$hUserDetails =  Xasset\Helper::getInstance()->getHandler('UserDetails');//new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
+$hOrder       =  Xasset\Helper::getInstance()->getHandler('Order');//new Xasset\OrderHandler($GLOBALS['xoopsDB']);
+$hMembers     =  Xasset\Helper::getInstance()->getHandler('ApplicationProductMemb');//new Xasset\ApplicationProductMembHandler($GLOBALS['xoopsDB']);
 
 $oApps = $hApps->getApplicationMainMenuObjects();
 $i     = 1;

@@ -1,6 +1,7 @@
 <?php namespace XoopsModules\Xasset;
 
 use XoopsModules\Xasset;
+
 //use XoopsModules\Xasset\xajax;
 
 /**
@@ -91,7 +92,7 @@ class BaseObjectHandler extends \XoopsObjectHandler
         }
 
         // Add each returned record to the result array
-        while ($myrow = $this->_db->fetchArray($result)) {
+        while (false !== ($myrow = $this->_db->fetchArray($result))) {
             $obj = new $this->classname($myrow);
             if (!$id_as_key) {
                 $ret[] =& $obj;
@@ -205,7 +206,7 @@ class BaseObjectHandler extends \XoopsObjectHandler
     {
         $ary = [];
         if ($res = $this->_db->query($sql, $limit, $offset)) {
-            while ($row = $this->_db->fetchArray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 if ($object) {
                     $ary[] = new $this->classname($row);
                 } else {

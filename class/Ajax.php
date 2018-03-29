@@ -1,6 +1,5 @@
 <?php namespace XoopsModules\Xasset;
 
-
 use XoopsModules\Xasset;
 use XoopsModules\Xasset\xajax;
 
@@ -64,4 +63,3 @@ class Ajax extends \XoopsModules\Xasset\xajax\xajax
         parent::registerFunction($function, XAJAX_GET);
     }
 }
-

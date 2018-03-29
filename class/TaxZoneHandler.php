@@ -2,7 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
 /**
  * class TaxZoneHandler
  */
@@ -54,7 +53,7 @@ class TaxZoneHandler extends Xasset\BaseObjectHandler
             $criteria->setSort('name');
         }
         //
-        $objs = $this->getObjects($criteria);
+        $objs =& $this->getObjects($criteria);
         //
         $ar = [];
         //
@@ -112,7 +111,7 @@ class TaxZoneHandler extends Xasset\BaseObjectHandler
         $ary = [];
         //
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetchArray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $actions = '<a href="main.php?op=editTaxZone&id=' . $row['id'] . '">' . $imagearray['editimg'] . '</a>' . '<a href="main.php?op=deleteTaxZone&id=' . $row['id'] . '">' . $imagearray['deleteimg'] . '</a>';
                 //
                 '' == $row['zone'] ? $zone = 'All Zones' : $zone = $row['zone'];
@@ -136,7 +135,7 @@ class TaxZoneHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param object|XoopsObject $obj
+     * @param object|\XoopsObject $obj
      * @param bool               $force
      * @return bool
      */

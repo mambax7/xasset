@@ -2,7 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
 /**
  * Class ApplicationProductMembHandler
  */
@@ -60,7 +59,7 @@ class ApplicationProductMembHandler extends Xasset\BaseObjectHandler
         $crit = new \CriteriaCompo(new \Criteria('uid', $oUserDetails->uid()));
         $crit->add(new \Criteria('group_id', $oAppProd->getVar($grpField)));
         //
-        $existing = $this->getObjects($crit);
+        $existing =& $this->getObjects($crit);
         if (count($existing) > 0) {
             $oMember = reset($existing);
             //
@@ -120,7 +119,7 @@ class ApplicationProductMembHandler extends Xasset\BaseObjectHandler
         //
         if ($res = $this->_db->query($sql)) {
             $i = 0;
-            while ($row = $this->_db->fetchArray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $actions = '<a href="main.php?op=removeFromGroup&id=' . $row['id'] . '">' . $imagearray['deleteimg'] . '</a>';
                 //
                 $ary[$i]                     = $row;

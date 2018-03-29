@@ -2,7 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
 /**
  * class TaxRateHandler
  */
@@ -83,7 +82,7 @@ class TaxRateHandler extends Xasset\BaseObjectHandler
         $ary = [];
         //
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetcharray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $actions = '<a href="main.php?op=editTaxRate&id=' . $row['id'] . '">' . $imagearray['editimg'] . '</a>' . '<a href="main.php?op=deleteTaxRate&id=' . $row['id'] . '">' . $imagearray['deleteimg'] . '</a>';
                 //
                 $ary[] = [
@@ -136,7 +135,7 @@ class TaxRateHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param object|XoopsObject $obj
+     * @param object|\XoopsObject $obj
      * @param bool               $force
      * @return bool
      */

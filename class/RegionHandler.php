@@ -2,7 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
 /**
  * class RegionHandler
  */
@@ -54,7 +53,7 @@ class RegionHandler extends Xasset\BaseObjectHandler
             $criteria->setSort('region');
         }
         //
-        $objs = $this->getObjects($criteria);
+        $objs =& $this->getObjects($criteria);
         //
         $ar = [];
         //
@@ -81,7 +80,7 @@ class RegionHandler extends Xasset\BaseObjectHandler
             $criteria->setSort('region');
         }
         //
-        $objs = $this->getObjects($criteria);
+        $objs =& $this->getObjects($criteria);
         $ary  = [];
         //
         foreach ($objs as $obj) {
@@ -101,7 +100,7 @@ class RegionHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param object|XoopsObject $obj
+     * @param object|\XoopsObject $obj
      * @param bool               $force
      * @return bool
      */

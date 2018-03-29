@@ -1,6 +1,7 @@
 <?php namespace XoopsModules\Xasset;
 
 use XoopsModules\Xasset;
+
 //require_once __DIR__ . '/video/video.php';
 
 /**
@@ -18,7 +19,7 @@ class Video extends Xasset\BaseObject
         //
         $bandwidth = $hCommon->getModuleOption('bandwidth');
         //
-        $video = new Video();
+        $video = new self();
         $video->setFile($file);
         $video->setBitrate($bandwidth * 1024);
         $video->enableThrottle(1 == $hCommon->getModuleOption('Enablebandwidth'));

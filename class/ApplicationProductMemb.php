@@ -2,7 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
 /**
  * Class ApplicationProductMemb
  */

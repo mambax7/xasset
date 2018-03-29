@@ -83,9 +83,9 @@ class Order extends Xasset\BaseObject
         //
         $total = $tax['amount'] + $orderNet;
         //
-        if ('f' == $format) {
+        if ('f' === $format) {
             return $cur->valueFormat($total);
-        } elseif ('s' == $format) {
+        } elseif ('s' === $format) {
             return $cur->valueOnlyFormat($total);
         }
     }
@@ -182,7 +182,7 @@ class Order extends Xasset\BaseObject
         $taxArray = [];
         //
         if ($res = $hIndex->_db->query($sql)) {
-            while ($row = $hIndex->_db->fetchArray($res)) {
+            while (false !== ($row = $hIndex->_db->fetchArray($res))) {
                 $taxArray[$row['priority']][] = $row;
             }
         }

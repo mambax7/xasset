@@ -2,7 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
 /**
  * class OrderDetailHandler
  */
@@ -83,7 +82,7 @@ class OrderDetailHandler extends Xasset\BaseObjectHandler
         $ary = [];
         //
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetchArray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $actions = '<a href="order.php?op=removeOrderItem&id=' . $row['id'] . '">' . $imagearray['deleteimg'] . '</a>';
                 //
                 $ary[] = [
@@ -132,7 +131,7 @@ class OrderDetailHandler extends Xasset\BaseObjectHandler
         $ary = [];
         //
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetchArray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $ary[] = [
                     'id'               => $row['id'],
                     'tax_class_id'     => $row['tax_class_id'],
@@ -196,7 +195,7 @@ class OrderDetailHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param object|XoopsObject $obj
+     * @param object|\XoopsObject $obj
      * @param bool               $force
      * @return bool
      */

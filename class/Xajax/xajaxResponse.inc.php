@@ -1,4 +1,5 @@
 <?php namespace XoopsModules\Xasset\xajax;
+
 /**
  * xajaxResponse.inc.php :: xajax XML response class
  *
@@ -576,7 +577,7 @@ class xajaxResponse
             $data = '<xjxobj>';
             foreach ($var as $key => $value) {
                 $data .= '<e>';
-                $data .= '<k>' . htmlspecialchars($key) . '</k>';
+                $data .= '<k>' . htmlspecialchars($key, ENT_QUOTES | ENT_HTML5) . '</k>';
                 $data .= '<v>' . $this->_buildObjXml($value) . '</v>';
                 $data .= '</e>';
             }

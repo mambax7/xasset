@@ -2,7 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
 /**
  * class GatewayLogHandler
  */
@@ -122,7 +121,7 @@ class GatewayLogHandler extends Xasset\BaseObjectHandler
         //
         if ($res = $this->_db->query($sql)) {
             $i = 0;
-            while ($row = $this->_db->fetchArray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $actions = '<a href="main.php?op=removeLogItem&id=' . $row['id'] . '">' . $imagearray['deleteimg'] . '</a>';
                 //
                 $ary[$i]               = $row;
@@ -139,7 +138,7 @@ class GatewayLogHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param object|XoopsObject $obj
+     * @param object|\XoopsObject $obj
      * @param bool               $force
      * @return bool
      */

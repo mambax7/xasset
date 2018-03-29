@@ -2,7 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
 /**
  * Class ApplicationHandler
  */
@@ -46,7 +45,7 @@ class ApplicationHandler extends Xasset\BaseObjectHandler
     public function getApplications($criteria)
     {
         //
-        $ret = $this->getObjects($criteria, true);
+        $ret =& $this->getObjects($criteria, true);
 
         //
         return $ret;
@@ -151,7 +150,7 @@ class ApplicationHandler extends Xasset\BaseObjectHandler
         $ary   = [];
         //
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetcharray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $actions  = /*'<a href="main.php?op=viewAppLicenses&id='.$row['id'].'">'.$imagearray['viewlic'].'</a>' . */
                       '<a href="main.php?op=editApplication&id=' . $row['id'] . '">' . $imagearray['editimg'] . '</a>'
                     . '<a href="main.php?op=deleteApplication&id=' . $row['id'] . '">' . $imagearray['deleteimg'] . '</a>';
@@ -252,7 +251,7 @@ class ApplicationHandler extends Xasset\BaseObjectHandler
         }
         $crit->add($subCrit);
         //
-        $objs = $this->getObjects($crit);
+        $objs =& $this->getObjects($crit);
 
         //
         return $objs;
@@ -292,7 +291,7 @@ class ApplicationHandler extends Xasset\BaseObjectHandler
         }
         $crit->add($subCrit);
         //
-        $objs = $this->getObjects($crit);
+        $objs =& $this->getObjects($crit);
 
         //
         return $objs;

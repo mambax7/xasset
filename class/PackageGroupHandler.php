@@ -2,8 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
-
 /**
  * class PackageGroupHandler
  */
@@ -38,7 +36,7 @@ class PackageGroupHandler extends Xasset\BaseObjectHandler
             $criteria->setSort('name');
         }
         //
-        $objs  = $this->getObjects($criteria, true);
+        $objs  =& $this->getObjects($criteria, true);
         $crypt = new Xasset\Crypt();
         $ar    = [];
         //
@@ -166,7 +164,7 @@ class PackageGroupHandler extends Xasset\BaseObjectHandler
      */
     public function getGroupsSelectArray($crit)
     {
-        $objs = $this->getObjects($crit);
+        $objs =& $this->getObjects($crit);
         $ar   = [];
         //
         foreach ($objs as $obj) {
@@ -206,7 +204,7 @@ class PackageGroupHandler extends Xasset\BaseObjectHandler
         //
         $hPack = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
         //
-        $objs = $this->getObjects($crit);
+        $objs =& $this->getObjects($crit);
         $ary  = [];
         //
         foreach ($objs as $obj) {
@@ -242,7 +240,7 @@ class PackageGroupHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param object|XoopsObject $obj
+     * @param object|\XoopsObject $obj
      * @param bool               $force
      * @return bool
      */

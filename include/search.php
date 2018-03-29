@@ -9,6 +9,9 @@
  *
  * @return array
  */
+
+use XoopsModules\Xasset;
+
 function xasset_search($queryarray, $andor, $limit, $offset, $userid)
 {
     $hApp     = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);

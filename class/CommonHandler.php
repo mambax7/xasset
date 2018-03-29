@@ -557,7 +557,7 @@ class CommonHandler extends Xasset\BaseObjectHandler
         //
         $aEmails = [];
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetchArray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $aEmails[] = $row;
             }
         } else {
@@ -670,7 +670,7 @@ class CommonHandler extends Xasset\BaseObjectHandler
         $realname = $this->_db->prefix($table);
         $sql      = 'SHOW TABLES FROM ' . XOOPS_DB_NAME;
         $ret      = $xoopsDB->queryF($sql);
-        while (list($m_table) = $this->_db->fetchRow($ret)) {
+        while (false !== (list($m_table) = $this->_db->fetchRow($ret))) {
             if ($m_table == $realname) {
                 $bRetVal = true;
                 break;

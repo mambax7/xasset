@@ -1,7 +1,7 @@
-<?php namespace XoopsModules\Xasset\gateways;
+<?php namespace XoopsModules\Xasset\Gateways;
 
 use XoopsModules\Xasset;
-use XoopsModules\Xasset\gateways;
+use XoopsModules\Xasset\Gateways;
 
 /**
  * Class BaseGateway

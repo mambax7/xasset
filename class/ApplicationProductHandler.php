@@ -2,7 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
 /**
  * Class ApplicationProductHandler
  */
@@ -107,7 +106,7 @@ class ApplicationProductHandler extends Xasset\BaseObjectHandler
             $crypt = new Xasset\Crypt();
             $obj   = $this->create();
             //
-            while ($row = $this->_db->fetcharray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $actions = '<a href="main.php?op=editAppProduct&id=' . $row['id'] . '">' . $imagearray['editimg'] . '</a>' . '<a href="main.php?op=deleteAppProduct&id=' . $row['id'] . '">' . $imagearray['deleteimg'] . '</a>';
                 //
                 $priceAry = [];
@@ -225,7 +224,7 @@ class ApplicationProductHandler extends Xasset\BaseObjectHandler
         $crit = new \CriteriaCompo(new \Criteria('application_id', $pAppID));
         $crit->add(new \Criteria('item_code', $pCode));
         //
-        $aObjs = $this->getObjects($crit);
+        $aObjs =& $this->getObjects($crit);
         //
         if (count($aObjs) > 0) {
             $obj = reset($aObjs);
@@ -256,7 +255,7 @@ class ApplicationProductHandler extends Xasset\BaseObjectHandler
             $crit->add(new \Criteria('id', $oDetail->getAppProdID()));
         }
         //now get products
-        $aProds = $this->getObjects($crit, true);
+        $aProds =& $this->getObjects($crit, true);
         //index by orderDetail
         $ary = [];
         foreach ($aDetails as $key => $oDetail) {
@@ -306,7 +305,7 @@ class ApplicationProductHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param object|XoopsObject $obj
+     * @param object|\XoopsObject $obj
      * @param bool               $force
      * @return bool
      */

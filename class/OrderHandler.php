@@ -2,7 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
 /**
  * class OrderHandler
  */
@@ -124,7 +123,7 @@ class OrderHandler extends Xasset\BaseObjectHandler
         $ary = [];
         //
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetchArray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $ary[$i]                 = $row;
                 $ary[$i]['statusFmt']    = $this->getStatuByCode($row['status']);
                 $ary[$i]['packageKey']   = $crypt->cryptValue($row['packageID'], $hPackage->_weight);
@@ -189,7 +188,7 @@ class OrderHandler extends Xasset\BaseObjectHandler
         $i  = 0;
         //
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetchArray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $ar[$i]              = $row;
                 $ar[$i]['dateFmt']   = formatTimestamp($row['date'], 's');
                 $ar[$i]['statusFmt'] = $this->getStatuByCode($row['status']);
@@ -214,7 +213,7 @@ class OrderHandler extends Xasset\BaseObjectHandler
         $crit = new \CriteriaCompo(new \Criteria('uid', $uid));
         $crit->add(new \Criteria('status', 3, '<'));
         //
-        $objs = $this->getObjects($crit);
+        $objs =& $this->getObjects($crit);
         //
         if (count($objs) > 0) {
             $obj = reset($objs);
@@ -228,7 +227,7 @@ class OrderHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param object|XoopsObject $orderID
+     * @param object|\XoopsObject $orderID
      *
      * @param bool               $force
      * @return bool|void

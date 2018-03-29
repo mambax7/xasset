@@ -1,4 +1,5 @@
 <?php namespace XoopsModules\Xasset\xajax;
+
 /**
  * xajax.inc.php :: Main xajax class and setup file
  *
@@ -494,7 +495,7 @@ class xajax
      */
     public function canProcessRequests()
     {
-        if ($this->getRequestMode() != -1) {
+        if (-1 != $this->getRequestMode()) {
             return true;
         }
 
@@ -541,7 +542,7 @@ class xajax
         $sResponse               = '';
 
         $requestMode = $this->getRequestMode();
-        if ($requestMode == -1) {
+        if (-1 == $requestMode) {
             return;
         }
 
@@ -811,7 +812,7 @@ class xajax
             $sJsFile = 'xajax_js/xajax.js';
         }
 
-        if ('' != $sJsURI && '/' != substr($sJsURI, -1)) {
+        if ('' != $sJsURI && '/' !== substr($sJsURI, -1)) {
             $sJsURI .= '/';
         }
 
@@ -882,7 +883,7 @@ class xajax
                 $aURL['scheme'] = $_SERVER['HTTP_SCHEME'];
             } else {
                 $aURL['scheme'] = (!empty($_SERVER['HTTPS'])
-                                   && 'off' != strtolower($_SERVER['HTTPS'])) ? 'https' : 'http';
+                                   && 'off' !== strtolower($_SERVER['HTTPS'])) ? 'https' : 'http';
             }
         }
 
@@ -935,8 +936,8 @@ class xajax
 
         // Add the port if needed
         if (!empty($aURL['port'])
-            && (('http' == $aURL['scheme'] && 80 != $aURL['port'])
-                || ('https' == $aURL['scheme']
+            && (('http' === $aURL['scheme'] && 80 != $aURL['port'])
+                || ('https' === $aURL['scheme']
                     && 443 != $aURL['port']))) {
             $sURL .= ':' . $aURL['port'];
         }
@@ -1073,7 +1074,7 @@ class xajax
     {
         $aArray = [];
 
-        if ('xjxobj' == $rootTag) {
+        if ('xjxobj' === $rootTag) {
             while (!stristr($this->aObjArray[$this->iPos], '</xjxobj>')) {
                 $this->iPos++;
                 if (stristr($this->aObjArray[$this->iPos], '<e>')) {
@@ -1112,7 +1113,7 @@ class xajax
             }
         }
 
-        if ('xjxquery' == $rootTag) {
+        if ('xjxquery' === $rootTag) {
             $sQuery = '';
             $this->iPos++;
             while (!stristr($this->aObjArray[$this->iPos], '</xjxquery>')) {
@@ -1166,7 +1167,7 @@ class xajax
                 $sFuncToUse = 'iconv';
             } elseif (function_exists('mb_convert_encoding')) {
                 $sFuncToUse = 'mb_convert_encoding';
-            } elseif ('ISO-8859-1' == $this->sEncoding) {
+            } elseif ('ISO-8859-1' === $this->sEncoding) {
                 $sFuncToUse = 'utf8_decode';
             } else {
                 trigger_error('The incoming xajax data could not be converted from UTF-8', E_USER_NOTICE);
@@ -1174,9 +1175,9 @@ class xajax
 
             if ($sFuncToUse) {
                 if (is_string($sValue)) {
-                    if ('iconv' == $sFuncToUse) {
+                    if ('iconv' === $sFuncToUse) {
                         $sValue = iconv('UTF-8', $this->sEncoding . '//TRANSLIT', $sValue);
-                    } elseif ('mb_convert_encoding' == $sFuncToUse) {
+                    } elseif ('mb_convert_encoding' === $sFuncToUse) {
                         $sValue = mb_convert_encoding($sValue, $this->sEncoding, 'UTF-8');
                     } else {
                         $sValue = utf8_decode($sValue);

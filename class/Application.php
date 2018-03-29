@@ -1,8 +1,6 @@
 <?php namespace XoopsModules\Xasset;
 
-
 use XoopsModules\Xasset;
-
 
 /**
  * Class Application

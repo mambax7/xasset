@@ -39,7 +39,7 @@ $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
 /** @var XoopsModuleHandler $moduleHandler */
 $moduleHandler = xoops_getHandler('module');
 $xoopsModule   = $moduleHandler->getByDirname('xasset');
-$module        =& $moduleHandler;
+$module        = $moduleHandler;
 //
 $configHandler   = xoops_getHandler('config');
 $xoopsConfig     = $configHandler->getConfigsByCat(XOOPS_CONF);

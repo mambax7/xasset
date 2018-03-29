@@ -1,8 +1,7 @@
 <?php namespace XoopsModules\Xasset;
 
 use XoopsModules\Xasset;
-use XoopsModules\Xasset\gateways;
-
+use XoopsModules\Xasset\Gateways;
 
 /**
  * class GatewayHandler
@@ -51,7 +50,7 @@ class GatewayHandler extends Xasset\BaseObjectHandler
     public function &getByCode($code)
     {
         $crit = new \Criteria('code', $code);
-        $objs = $this->getObjects($crit);
+        $objs =& $this->getObjects($crit);
         //
         if (0 == count($objs)) {
             $res = false;
@@ -74,7 +73,7 @@ class GatewayHandler extends Xasset\BaseObjectHandler
     public function &getCodeID($code)
     {
         $crit = new \Criteria('code', $code);
-        $objs = $this->getObjects($crit);
+        $objs =& $this->getObjects($crit);
         //
         if (0 == count($objs)) {
             $res = false;
@@ -126,7 +125,7 @@ class GatewayHandler extends Xasset\BaseObjectHandler
     {
         global $xoopsModule;
         //
-        $objs = $this->getObjects($crit);
+        $objs =& $this->getObjects($crit);
         $ary  = [];
         foreach ($objs as $obj) {
             $gateway =& $this->getGatewayModuleByID($obj->ID());
@@ -159,7 +158,7 @@ class GatewayHandler extends Xasset\BaseObjectHandler
                 if ($class == $gateway->getVar('code')) {
                     require_once $directory_array[$i]['fullPath'];
                     $module = new $class;
-                    if (!is_subclass_of($module, gateways\BaseGateway::class)) {
+                    if (!is_subclass_of($module, Gateways\BaseGateway::class)) {
                         unset($module);
                     }
                     break;
@@ -194,7 +193,7 @@ class GatewayHandler extends Xasset\BaseObjectHandler
             //
             require_once $directory_array[$i]['fullPath'];
             $module = new $class;
-            if (is_subclass_of($module, gateways\BaseGateway::class)) {
+            if (is_subclass_of($module, Gateways\BaseGateway::class)) {
                 if ($orderID = $module->isThisGateway($post)) {
                     $gateway = $module;
 
@@ -225,7 +224,7 @@ class GatewayHandler extends Xasset\BaseObjectHandler
             require_once $directory_array[$i]['fullPath'];
             //get class name based on file
             $className  = substr($file, 0, strrpos($file, '.'));
-            $class = '\\XoopsModules\\Xasset\\gateways\\' . $className;
+            $class = '\\XoopsModules\\Xasset\\Gateways\\' . $className;
             $module = new $class;
             //check if this class is a subclass of BaseGateway
             if (is_subclass_of($module, BaseGateway::class) && ($xoopsModule->getVar('version') == $module->version())) {
@@ -318,7 +317,7 @@ class GatewayHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param object|XoopsObject $obj
+     * @param object|\XoopsObject $obj
      * @param bool               $force
      * @return bool
      */

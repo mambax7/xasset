@@ -1,6 +1,5 @@
 <?php namespace XoopsModules\Xasset;
 
-
 /**
  * class NotificationServiceHandler
  */
@@ -187,7 +186,7 @@ class NotificationServiceHandler extends \XoopsObjectHandler
         //
         $aEmails = [];
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetchArray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $aEmails[] = $row;
             }
         } else {

@@ -2,7 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
 /**
  * class LicenseHandler
  */
@@ -76,7 +75,7 @@ class LicenseHandler extends Xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        $objs = $this->getObjects($criteria, true);
+        $objs =& $this->getObjects($criteria, true);
         $ary  = [];
         //
         foreach ($objs as $obj) {
@@ -136,7 +135,7 @@ class LicenseHandler extends Xasset\BaseObjectHandler
         //
         $ar = [];
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetchArray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $actions = '<a href="index.php?op=viewAppLicenses&id=' . $row['id'] . '">' . $imagearray['viewlic'] . '</a>'; /* .
                    '<a href="index.php?op=editLicenses&id='.$row['id'].'">'.$imagearray['editimg'].'</a>' .
                    '<a href="index.php?op=deleteLicense&id='.$row['id'].'">'.$imagearray['deleteimg'].'</a>';  */
@@ -176,7 +175,7 @@ class LicenseHandler extends Xasset\BaseObjectHandler
         //
         $ar = [];
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetchArray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $actions = '<a href="index.php?op=viewClientLicenses&id=' . $row['uid'] . '&appid=' . $appid . '">' . $imagearray['viewlic'] . '</a>'; /* .
                    '<a href="index.php?op=editLicenses&id='.$row['id'].'">'.$imagearray['editimg'].'</a>' .
                    '<a href="index.php?op=deleteLicense&id='.$row['id'].'">'.$imagearray['deleteimg'].'</a>';  */
@@ -216,7 +215,7 @@ class LicenseHandler extends Xasset\BaseObjectHandler
         $app = $hApp->create();
         //
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetcharray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $ar[] = [
                     'appid'         => $row['appid'],
                     'appname'       => $row['appname'],
@@ -274,7 +273,7 @@ class LicenseHandler extends Xasset\BaseObjectHandler
         $app = $hApp->create();
         //
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetcharray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $ar[] = [
                     'appid'           => $row['appid'],
                     'appname'         => $row['appname'],
@@ -312,7 +311,7 @@ class LicenseHandler extends Xasset\BaseObjectHandler
         $ar = [];
         //
         if ($res = $this->_db->query($sql)) {
-            while ($row = $this->_db->fetcharray($res)) {
+            while (false !== ($row = $this->_db->fetchArray($res))) {
                 $appid   = $row['applicationid'];
                 $actions = '<a href="main.php?op=viewClientLicenses&id='
                            . $row['uid']
@@ -359,7 +358,7 @@ class LicenseHandler extends Xasset\BaseObjectHandler
         $crit = new \CriteriaCompo(new \Criteria('uid', $clientid));
         $crit->add(new \Criteria('applicationid', $appid));
         //
-        $lics = $this->getObjects($crit);
+        $lics =& $this->getObjects($crit);
         $ar   = [];
         //
         $crypt = new Xasset\Crypt();
@@ -411,7 +410,7 @@ class LicenseHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param object|XoopsObject $obj
+     * @param object|\XoopsObject $obj
      * @param bool               $force
      * @return bool
      */

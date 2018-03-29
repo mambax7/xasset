@@ -2,7 +2,6 @@
 
 use XoopsModules\Xasset;
 
-
 /**
  * class TaxClassHandler
  */
@@ -54,7 +53,7 @@ class TaxClassHandler extends Xasset\BaseObjectHandler
             $criteria->setSort('description');
         }
         //
-        $objs = $this->getObjects($criteria);
+        $objs =& $this->getObjects($criteria);
         //
         $ar = [];
         //
@@ -81,7 +80,7 @@ class TaxClassHandler extends Xasset\BaseObjectHandler
             $criteria->setSort('description');
         }
         //
-        $objs = $this->getObjects($criteria);
+        $objs =& $this->getObjects($criteria);
         $ary  = [];
         //
         foreach ($objs as $obj) {
@@ -120,7 +119,7 @@ class TaxClassHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param object|XoopsObject $obj
+     * @param object|\XoopsObject $obj
      * @param bool               $force
      * @return bool
      */
