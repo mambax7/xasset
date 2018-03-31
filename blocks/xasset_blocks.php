@@ -11,8 +11,8 @@ function b_xasset_currencies($options)
     //
     $blocks                = [];
     $blocks['select']      = $hCurrency->getSelectArray();
-    $blocks['current']     = isset($_SESSION['currency_id']) ? $_SESSION['currency_id'] : 0;
-    $blocks['application'] = isset($_SESSION['application_id']) ? $_SESSION['application_id'] : 0;
+    $blocks['current']     = \Xmf\Request::getInt('currency_id', 0, SESSION);
+    $blocks['application'] = \Xmf\Request::getInt('application_id', 0, SESSION);
 
     //
     return $blocks;
