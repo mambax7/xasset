@@ -416,7 +416,7 @@ class CommonHandler extends Xasset\BaseObjectHandler
     {
         static $randCalled = false;
         if (!$randCalled) {
-            srand((double)microtime() * 1000000);
+            mt_srand((double)microtime() * 1000000);
             $randCalled = true;
         }
     }
@@ -434,7 +434,7 @@ class CommonHandler extends Xasset\BaseObjectHandler
         $tmp = [];
 
         for ($i = 0; $i < $digits; ++$i) {
-            $tmp[$i] = (rand() % 9);
+            $tmp[$i] = (mt_rand() % 9);
         }
 
         return implode('', $tmp);
