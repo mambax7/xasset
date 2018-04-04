@@ -542,7 +542,7 @@ class xajaxResponse
         foreach ($aAttributes as $sAttribute => $sValue) {
             $xml .= " $sAttribute=\"$sValue\"";
         }
-        if (null !== $sData && !stristr($sData, '<![CDATA[')) {
+        if (null !== $sData && false === stripos($sData, '<![CDATA[')) {
             $xml .= "><![CDATA[$sData]]></cmd>";
         } else {
             if (null !== $sData) {

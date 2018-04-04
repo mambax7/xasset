@@ -136,7 +136,7 @@ function addToCart($itemID, $key, $qty = 1, $forceUser = null)
                 $currid = $_SESSION['currency_id'];
             } else {
                 $hConfig = new Xasset\ConfigHandler($GLOBALS['xoopsDB']);
-                $currid  = $hConfig->GetBaseCurrency();
+                $currid  = $hConfig->getBaseCurrency();
                 //
                 if (!$currid > 0) {
                     //can't continue... redirect
@@ -324,7 +324,7 @@ function showUserDetails($userDetails = null)
 /**
  * @param $post
  *
- * @return bool
+ * @return void
  */
 function addCustomer($post)
 {

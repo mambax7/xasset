@@ -9,7 +9,7 @@ class PackageGroupHandler extends Xasset\BaseObjectHandler
 {
     //vars
     public $_db;
-    public $classname = Packagegroup::class;
+    public $classname = PackageGroup::class;
     public $_dbtable  = 'xasset_packagegroup';
 
     //cons

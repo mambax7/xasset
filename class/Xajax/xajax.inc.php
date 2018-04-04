@@ -612,9 +612,9 @@ class xajax
                 if (1 == get_magic_quotes_gpc() && is_string($aArgs[$i])) {
                     $aArgs[$i] = stripslashes($aArgs[$i]);
                 }
-                if (false !== stristr($aArgs[$i], '<xjxobj>')) {
+                if (false !== stripos($aArgs[$i], '<xjxobj>')) {
                     $aArgs[$i] = $this->_xmlToArray('xjxobj', $aArgs[$i]);
-                } elseif (false !== stristr($aArgs[$i], '<xjxquery>')) {
+                } elseif (false !== stripos($aArgs[$i], '<xjxquery>')) {
                     $aArgs[$i] = $this->_xmlToArray('xjxquery', $aArgs[$i]);
                 } elseif ($this->bDecodeUTF8Input) {
                     $aArgs[$i] = $this->_decodeUTF8Data($aArgs[$i]);
@@ -850,7 +850,7 @@ class xajax
                 trigger_error('The xajax uncompressed Javascript file could not be found in the <b>' . dirname($realJsFile) . '</b> folder. Error ', E_USER_ERROR);
             }
             require_once __DIR__ . '/xajaxCompress.php';
-            $javaScript       = implode('', file($srcFile));
+            $javaScript       = file_get_contents($srcFile);
             $compressedScript = xajaxCompressJavascript($javaScript);
             $fH               = @fopen($realJsFile, 'w');
             if (!$fH) {
@@ -1075,25 +1075,25 @@ class xajax
         $aArray = [];
 
         if ('xjxobj' === $rootTag) {
-            while (!stristr($this->aObjArray[$this->iPos], '</xjxobj>')) {
+            while (false === stripos($this->aObjArray[$this->iPos], '</xjxobj>')) {
                 $this->iPos++;
-                if (stristr($this->aObjArray[$this->iPos], '<e>')) {
+                if (false !== stripos($this->aObjArray[$this->iPos], '<e>')) {
                     $key   = '';
                     $value = null;
 
                     $this->iPos++;
-                    while (!stristr($this->aObjArray[$this->iPos], '</e>')) {
-                        if (stristr($this->aObjArray[$this->iPos], '<k>')) {
+                    while (false === stripos($this->aObjArray[$this->iPos], '</e>')) {
+                        if (false !== stripos($this->aObjArray[$this->iPos], '<k>')) {
                             $this->iPos++;
-                            while (!stristr($this->aObjArray[$this->iPos], '</k>')) {
+                            while (false === stripos($this->aObjArray[$this->iPos], '</k>')) {
                                 $key .= $this->aObjArray[$this->iPos];
                                 $this->iPos++;
                             }
                         }
-                        if (stristr($this->aObjArray[$this->iPos], '<v>')) {
+                        if (false !== stripos($this->aObjArray[$this->iPos], '<v>')) {
                             $this->iPos++;
-                            while (!stristr($this->aObjArray[$this->iPos], '</v>')) {
-                                if (stristr($this->aObjArray[$this->iPos], '<xjxobj>')) {
+                            while (false === stripos($this->aObjArray[$this->iPos], '</v>')) {
+                                if (false !== stripos($this->aObjArray[$this->iPos], '<xjxobj>')) {
                                     $value = $this->_parseObjXml('xjxobj');
                                     $this->iPos++;
                                 } else {
@@ -1116,8 +1116,8 @@ class xajax
         if ('xjxquery' === $rootTag) {
             $sQuery = '';
             $this->iPos++;
-            while (!stristr($this->aObjArray[$this->iPos], '</xjxquery>')) {
-                if (stristr($this->aObjArray[$this->iPos], '<q>') || stristr($this->aObjArray[$this->iPos], '</q>')) {
+            while (false === stripos($this->aObjArray[$this->iPos], '</xjxquery>')) {
+                if (false !== stripos($this->aObjArray[$this->iPos], '<q>') || false !== stripos($this->aObjArray[$this->iPos], '</q>')) {
                     $this->iPos++;
                     continue;
                 }

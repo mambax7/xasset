@@ -43,7 +43,7 @@ class UserDetails extends Xasset\BaseObject
     //////////////////////////////////////
 
     /**
-     * @return XoopsObject
+     * @return bool|void
      */
     public function &getZone()
     {

@@ -112,7 +112,7 @@ class BaseObjectHandler extends \XoopsObjectHandler
      */
     public function _selectQuery($criteria = null)
     {
-        $sql = sprintf('SELECT * FROM %s', $this->_db->prefix($this->_dbtable));
+        $sql = sprintf('SELECT * FROM `%s`', $this->_db->prefix($this->_dbtable));
         if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
             $sql .= ' ' . $criteria->renderWhere();
             if ('' != $criteria->getSort()) {
@@ -144,8 +144,8 @@ class BaseObjectHandler extends \XoopsObjectHandler
     }
 
     /**
-     * @param XoopsObject $obj
-     * @param bool        $force
+     * @param \XoopsObject $obj
+     * @param bool         $force
      *
      * @return bool
      */
@@ -155,7 +155,7 @@ class BaseObjectHandler extends \XoopsObjectHandler
             return false;
         }
 
-        $sql = sprintf('DELETE FROM %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $obj->getVar('id'));
+        $sql = sprintf('DELETE FROM `%s` WHERE id = %u', $this->_db->prefix($this->_dbtable), $obj->getVar('id'));
         //echo $sql;
         if ($force) {
             $result = $this->_db->queryF($sql);
@@ -179,7 +179,7 @@ class BaseObjectHandler extends \XoopsObjectHandler
      */
     public function deleteByID($pid, $force = false)
     {
-        $sql = sprintf('DELETE FROM %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $pid);
+        $sql = sprintf('DELETE FROM `%s` WHERE id = %u', $this->_db->prefix($this->_dbtable), $pid);
         if ($force) {
             $result = $this->_db->queryF($sql);
         } else {
@@ -233,8 +233,8 @@ class BaseObjectHandler extends \XoopsObjectHandler
     //
 
     /**
-     * @param XoopsObject $obj
-     * @param bool        $force
+     * @param \XoopsObject $obj
+     * @param bool         $force
      *
      * @return bool
      */

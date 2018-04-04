@@ -28,9 +28,9 @@ class VideoHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      *
-     * @return xassetHandler
+     * @return \XoopsModules\Xasset\VideoHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {

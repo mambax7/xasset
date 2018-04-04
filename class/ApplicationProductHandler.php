@@ -15,8 +15,7 @@ class ApplicationProductHandler extends Xasset\BaseObjectHandler
     //cons
 
     /**
-     * @param $db
-     * @return ApplicationProductHandler
+     * @param \XoopsDatabase $db
      */
     public function __construct(\XoopsDatabase $db)
     {
@@ -26,9 +25,9 @@ class ApplicationProductHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      *
-     * @return ApplicationProductsHandler
+     * @return \XoopsModules\Xasset\ApplicationProductHandler
      */
     public function getInstance(\XoopsDatabase $db)
     {

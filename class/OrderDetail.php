@@ -51,7 +51,7 @@ class OrderDetail extends Xasset\BaseObject
     //////////////////////////////////////////////////
 
     /**
-     * @return XoopsObject
+     * @return bool|void
      */
     public function &getAppProduct()
     {

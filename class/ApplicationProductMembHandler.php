@@ -215,8 +215,8 @@ class ApplicationProductMembHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param XoopsObject $obj
-     * @param bool        $force
+     * @param \XoopsObject $obj
+     * @param bool         $force
      *
      * @return bool
      */

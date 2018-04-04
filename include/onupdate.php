@@ -17,6 +17,8 @@
  * @author       XOOPS Development Team
  */
 
+use XoopsModules\Xasset;
+
 if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
     || !$GLOBALS['xoopsUser']->IsAdmin()
 ) {
@@ -48,7 +50,7 @@ function xoops_module_pre_update_xasset(\XoopsModule $module)
     /** @var Xasset\Helper $helper */
     /** @var Xasset\Utility $utility */
     $helper       = Xasset\Helper::getInstance();
-    $utility      = new \Xasset\Utility();
+    $utility      = new Xasset\Utility();
 
     $xoopsSuccess = $utility::checkVerXoops($module);
     $phpSuccess   = $utility::checkVerPhp($module);
@@ -71,10 +73,10 @@ function xoops_module_update_xasset(\XoopsModule $module, $previousVersion = nul
 
     /** @var Xasset\Helper $helper */
     /** @var Xasset\Utility $utility */
-    /** @var Xasset\Configurator $configurator */
+    /** @var Xasset\Common\Configurator $configurator */
     $helper  = Xasset\Helper::getInstance();
-    $utility = new \Xasset\Utility();
-    $configurator = new \Xasset\Configurator();
+    $utility = new Xasset\Utility();
+    $configurator = new Xasset\Common\Configurator();
 
     if ($previousVersion < 240) {
 
@@ -136,7 +138,7 @@ function xoops_module_update_xasset(\XoopsModule $module, $previousVersion = nul
         if (count($configurator->uploadFolders) > 0) {
             //    foreach (array_keys($GLOBALS['uploadFolders']) as $i) {
             foreach (array_keys($configurator->uploadFolders) as $i) {
-                $utilityClass::createFolder($configurator->uploadFolders[$i]);
+                $utility::createFolder($configurator->uploadFolders[$i]);
             }
         }
 
@@ -145,7 +147,7 @@ function xoops_module_update_xasset(\XoopsModule $module, $previousVersion = nul
             $file = __DIR__ . '/../assets/images/blank.png';
             foreach (array_keys($configurator->copyBlankFiles) as $i) {
                 $dest = $configurator->copyBlankFiles[$i] . '/blank.png';
-                $utilityClass::copyFile($file, $dest);
+                $utility::copyFile($file, $dest);
             }
         }
 
@@ -153,9 +155,9 @@ function xoops_module_update_xasset(\XoopsModule $module, $previousVersion = nul
         $sql = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('tplfile') . " WHERE `tpl_module` = '" . $module->getVar('dirname', 'n') . '\' AND `tpl_file` LIKE \'%.html%\'';
         $GLOBALS['xoopsDB']->queryF($sql);
 
-        /** @var XoopsGroupPermHandler $gpermHandler */
-        $gpermHandler = xoops_getHandler('groupperm');
-        return $gpermHandler->deleteByModule($module->getVar('mid'), 'item_read');
+        /** @var XoopsGroupPermHandler $grouppermHandler */
+        $grouppermHandler = xoops_getHandler('groupperm');
+        return $grouppermHandler->deleteByModule($module->getVar('mid'), 'item_read');
     }
     return true;
 }

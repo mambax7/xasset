@@ -336,9 +336,9 @@ class Order extends Xasset\BaseObject
     //////////////////////////////////////////////////
 
     /**
-     * @return XoopsObject
+     * @return bool|void
      */
-    public function &getUserDetail()
+    public function getUserDetail()
     {
         $hUserDetail = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
 
@@ -352,11 +352,11 @@ class Order extends Xasset\BaseObject
      */
     public function getOrderItemsAsText()
     {
-        $oItems =& $this->orderDetails();
+        $oItems = $this->orderDetails();
         //
         $items = '';
         foreach ($oItems as $key => $oItem) {
-            $oAppProd =& $oItem->getAppProduct();
+            $oAppProd = $oItem->getAppProduct();
             //
             $product = $oAppProd->getVar('item_description');
             $qty     = $oItem->getVar('qty');
