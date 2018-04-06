@@ -53,7 +53,7 @@ class TaxClassHandler extends Xasset\BaseObjectHandler
             $criteria->setSort('description');
         }
         //
-        $objs =& $this->getObjects($criteria);
+        $objs = $this->getObjects($criteria);
         //
         $ar = [];
         //
@@ -80,7 +80,7 @@ class TaxClassHandler extends Xasset\BaseObjectHandler
             $criteria->setSort('description');
         }
         //
-        $objs =& $this->getObjects($criteria);
+        $objs = $this->getObjects($criteria);
         $ary  = [];
         //
         foreach ($objs as $obj) {

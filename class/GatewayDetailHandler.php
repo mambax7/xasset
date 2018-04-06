@@ -49,7 +49,7 @@ class GatewayDetailHandler extends Xasset\BaseObjectHandler
         $crit = new \CriteriaCompo(new \Criteria('gateway_id', $id));
         $crit->add(new \Criteria('gkey', $code));
         //
-        $objs =& $this->getObjects($crit);
+        $objs = $this->getObjects($crit);
 
         return $objs[reset($objs)];
     }
@@ -68,7 +68,7 @@ class GatewayDetailHandler extends Xasset\BaseObjectHandler
         $crit = new \CriteriaCompo(new \Criteria('gkey', $key));
         $crit->add(new \Criteria('gateway_id', $indexID));
         //
-        $detail =& $this->getObjects($crit);
+        $detail = $this->getObjects($crit);
         //
         if (count($detail) > 0) {
             $detail = reset($detail);
@@ -148,7 +148,7 @@ class GatewayDetailHandler extends Xasset\BaseObjectHandler
      */
     public function getConfigArray($crit = null)
     {
-        $objs =& $this->getObjects($crit);
+        $objs = $this->getObjects($crit);
         $ary  = [];
         //
         foreach ($objs as $obj) {

@@ -75,7 +75,7 @@ class LicenseHandler extends Xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        $objs =& $this->getObjects($criteria, true);
+        $objs = $this->getObjects($criteria, true);
         $ary  = [];
         //
         foreach ($objs as $obj) {
@@ -358,7 +358,7 @@ class LicenseHandler extends Xasset\BaseObjectHandler
         $crit = new \CriteriaCompo(new \Criteria('uid', $clientid));
         $crit->add(new \Criteria('applicationid', $appid));
         //
-        $lics =& $this->getObjects($crit);
+        $lics = $this->getObjects($crit);
         $ar   = [];
         //
         $crypt = new Xasset\Crypt();

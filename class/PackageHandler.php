@@ -37,7 +37,7 @@ class PackageHandler extends Xasset\BaseObjectHandler
             $criteria->setSort('filename');
         }
         //
-        $objs =& $this->getObjects($criteria, true);
+        $objs = $this->getObjects($criteria, true);
         $ar   = [];
         //
         foreach ($objs as $obj) {
@@ -74,7 +74,7 @@ class PackageHandler extends Xasset\BaseObjectHandler
     {
         $hStats = new Xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
         //
-        $objs =& $this->getObjects($crit);
+        $objs = $this->getObjects($crit);
         $ary  = [];
         //
         foreach ($objs as $obj) {
@@ -104,7 +104,7 @@ class PackageHandler extends Xasset\BaseObjectHandler
         $crit = new \CriteriaCompo(new \Criteria('packagegroupid', $groupID));
         $crit->setSort('filename');
         //
-        $objs  =& $this->getObjects($crit);
+        $objs  = $this->getObjects($crit);
         $crypt = new Xasset\Crypt();
         $ar    = [];
         $i     = 0;
@@ -193,7 +193,7 @@ class PackageHandler extends Xasset\BaseObjectHandler
     public function &getProductSamplePackages($oAppProduct)
     {
         $crit = new \CriteriaCompo(new \Criteria('packagegroupid', $oAppProduct->sampleGroupID()));
-        $objs =& $this->getObjects($crit);
+        $objs = $this->getObjects($crit);
         //
         if (count($objs) > 0) {
             return $objs;

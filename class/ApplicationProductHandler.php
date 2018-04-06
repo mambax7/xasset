@@ -223,7 +223,7 @@ class ApplicationProductHandler extends Xasset\BaseObjectHandler
         $crit = new \CriteriaCompo(new \Criteria('application_id', $pAppID));
         $crit->add(new \Criteria('item_code', $pCode));
         //
-        $aObjs =& $this->getObjects($crit);
+        $aObjs = $this->getObjects($crit);
         //
         if (count($aObjs) > 0) {
             $obj = reset($aObjs);
@@ -254,7 +254,7 @@ class ApplicationProductHandler extends Xasset\BaseObjectHandler
             $crit->add(new \Criteria('id', $oDetail->getAppProdID()));
         }
         //now get products
-        $aProds =& $this->getObjects($crit, true);
+        $aProds = $this->getObjects($crit, true);
         //index by orderDetail
         $ary = [];
         foreach ($aDetails as $key => $oDetail) {

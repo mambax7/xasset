@@ -50,7 +50,7 @@ class GatewayHandler extends Xasset\BaseObjectHandler
     public function &getByCode($code)
     {
         $crit = new \Criteria('code', $code);
-        $objs =& $this->getObjects($crit);
+        $objs = $this->getObjects($crit);
         //
         if (0 == count($objs)) {
             $res = false;
@@ -73,7 +73,7 @@ class GatewayHandler extends Xasset\BaseObjectHandler
     public function &getCodeID($code)
     {
         $crit = new \Criteria('code', $code);
-        $objs =& $this->getObjects($crit);
+        $objs = $this->getObjects($crit);
         //
         if (0 == count($objs)) {
             $res = false;
@@ -125,7 +125,7 @@ class GatewayHandler extends Xasset\BaseObjectHandler
     {
         global $xoopsModule;
         //
-        $objs =& $this->getObjects($crit);
+        $objs = $this->getObjects($crit);
         $ary  = [];
         foreach ($objs as $obj) {
             $gateway =& $this->getGatewayModuleByID($obj->ID());

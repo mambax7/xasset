@@ -8,13 +8,7 @@ require_once __DIR__ . '/header.php';
 
 require_once __DIR__ . '/class/validator.php';
 
-$op = 'default';
-
-if (isset($_REQUEST['op'])) {
-    $op = $_REQUEST['op'];
-} elseif (isset($_POST['op'])) {
-    $op = $_POST['op'];
-}
+$op    = \Xmf\Request::getCmd('op', 'default');
 
 switch ($op) {
     case 'default':

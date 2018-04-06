@@ -53,7 +53,7 @@ class RegionHandler extends Xasset\BaseObjectHandler
             $criteria->setSort('region');
         }
         //
-        $objs =& $this->getObjects($criteria);
+        $objs = $this->getObjects($criteria);
         //
         $ar = [];
         //
@@ -80,7 +80,7 @@ class RegionHandler extends Xasset\BaseObjectHandler
             $criteria->setSort('region');
         }
         //
-        $objs =& $this->getObjects($criteria);
+        $objs = $this->getObjects($criteria);
         $ary  = [];
         //
         foreach ($objs as $obj) {

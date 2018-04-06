@@ -50,7 +50,7 @@ class CountryHandler extends Xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        $objs =& $this->getObjects($criteria);
+        $objs = $this->getObjects($criteria);
         $ary  = [];
         //
         foreach ($objs as $obj) {
@@ -82,7 +82,7 @@ class CountryHandler extends Xasset\BaseObjectHandler
             $criteria->setSort('name');
         }
         //
-        $objs =& $this->getObjects($criteria);
+        $objs = $this->getObjects($criteria);
         //
         $ar = [];
         //

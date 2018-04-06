@@ -45,7 +45,7 @@ class ApplicationHandler extends Xasset\BaseObjectHandler
     public function getApplications($criteria)
     {
         //
-        $ret =& $this->getObjects($criteria, true);
+        $ret = $this->getObjects($criteria, true);
 
         //
         return $ret;
@@ -251,7 +251,7 @@ class ApplicationHandler extends Xasset\BaseObjectHandler
         }
         $crit->add($subCrit);
         //
-        $objs =& $this->getObjects($crit);
+        $objs = $this->getObjects($crit);
 
         //
         return $objs;
@@ -291,7 +291,7 @@ class ApplicationHandler extends Xasset\BaseObjectHandler
         }
         $crit->add($subCrit);
         //
-        $objs =& $this->getObjects($crit);
+        $objs = $this->getObjects($crit);
 
         //
         return $objs;

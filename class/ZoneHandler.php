@@ -123,7 +123,7 @@ class ZoneHandler extends Xasset\BaseObjectHandler
             $criteria->setSort('code');
         }
         //
-        $objs =& $this->getObjects($criteria);
+        $objs = $this->getObjects($criteria);
         //
         $ar = [];
         if ($allZones) {
@@ -168,7 +168,7 @@ class ZoneHandler extends Xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        $objs =& $this->getObjects($criteria);
+        $objs = $this->getObjects($criteria);
         $ary  = [];
         //
         $hCnt = new Xasset\CountryHandler($GLOBALS['xoopsDB']);
@@ -208,7 +208,7 @@ class ZoneHandler extends Xasset\BaseObjectHandler
     public function getZoneNameByID($zoneID)
     {
         $crit = new \Criteria('id', $zoneID);
-        $objs =& $this->getObjects($crit);
+        $objs = $this->getObjects($crit);
         if (count($objs) > 0) {
             $obj = reset($objs);
 
@@ -231,7 +231,7 @@ class ZoneHandler extends Xasset\BaseObjectHandler
         $crit = new \CriteriaCompo(new \Criteria('country_id', $countryID));
         $crit->add(new \Criteria('id', $zoneID));
         //
-        $objs =& $this->getObjects($crit);
+        $objs = $this->getObjects($crit);
 
         //
         return count($objs) > 0;

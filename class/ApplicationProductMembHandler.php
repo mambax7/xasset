@@ -59,7 +59,7 @@ class ApplicationProductMembHandler extends Xasset\BaseObjectHandler
         $crit = new \CriteriaCompo(new \Criteria('uid', $oUserDetails->uid()));
         $crit->add(new \Criteria('group_id', $oAppProd->getVar($grpField)));
         //
-        $existing =& $this->getObjects($crit);
+        $existing = $this->getObjects($crit);
         if (count($existing) > 0) {
             $oMember = reset($existing);
             //

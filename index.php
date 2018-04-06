@@ -6,13 +6,7 @@ require_once __DIR__ . '/header.php';
 require_once XOOPS_ROOT_PATH . '/header.php';
 //require_once('class/crypt.php');
 
-$op = 'default';
-
-if (isset($_GET['op'])) {
-    $op = $_GET['op'];
-} elseif (isset($_POST['op'])) {
-    $op = $_POST['op'];
-}
+$op    = \Xmf\Request::getCmd('op', 'default');
 
 switch ($op) {
     case 'default':

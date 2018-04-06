@@ -98,7 +98,7 @@ class UserAppProductsHandler extends Xasset\BaseObjectHandler
         $crit = new \CriteriaCompo(new \Criteria('application_product_id', $appProdID));
         $crit->add(new \Crtieria('uid', $uid));
         //
-        $objs =& $this->getObjects($crit);
+        $objs = $this->getObjects($crit);
 
         //
         return count($objs) > 0;

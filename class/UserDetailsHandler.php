@@ -49,7 +49,7 @@ class UserDetailsHandler extends Xasset\BaseObjectHandler
     public function &getUserDetailByID($uid)
     {
         $crit = new \CriteriaCompo(new \Criteria('uid', $uid));
-        $objs =& $this->getObjects($crit);
+        $objs = $this->getObjects($crit);
         if (count($objs) > 0) {
             $obj = reset($objs);
 
@@ -90,7 +90,7 @@ class UserDetailsHandler extends Xasset\BaseObjectHandler
     {
         global $xoopsUser;
         //
-        $objs =& $this->getObjects($criteria);
+        $objs = $this->getObjects($criteria);
         //
         $ary = [];
         //

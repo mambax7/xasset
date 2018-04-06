@@ -213,7 +213,7 @@ class OrderHandler extends Xasset\BaseObjectHandler
         $crit = new \CriteriaCompo(new \Criteria('uid', $uid));
         $crit->add(new \Criteria('status', 3, '<'));
         //
-        $objs =& $this->getObjects($crit);
+        $objs = $this->getObjects($crit);
         //
         if (count($objs) > 0) {
             $obj = reset($objs);

@@ -55,7 +55,7 @@ class CurrencyHandler extends Xasset\BaseObjectHandler
         //
         $criteria->add(new \Criteria('enabled', 1));
         //
-        $objs =& $this->getObjects($criteria);
+        $objs = $this->getObjects($criteria);
         //
         $ar = [];
         //
@@ -83,7 +83,7 @@ class CurrencyHandler extends Xasset\BaseObjectHandler
         }
         $criteria->add(new \Criteria('enabled', 1));
         //
-        $objs =& $this->getObjects($criteria);
+        $objs = $this->getObjects($criteria);
         $ary  = [];
         $i    = 0;
         //
@@ -109,7 +109,7 @@ class CurrencyHandler extends Xasset\BaseObjectHandler
     public function &getByCode($code)
     {
         $crit = new \Criteria('code', $code);
-        $objs =& $this->getObjects($crit);
+        $objs = $this->getObjects($crit);
         if (count($objs) > 0) {
             return current($objs);
         } else {

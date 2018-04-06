@@ -53,7 +53,7 @@ class TaxZoneHandler extends Xasset\BaseObjectHandler
             $criteria->setSort('name');
         }
         //
-        $objs =& $this->getObjects($criteria);
+        $objs = $this->getObjects($criteria);
         //
         $ar = [];
         //

@@ -49,7 +49,7 @@ class ConfigHandler extends Xasset\BaseObjectHandler
      */
     public function setValue($key, $value)
     {
-        $objs =& $this->getObjects(new \Criteria('dkey', $key));
+        $objs = $this->getObjects(new \Criteria('dkey', $key));
         if (count($objs) > 0) {
             $obj = $this->get($objs[0]->getVar('id'));
             $obj->setVar('dvalue', $value);
@@ -83,7 +83,7 @@ class ConfigHandler extends Xasset\BaseObjectHandler
      */
     public function getValueValue($key)
     {
-        $objs =& $this->getObjects(new \Criteria('dkey', $key), true);
+        $objs = $this->getObjects(new \Criteria('dkey', $key), true);
         if (1 == count($objs)) {
             foreach ($objs as $obj) {
                 return $obj->getVar('dvalue');
@@ -103,7 +103,7 @@ class ConfigHandler extends Xasset\BaseObjectHandler
      */
     public function getValueArray($key)
     {
-        $objs =& $this->getObjects(new \Criteria('dkey', $key));
+        $objs = $this->getObjects(new \Criteria('dkey', $key));
         //
         $ary = [];
         foreach ($objs as $obj) {
