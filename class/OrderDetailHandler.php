@@ -211,10 +211,10 @@ class OrderDetailHandler extends Xasset\BaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, order_index_id, app_prod_id, qty)
+            $sql = sprintf('INSERT INTO `%s` (id, order_index_id, app_prod_id, qty)
                                       VALUES (%u, %u, %u, %u)', $this->_db->prefix($this->_dbtable), $id, $order_index_id, $app_prod_id, $qty);
         } else {
-            $sql = sprintf('UPDATE %s SET order_index_id = %u, app_prod_id = %u, qty = %u WHERE id = %u', $this->_db->prefix($this->_dbtable), $order_index_id, $app_prod_id, $qty, $id);
+            $sql = sprintf('UPDATE `%s` SET order_index_id = %u, app_prod_id = %u, qty = %u WHERE id = %u', $this->_db->prefix($this->_dbtable), $order_index_id, $app_prod_id, $qty, $id);
         }
         //echo $sql;
         // Update DB

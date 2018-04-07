@@ -183,10 +183,10 @@ class CountryHandler extends Xasset\BaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, NAME, iso2, iso3)
+            $sql = sprintf('INSERT INTO `%s` (id, NAME, iso2, iso3)
                                       VALUES (%u, %s, %s, %s)', $this->_db->prefix($this->_dbtable), $id, $this->_db->quoteString($name), $this->_db->quoteString($iso2), $this->_db->quoteString($iso3));
         } else {
-            $sql = sprintf('UPDATE %s SET NAME = %s, iso2 = %s, iso3 = %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $this->_db->quoteString($name), $this->_db->quoteString($iso2), $this->_db->quoteString($iso3), $id);
+            $sql = sprintf('UPDATE `%s` SET NAME = %s, iso2 = %s, iso3 = %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $this->_db->quoteString($name), $this->_db->quoteString($iso2), $this->_db->quoteString($iso3), $id);
         }
         //echo $sql;
         // Update DB

@@ -143,7 +143,7 @@ class UserDetailsHandler extends Xasset\BaseObjectHandler
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
             $sql = sprintf(
-                'INSERT INTO %s ( id, uid, zone_id, country_id, first_name, last_name, street_address1,
+                'INSERT INTO `%s` ( id, uid, zone_id, country_id, first_name, last_name, street_address1,
                                                       street_address2, town, state, zip, tel_no, fax_no, company_name,
                                                       company_reg, vat_no, client_type)
                                       VALUES (%u, %u, %u, %u, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %u)',
@@ -168,7 +168,7 @@ class UserDetailsHandler extends Xasset\BaseObjectHandler
             );
         } else {
             $sql = sprintf(
-                'UPDATE %s SET uid = %u, zone_id = %u, country_id = %u, first_name = %s, last_name = %s,
+                'UPDATE `%s` SET uid = %u, zone_id = %u, country_id = %u, first_name = %s, last_name = %s,
                                         street_address1 = %s, street_address2 = %s, town = %s, state = %s, zip = %s, tel_no = %s,
                                         fax_no = %s, company_name = %s, company_reg = %s, vat_no = %s,
                                         client_type = %u WHERE id = %u',

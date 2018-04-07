@@ -178,10 +178,10 @@ class ApplicationGroupHandler extends Xasset\BaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, application_id, group_id)
+            $sql = sprintf('INSERT INTO `%s` (id, application_id, group_id)
                                       VALUES (%u, %u, %u)', $this->_db->prefix($this->_dbtable), $id, $application_id, $group_id);
         } else {
-            $sql = sprintf('UPDATE %s SET application_id = %u, group_id = %uwhere id = %u', $this->_db->prefix($this->_dbtable), $application_id, $group_id, $id);
+            $sql = sprintf('UPDATE `%s` SET application_id = %u, group_id = %uwhere id = %u', $this->_db->prefix($this->_dbtable), $application_id, $group_id, $id);
         }
         //echo $sql;
         // Update DB

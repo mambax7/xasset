@@ -254,7 +254,7 @@ class GatewayDetailHandler extends Xasset\BaseObjectHandler
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
             $sql = sprintf(
-                'INSERT INTO %s (id, gateway_id, gkey, gvalue, gorder, description, list_ov, gtype)
+                'INSERT INTO `%s` (id, gateway_id, gkey, gvalue, gorder, description, list_ov, gtype)
                                       VALUES (%u, %u, %s, %s, %u, %s, %s, %s)',
                 $this->_db->prefix($this->_dbtable),
                 $id,
@@ -267,7 +267,7 @@ class GatewayDetailHandler extends Xasset\BaseObjectHandler
                            $this->_db->quoteString($gtype)
             );
         } else {
-            $sql = sprintf('UPDATE %s SET gateway_id = %u, gkey = %s, gvalue = %s, gorder = %u, description = %s, list_ov = %s,  gtype = %s
+            $sql = sprintf('UPDATE `%s` SET gateway_id = %u, gkey = %s, gvalue = %s, gorder = %u, description = %s, list_ov = %s,  gtype = %s
                                         WHERE id = %u', $this->_db->prefix($this->_dbtable), $gateway_id, $this->_db->quoteString($gkey), $this->_db->quoteString($gvalue), $gorder, $this->_db->quoteString($description), $this->_db->quoteString($list_ov), $this->_db->quoteString($gtype), $id);
         }
         //echo $sql;

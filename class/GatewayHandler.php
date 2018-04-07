@@ -335,10 +335,10 @@ class GatewayHandler extends Xasset\BaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, CODE, enabled)
+            $sql = sprintf('INSERT INTO `%s` (id, CODE, enabled)
                                       VALUES (%u, %s, %u)', $this->_db->prefix($this->_dbtable), $id, $this->_db->quoteString($code), $enabled);
         } else {
-            $sql = sprintf('UPDATE %s SET CODE = %s, enabled = %u WHERE id = %u', $this->_db->prefix($this->_dbtable), $this->_db->quoteString($code), $enabled, $id);
+            $sql = sprintf('UPDATE `%s` SET CODE = %s, enabled = %u WHERE id = %u', $this->_db->prefix($this->_dbtable), $this->_db->quoteString($code), $enabled, $id);
         }
         //echo $sql;
         // Update DB

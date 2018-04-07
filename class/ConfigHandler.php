@@ -214,9 +214,9 @@ class ConfigHandler extends Xasset\BaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, dkey, dvalue) VALUES (%u, %s, %s)', $this->_db->prefix($this->_dbtable), $id, $this->_db->quoteString($dkey), $this->_db->quoteString($dvalue));
+            $sql = sprintf('INSERT INTO `%s` (id, dkey, dvalue) VALUES (%u, %s, %s)', $this->_db->prefix($this->_dbtable), $id, $this->_db->quoteString($dkey), $this->_db->quoteString($dvalue));
         } else {
-            $sql = sprintf('UPDATE %s SET dkey = %s, dvalue = %s  WHERE id = %u', $this->_db->prefix($this->_dbtable), $this->_db->quoteString($dkey), $this->_db->quoteString($dvalue), $id);
+            $sql = sprintf('UPDATE `%s` SET dkey = %s, dvalue = %s  WHERE id = %u', $this->_db->prefix($this->_dbtable), $this->_db->quoteString($dkey), $this->_db->quoteString($dvalue), $id);
         }
         //echo $sql;
         // Update DB

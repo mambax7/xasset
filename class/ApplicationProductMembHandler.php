@@ -232,10 +232,10 @@ class ApplicationProductMembHandler extends Xasset\BaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, uid, order_detail_id, group_id, expiry_date, sent_warning)
+            $sql = sprintf('INSERT INTO `%s` (id, uid, order_detail_id, group_id, expiry_date, sent_warning)
                                       VALUES (%u, %u, %u, %u, %u, %u)', $this->_db->prefix($this->_dbtable), $id, $uid, $order_detail_id, $group_id, $expiry_date, $sent_warning);
         } else {
-            $sql = sprintf('UPDATE %s SET uid = %u, order_detail_id = %u, group_id = %u, expiry_date = %u, sent_warning = %u WHERE id = %u', $this->_db->prefix($this->_dbtable), $uid, $order_detail_id, $group_id, $expiry_date, $sent_warning, $id);
+            $sql = sprintf('UPDATE `%s` SET uid = %u, order_detail_id = %u, group_id = %u, expiry_date = %u, sent_warning = %u WHERE id = %u', $this->_db->prefix($this->_dbtable), $uid, $order_detail_id, $group_id, $expiry_date, $sent_warning, $id);
         }
         //echo $sql;
         // Update DB

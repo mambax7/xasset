@@ -118,10 +118,10 @@ class RegionHandler extends Xasset\BaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, region, description)
+            $sql = sprintf('INSERT INTO `%s` (id, region, description)
                                       VALUES (%u, %s, %s)', $this->_db->prefix($this->_dbtable), $id, $this->_db->quoteString($region), $this->_db->quoteString($description));
         } else {
-            $sql = sprintf('UPDATE %s SET region = %s, description = %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $this->_db->quoteString($region), $this->_db->quoteString($description), $id);
+            $sql = sprintf('UPDATE `%s` SET region = %s, description = %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $this->_db->quoteString($region), $this->_db->quoteString($description), $id);
         }
         //echo $sql;
         // Update DB

@@ -257,7 +257,7 @@ class PackageGroupHandler extends Xasset\BaseObjectHandler
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
             $sql = sprintf(
-                'INSERT INTO %s (id, applicationid, NAME, grpDesc, version, datePublished) VALUES (%u, %u, %s, %s, %s, %u)',
+                'INSERT INTO `%s` (id, applicationid, NAME, grpDesc, version, datePublished) VALUES (%u, %u, %s, %s, %s, %u)',
                 $this->_db->prefix($this->_dbtable),
                 $id,
                 $applicationid,
@@ -268,7 +268,7 @@ class PackageGroupHandler extends Xasset\BaseObjectHandler
             );
         } else {
             $sql = sprintf(
-                'UPDATE %s SET applicationid = %u, NAME = %s, grpDesc = %s, version = %s, datePublished = %u WHERE id = %u',
+                'UPDATE `%s` SET applicationid = %u, NAME = %s, grpDesc = %s, version = %s, datePublished = %u WHERE id = %u',
                 $this->_db->prefix($this->_dbtable),
                 $applicationid,
                 $this->_db->quoteString($name),

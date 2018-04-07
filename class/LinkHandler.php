@@ -133,9 +133,9 @@ class LinkHandler extends Xasset\BaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, applicationid, NAME, link) VALUES (%u, %u, %s, %s)', $this->_db->prefix($this->_dbtable), $id, $applicationid, $this->_db->quoteString($name), $this->_db->quoteString($link));
+            $sql = sprintf('INSERT INTO `%s` (id, applicationid, NAME, link) VALUES (%u, %u, %s, %s)', $this->_db->prefix($this->_dbtable), $id, $applicationid, $this->_db->quoteString($name), $this->_db->quoteString($link));
         } else {
-            $sql = sprintf('UPDATE %s SET applicationid = %u, NAME = %s, link = %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $applicationid, $this->_db->quoteString($name), $this->_db->quoteString($link), $id);
+            $sql = sprintf('UPDATE `%s` SET applicationid = %u, NAME = %s, link = %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $applicationid, $this->_db->quoteString($name), $this->_db->quoteString($link), $id);
         }
 
         // Update DB

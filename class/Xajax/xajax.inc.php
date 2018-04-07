@@ -510,11 +510,11 @@ class xajax
      */
     public function getRequestMode()
     {
-        if (!empty($_GET['xajax'])) {
+       if (\Xmf\Request::hasVar('xajax', 'GET')) {
             return XAJAX_GET;
         }
 
-        if (!empty($_POST['xajax'])) {
+       if (\Xmf\Request::hasVar('xajax', 'POST')) {
             return XAJAX_POST;
         }
 
@@ -549,7 +549,7 @@ class xajax
         if (XAJAX_POST == $requestMode) {
             $sFunctionName = $_POST['xajax'];
 
-            if (!empty($_POST['xajaxargs'])) {
+           if (\Xmf\Request::hasVar('xajaxargs', 'POST')) {
                 $aArgs = $_POST['xajaxargs'];
             }
         } else {
@@ -560,7 +560,7 @@ class xajax
 
             $sFunctionName = $_GET['xajax'];
 
-            if (!empty($_GET['xajaxargs'])) {
+           if (\Xmf\Request::hasVar('xajaxargs', 'GET')) {
                 $aArgs = $_GET['xajaxargs'];
             }
         }
@@ -873,13 +873,13 @@ class xajax
         $aURL = [];
 
         // Try to get the request URL
-        if (!empty($_SERVER['REQUEST_URI'])) {
+       if (\Xmf\Request::hasVar('REQUEST_URI', 'SERVER')) {
             $aURL = parse_url($_SERVER['REQUEST_URI']);
         }
 
         // Fill in the empty values
         if (empty($aURL['scheme'])) {
-            if (!empty($_SERVER['HTTP_SCHEME'])) {
+           if (\Xmf\Request::hasVar('HTTP_SCHEME', 'SERVER')) {
                 $aURL['scheme'] = $_SERVER['HTTP_SCHEME'];
             } else {
                 $aURL['scheme'] = (!empty($_SERVER['HTTPS'])
@@ -888,7 +888,7 @@ class xajax
         }
 
         if (empty($aURL['host'])) {
-            if (!empty($_SERVER['HTTP_HOST'])) {
+           if (\Xmf\Request::hasVar('HTTP_HOST', 'SERVER')) {
                 if (strpos($_SERVER['HTTP_HOST'], ':') > 0) {
                     list($aURL['host'], $aURL['port']) = explode(':', $_SERVER['HTTP_HOST']);
                 } else {
@@ -908,7 +908,7 @@ class xajax
         }
 
         if (empty($aURL['path'])) {
-            if (!empty($_SERVER['PATH_INFO'])) {
+           if (\Xmf\Request::hasVar('PATH_INFO', 'SERVER')) {
                 $sPath = parse_url($_SERVER['PATH_INFO']);
             } else {
                 $sPath = parse_url($_SERVER['PHP_SELF']);

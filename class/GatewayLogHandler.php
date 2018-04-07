@@ -156,10 +156,10 @@ class GatewayLogHandler extends Xasset\BaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, order_id, gateway_id, DATE, order_stage, log_text)
+            $sql = sprintf('INSERT INTO `%s` (id, order_id, gateway_id, DATE, order_stage, log_text)
                                                             VALUES (%u, %u, %u, %u, %u, %s)', $this->_db->prefix($this->_dbtable), $id, $order_id, $gateway_id, $date, $order_stage, $this->_db->quoteString($log_text));
         } else {
-            $sql = sprintf('UPDATE %s SET order_id = %u, gateway_id = %u, DATE = %u, ordre_stage = %u, log_text = %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $order_id, $gateway_id, $date, $order_stage, $this->_db->quoteString($log_text), $id);
+            $sql = sprintf('UPDATE `%s` SET order_id = %u, gateway_id = %u, DATE = %u, ordre_stage = %u, log_text = %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $order_id, $gateway_id, $date, $order_stage, $this->_db->quoteString($log_text), $id);
         }
         // Update DB
         if (false != $force) {

@@ -254,9 +254,9 @@ class UserPackageStatsHandler extends Xasset\BaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, packageid, uid, ip, DATE, dns) VALUES (%u, %u, %u, %s, %u, %s)', $this->_db->prefix($this->_dbtable), $id, $packageid, $uid, $this->_db->quoteString($ip), $date, $this->_db->quoteString($dns));
+            $sql = sprintf('INSERT INTO `%s` (id, packageid, uid, ip, DATE, dns) VALUES (%u, %u, %u, %s, %u, %s)', $this->_db->prefix($this->_dbtable), $id, $packageid, $uid, $this->_db->quoteString($ip), $date, $this->_db->quoteString($dns));
         } else {
-            $sql = sprintf('UPDATE %s SET packageid = %u, uid = %u, ip = %s, DATE = %u, dns = %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $packageidid, $uid, $this->_db->quoteString($ip), $date, $this->_db->quoteString($dns), $id);
+            $sql = sprintf('UPDATE `%s` SET packageid = %u, uid = %u, ip = %s, DATE = %u, dns = %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $packageidid, $uid, $this->_db->quoteString($ip), $date, $this->_db->quoteString($dns), $id);
         }
         //echo $sql;
         // Update DB

@@ -321,7 +321,7 @@ class ApplicationProductHandler extends Xasset\BaseObjectHandler
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
             $sql = sprintf(
-                'INSERT INTO %s (id, application_id, tax_class_id, display_order, base_currency_id, package_group_id,
+                'INSERT INTO `%s` (id, application_id, tax_class_id, display_order, base_currency_id, package_group_id,
                                       sample_package_group_id, item_code,
                                       item_description, unit_price, old_unit_price, min_unit_count, max_access, max_days, expires, add_to_group,
                                       add_to_group2, item_rich_description, enabled, group_expire_date, group_expire_date2, extra_instructions)
@@ -352,7 +352,7 @@ class ApplicationProductHandler extends Xasset\BaseObjectHandler
             );
         } else {
             $sql = sprintf(
-                'UPDATE %s SET application_id = %u, tax_class_id = %u, display_order = %u, base_currency_id = %u,
+                'UPDATE `%s` SET application_id = %u, tax_class_id = %u, display_order = %u, base_currency_id = %u,
                                         package_group_id = %u, sample_package_group_id = %u, item_code = %s, item_description = %s, unit_price = %f, old_unit_price = %f,
                                         min_unit_count = %u, max_access = %u, max_days = %u, expires = %u, add_to_group = %u, add_to_group2 = %u,
                                         item_rich_description = %s, enabled = %u, group_expire_date = %u, group_expire_date2 = %u, extra_instructions = %s WHERE id = %u',

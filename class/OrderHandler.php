@@ -263,10 +263,10 @@ class OrderHandler extends Xasset\BaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, user_detail_id, currency_id, uid, NUMBER, DATE, STATUS, gateway, trans_id, VALUE, fee)
+            $sql = sprintf('INSERT INTO `%s` (id, user_detail_id, currency_id, uid, NUMBER, DATE, STATUS, gateway, trans_id, VALUE, fee)
                                       VALUES (%u, %u, %u, %u, %u, %u, %u, %u, %s, %f, %f)', $this->_db->prefix($this->_dbtable), $id, $user_detail_id, $currency_id, $uid, $number, $date, $status, $gateway, $this->_db->quoteString($trans_id), $value, $fee);
         } else {
-            $sql = sprintf('UPDATE %s SET user_detail_id = %u, currency_id = %u, uid = %u, NUMBER = %u, DATE = %u,
+            $sql = sprintf('UPDATE `%s` SET user_detail_id = %u, currency_id = %u, uid = %u, NUMBER = %u, DATE = %u,
                                         STATUS = %u, gateway = %u, trans_id = %s, VALUE = %f, fee = %f WHERE id = %u', $this->_db->prefix($this->_dbtable), $user_detail_id, $currency_id, $uid, $number, $date, $status, $gateway, $this->_db->quoteString($trans_id), $value, $fee, $id);
         }
         //echo $sql;

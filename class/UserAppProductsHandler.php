@@ -123,10 +123,10 @@ class UserAppProductsHandler extends Xasset\BaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, uid, application_product_id)
+            $sql = sprintf('INSERT INTO `%s` (id, uid, application_product_id)
                                       VALUES (%u, %u, %u)', $this->_db->prefix($this->_dbtable), $id, $uid, $application_product_id);
         } else {
-            $sql = sprintf('UPDATE %s SET uid = %u, application_poduct_id = %u WHERE id = %u', $this->_db->prefix($this->_dbtable), $uid, $application_poduct_id, $id);
+            $sql = sprintf('UPDATE `%s` SET uid = %u, application_poduct_id = %u WHERE id = %u', $this->_db->prefix($this->_dbtable), $uid, $application_poduct_id, $id);
         }
         // Update DB
         if (false != $force) {

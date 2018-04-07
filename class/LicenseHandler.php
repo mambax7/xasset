@@ -427,7 +427,7 @@ class LicenseHandler extends Xasset\BaseObjectHandler
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
             $sql = sprintf(
-                'INSERT INTO %s (id, applicationid, uid, authKey, authCode, expires, dateIssued) VALUES (%u, %u, %s, %s, %s, %u, %u)',
+                'INSERT INTO `%s` (id, applicationid, uid, authKey, authCode, expires, dateIssued) VALUES (%u, %u, %s, %s, %s, %u, %u)',
                 $this->_db->prefix($this->_dbtable),
                 $id,
                 $applicationid,
@@ -439,7 +439,7 @@ class LicenseHandler extends Xasset\BaseObjectHandler
             );
         } else {
             $sql = sprintf(
-                'UPDATE %s SET applicationid = %u, uid = %u, authKey = %s, authCode = %s, expires = %u, dateIssued = %u WHERE id = %u',
+                'UPDATE `%s` SET applicationid = %u, uid = %u, authKey = %s, authCode = %s, expires = %u, dateIssued = %u WHERE id = %u',
                 $this->_db->prefix($this->_dbtable),
                 $applicationid,
                 $uid,

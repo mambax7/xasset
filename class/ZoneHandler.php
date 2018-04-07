@@ -258,10 +258,10 @@ class ZoneHandler extends Xasset\BaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, country_id, CODE, NAME)
+            $sql = sprintf('INSERT INTO `%s` (id, country_id, CODE, NAME)
                                       VALUES (%u, %u, %s, %s)', $this->_db->prefix($this->_dbtable), $id, $country_id, $this->_db->quoteString($code), $this->_db->quoteString($name));
         } else {
-            $sql = sprintf('UPDATE %s SET country_id = %u, CODE = %s, NAME = %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $country_id, $this->_db->quoteString($code), $this->_db->quoteString($name), $id);
+            $sql = sprintf('UPDATE `%s` SET country_id = %u, CODE = %s, NAME = %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $country_id, $this->_db->quoteString($code), $this->_db->quoteString($name), $id);
         }
         //echo $sql;
         // Update DB

@@ -153,10 +153,10 @@ class TaxRateHandler extends Xasset\BaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, region_id, tax_class_id, rate, priority, description)
+            $sql = sprintf('INSERT INTO `%s` (id, region_id, tax_class_id, rate, priority, description)
                                       VALUES (%u, %u, %u, %f, %u, %s)', $this->_db->prefix($this->_dbtable), $id, $region_id, $tax_class_id, $rate, $priority, $this->_db->quoteString($description));
         } else {
-            $sql = sprintf('UPDATE %s SET region_id = %u, tax_class_id = %u, rate = %f, priority = %u, description = %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $region_id, $tax_class_id, $rate, $priority, $this->_db->quoteString($description), $id);
+            $sql = sprintf('UPDATE `%s` SET region_id = %u, tax_class_id = %u, rate = %f, priority = %u, description = %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $region_id, $tax_class_id, $rate, $priority, $this->_db->quoteString($description), $id);
         }
         //echo $sql;
         // Update DB

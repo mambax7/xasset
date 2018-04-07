@@ -153,10 +153,10 @@ class TaxZoneHandler extends Xasset\BaseObjectHandler
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
             $id  = $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = sprintf('INSERT INTO %s (id, region_id, zone_id, country_id)
+            $sql = sprintf('INSERT INTO `%s` (id, region_id, zone_id, country_id)
                                       VALUES (%u, %u, %u, %u)', $this->_db->prefix($this->_dbtable), $id, $region_id, $zone_id, $country_id);
         } else {
-            $sql = sprintf('UPDATE %s SET region_id = %u, zone_id = %u, country_id = %u WHERE id = %u', $this->_db->prefix($this->_dbtable), $region_id, $zone_id, $country_id, $id);
+            $sql = sprintf('UPDATE `%s` SET region_id = %u, zone_id = %u, country_id = %u WHERE id = %u', $this->_db->prefix($this->_dbtable), $region_id, $zone_id, $country_id, $id);
         }
         //echo $sql;
         // Update DB
