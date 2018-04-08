@@ -162,7 +162,7 @@ class GatewayLogHandler extends Xasset\BaseObjectHandler
             $sql = sprintf('UPDATE `%s` SET order_id = %u, gateway_id = %u, DATE = %u, ordre_stage = %u, log_text = %s WHERE id = %u', $this->_db->prefix($this->_dbtable), $order_id, $gateway_id, $date, $order_stage, $this->_db->quoteString($log_text), $id);
         }
         // Update DB
-        if (false != $force) {
+        if (false !== $force) {
             $result = $this->_db->queryF($sql);
         } else {
             $result = $this->_db->query($sql);

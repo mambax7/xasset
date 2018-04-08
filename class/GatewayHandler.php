@@ -342,7 +342,7 @@ class GatewayHandler extends Xasset\BaseObjectHandler
         }
         //echo $sql;
         // Update DB
-        if (false != $force) {
+        if (false !== $force) {
             $result = $this->_db->queryF($sql);
         } else {
             $result = $this->_db->query($sql);

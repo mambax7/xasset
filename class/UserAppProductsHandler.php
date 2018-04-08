@@ -129,7 +129,7 @@ class UserAppProductsHandler extends Xasset\BaseObjectHandler
             $sql = sprintf('UPDATE `%s` SET uid = %u, application_poduct_id = %u WHERE id = %u', $this->_db->prefix($this->_dbtable), $uid, $application_poduct_id, $id);
         }
         // Update DB
-        if (false != $force) {
+        if (false !== $force) {
             $result = $this->_db->queryF($sql);
         } else {
             $result = $this->_db->query($sql);

@@ -808,7 +808,7 @@ class xajax
      */
     public function getJavascriptInclude($sJsURI = '', $sJsFile = null)
     {
-        if (null == $sJsFile) {
+        if (null === $sJsFile) {
             $sJsFile = 'xajax_js/xajax.js';
         }
 
