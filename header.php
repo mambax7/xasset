@@ -5,12 +5,12 @@ use XoopsModules\Xasset;
 //need to catch processOptionForm as this needs special processing
 if (isset($_GET['op']) && ('processOptionForm' === $_GET['op']) && isset($_GET['ssl']) && isset($_GET['url'])) {
     $xoopsOption['nocommon'] = 1;
-    require_once __DIR__ . '/../../mainfile.php';
+    require_once  dirname(dirname(__DIR__)) . '/mainfile.php';
     runkit_constant_redefine('XOOPS_URL', base64_decode(urldecode($_GET['url'])));
     unset($xoopsOption['nocommon']);
     require XOOPS_ROOT_PATH . '/include/common.php';
 } else {
-    require_once __DIR__ . '/../../mainfile.php';
+    require_once  dirname(dirname(__DIR__)) . '/mainfile.php';
 }
 
 require_once __DIR__ . '/include/images.php';

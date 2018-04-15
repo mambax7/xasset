@@ -592,7 +592,7 @@ function ViewVideoLic($id, $key)
 function viewProductDescription($id, $key)
 {
     global $xoopsOption, $xoopsTpl, $xoopsConfig, $xoopsUser, $xoopsLogger, $xoopsUserIsAdmin, $xasset_module_header;
-    require_once __DIR__ . '/../../mainfile.php';
+    require_once  dirname(dirname(__DIR__)) . '/mainfile.php';
     xoops_header();
     //
     $hAppProd = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);

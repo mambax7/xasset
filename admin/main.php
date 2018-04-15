@@ -1,10 +1,8 @@
 <?php
 
 use XoopsModules\Xasset;
-/** @var Xasset\Helper $helper */
-$helper = Xasset\Helper::getInstance();
 
-//require_once __DIR__ . '/../../../include/cp_header.php';
+//require_once  dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 require_once __DIR__ . '/admin_header.php';
 
 //require_once(__DIR__ . '/../include/functions.php');

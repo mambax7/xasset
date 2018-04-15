@@ -9,7 +9,7 @@ $xoopsOption['nocommon'] = 1;
 if (defined('XOOPS_TEST_ROOT_PATH')) {
     require XOOPS_TEST_ROOT_PATH . '/mainfile.php';
 } else {
-    require_once __DIR__ . '/../../mainfile.php';
+    require_once  dirname(dirname(__DIR__)) . '/mainfile.php';
 }
 
 require_once XOOPS_ROOT_PATH . '/kernel/object.php';
