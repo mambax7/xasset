@@ -1,5 +1,23 @@
 <?php namespace XoopsModules\Xasset;
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
 use XoopsModules\Xasset;
 
 /**
@@ -15,9 +33,9 @@ class RegionHandler extends Xasset\BaseObjectHandler
     //cons
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      */
-    public function __construct(\XoopsDatabase $db)
+    public function __construct(\XoopsDatabase $db = null)
     {
         $this->_db = $db;
     }
@@ -25,11 +43,11 @@ class RegionHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      *
      * @return Xasset\RegionHandler
      */
-    public function getInstance(\XoopsDatabase $db)
+    public function getInstance(\XoopsDatabase $db = null)
     {
         static $instance;
         if (null === $instance) {
@@ -42,13 +60,13 @@ class RegionHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param null $criteria
+     * @param null|\CriteriaCompo $criteria
      *
      * @return array
      */
-    public function getSelectArray($criteria = null)
+    public function getSelectArray(\CriteriaCompo $criteria = null)
     {
-        if (!isset($criteria)) {
+        if (null === $criteria) {
             $criteria = new \CriteriaCompo();
             $criteria->setSort('region');
         }
@@ -75,7 +93,7 @@ class RegionHandler extends Xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        if (!isset($criteria)) {
+        if (null === $criteria) {
             $criteria = new \CriteriaCompo();
             $criteria->setSort('region');
         }

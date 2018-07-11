@@ -1,4 +1,4 @@
-<?php namespace XoopsModules\Xasset\xajax;
+<?php namespace XoopsModules\Xasset\Xajax;
 
 /**
  * xajaxCompress.php :: function to compress Javascript
@@ -65,7 +65,7 @@ function xajaxCompressJavascript($sJS)
         $inNormalComment = false;
 
         //loop through line's characters and take out any literal strings, replace them with ___i___ where i is the index of this string
-        for ($j = 0; $j < strlen($line); ++$j) {
+        for ($j = 0, $jMax = strlen($line); $j < $jMax; ++$j) {
             $c = substr($line, $j, 1);
             $d = substr($line, $j, 2);
 
@@ -100,7 +100,7 @@ function xajaxCompressJavascript($sJS)
                     $clean .= '___' . count($literal_strings) . '___';
 
                     //push the string onto our array
-                    array_push($literal_strings, $literal);
+                    $literal_strings[] = $literal;
                 } elseif ($inComment && '*/' === $d) {
                     $inComment = false;
                     $literal   .= $d;
@@ -109,7 +109,7 @@ function xajaxCompressJavascript($sJS)
                     $clean .= '___' . count($literal_strings) . '___';
 
                     //push the string onto our array
-                    array_push($literal_strings, $literal);
+                    $literal_strings[] = $literal;
 
                     ++$j;
                 } else {
@@ -163,7 +163,7 @@ function xajaxCompressJavascript($sJS)
     $sJS = preg_replace("/[\n]*\{[\n]*/", '{', $sJS);
 
     //finally loop through and replace all the literal strings:
-    for ($i = 0, $iMax = count($literal_strings); $i < $iMax; ++$i) {
+    foreach ($literal_strings as $i => $iValue) {
         $sJS = str_replace('___' . $i . '___', $literal_strings[$i], $sJS);
     }
 

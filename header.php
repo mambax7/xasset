@@ -1,14 +1,32 @@
 <?php
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
 use XoopsModules\Xasset;
 
 //need to catch processOptionForm as this needs special processing
-if (isset($_GET['op']) && ('processOptionForm' === $_GET['op']) && isset($_GET['ssl']) && isset($_GET['url'])) {
+if (\Xmf\Request::hasVar('op', 'GET') && ('processOptionForm' === $_GET['op']) && isset($_GET['ssl']) && isset($_GET['url'])) {
     $xoopsOption['nocommon'] = 1;
     require_once  dirname(dirname(__DIR__)) . '/mainfile.php';
     runkit_constant_redefine('XOOPS_URL', base64_decode(urldecode($_GET['url'])));
     unset($xoopsOption['nocommon']);
-    require XOOPS_ROOT_PATH . '/include/common.php';
+    require_once XOOPS_ROOT_PATH . '/include/common.php';
 } else {
     require_once  dirname(dirname(__DIR__)) . '/mainfile.php';
 }

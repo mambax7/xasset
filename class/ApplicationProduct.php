@@ -1,5 +1,23 @@
 <?php namespace XoopsModules\Xasset;
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
 use XoopsModules\Xasset;
 
 /**
@@ -41,7 +59,7 @@ class ApplicationProduct extends Xasset\BaseObject
         //
         $this->weight = 13;
         //
-        if (isset($id)) {
+        if (null !== $id) {
             if (is_array($id)) {
                 $this->assignVars($id);
             }
@@ -125,9 +143,9 @@ class ApplicationProduct extends Xasset\BaseObject
     {
         if ($this->getVar('expires') > 0) {
             return formatTimestamp($this->getVar('expires'), $format);
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     ////////////////////////////////////////
@@ -232,7 +250,7 @@ class ApplicationProduct extends Xasset\BaseObject
         $hCommon  = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
         $hPackage = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
         //
-        if (!isset($movie_id)) {
+        if (null === $movie_id) {
             //get first sample video from packages
             $aoPackages = $hPackage->getProductSamplePackages($this);
             if (count($aoPackages) > 0) {
@@ -250,8 +268,8 @@ class ApplicationProduct extends Xasset\BaseObject
 
             //
             return $tpl->fetch('db:xasset_player_code.tpl');
-        } else {
-            return '';
         }
+
+        return '';
     }
 }

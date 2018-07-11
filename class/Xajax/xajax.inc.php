@@ -1,4 +1,4 @@
-<?php namespace XoopsModules\Xasset\xajax;
+<?php namespace XoopsModules\Xasset\Xajax;
 
 /**
  * xajax.inc.php :: Main xajax class and setup file
@@ -33,6 +33,8 @@
  * @copyright Copyright (c) 2005-2006  by Jared White & J. Max Wilson
  * @license   http://www.gnu.org/copyleft/lesser.html#SEC3 LGPL License
  */
+
+use XoopsModules\Xasset\Xajax;
 
 /*
    ----------------------------------------------------------------------------
@@ -574,7 +576,7 @@ class xajax
         if ($this->sPreFunction) {
             if (!$this->_isFunctionCallable($this->sPreFunction)) {
                 $bFoundFunction = false;
-                $objResponse    = new \XajaxResponse();
+                $objResponse    = new Xajax\XajaxResponse();
                 $objResponse->addAlert('Unknown Pre-Function ' . $this->sPreFunction);
                 $sResponse = $objResponse->getXML();
             }
@@ -594,13 +596,13 @@ class xajax
                     $bFunctionIsCatchAll = true;
                 } else {
                     $bFoundFunction = false;
-                    $objResponse    = new \XajaxResponse();
+                    $objResponse    = new Xajax\XajaxResponse();
                     $objResponse->addAlert("Unknown Function $sFunctionName.");
                     $sResponse = $objResponse->getXML();
                 }
             } elseif ($this->aFunctionRequestTypes[$sFunctionName] != $requestMode) {
                 $bFoundFunction = false;
-                $objResponse    = new \XajaxResponse();
+                $objResponse    = new Xajax\XajaxResponse();
                 $objResponse->addAlert('Incorrect Request Type.');
                 $sResponse = $objResponse->getXML();
             }
@@ -639,7 +641,7 @@ class xajax
 
             if (!$bEndRequest) {
                 if (!$this->_isFunctionCallable($sFunctionName)) {
-                    $objResponse = new \XajaxResponse();
+                    $objResponse = new Xajax\XajaxResponse();
                     $objResponse->addAlert("The Registered Function $sFunctionName Could Not Be Found.");
                     $sResponse = $objResponse->getXML();
                 } else {
@@ -652,11 +654,11 @@ class xajax
                     $sResponse = $sResponse->getXML();
                 }
                 if (!is_string($sResponse) || false === strpos($sResponse, '<xjx>')) {
-                    $objResponse = new \XajaxResponse();
+                    $objResponse = new Xajax\XajaxResponse();
                     $objResponse->addAlert("No XML Response Was Returned By Function $sFunctionName.");
                     $sResponse = $objResponse->getXML();
                 } elseif ('' != $sPreResponse) {
-                    $sNewResponse = new \XajaxResponse($this->sEncoding, $this->bOutputEntities);
+                    $sNewResponse = new Xajax\XajaxResponse($this->sEncoding, $this->bOutputEntities);
                     $sNewResponse->loadXML($sPreResponse);
                     $sNewResponse->loadXML($sResponse);
                     $sResponse = $sNewResponse->getXML();
@@ -670,10 +672,10 @@ class xajax
         }
         header($sContentHeader);
         if ($this->bErrorHandler && !empty($GLOBALS['xajaxErrorHandlerText'])) {
-            $sErrorResponse = new \XajaxResponse();
+            $sErrorResponse = new Xajax\XajaxResponse();
             $sErrorResponse->addAlert('** PHP Error Messages: **' . $GLOBALS['xajaxErrorHandlerText']);
             if ($this->sLogFile) {
-                $fH = @fopen($this->sLogFile, 'a');
+                $fH = @fopen($this->sLogFile, 'ab');
                 if (!$fH) {
                     $sErrorResponse->addAlert("** Logging Error **\n\nxajax was unable to write to the error log file:\n" . $this->sLogFile);
                 } else {
@@ -852,7 +854,7 @@ class xajax
             require_once __DIR__ . '/xajaxCompress.php';
             $javaScript       = file_get_contents($srcFile);
             $compressedScript = xajaxCompressJavascript($javaScript);
-            $fH               = @fopen($realJsFile, 'w');
+            $fH               = @fopen($realJsFile, 'wb');
             if (!$fH) {
                 trigger_error('The xajax compressed javascript file could not be written in the <b>' . dirname($realJsFile) . '</b> folder. Error ', E_USER_ERROR);
             } else {

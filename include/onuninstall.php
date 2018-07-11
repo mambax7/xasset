@@ -36,6 +36,7 @@ function xoops_module_uninstall_xasset(\XoopsModule $module)
 
     $moduleDirName = basename(dirname(__DIR__));
     $moduleDirNameUpper = strtoupper($moduleDirName);
+    /** @var Xasset\Helper $helper */
      $helper      =Xasset\Helper::getInstance();
 
     /** @var Xasset\Utility $utility */

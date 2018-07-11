@@ -1,5 +1,23 @@
 <?php namespace XoopsModules\Xasset;
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
 use XoopsModules\Xasset;
 
 /**
@@ -15,9 +33,9 @@ class ApplicationGroupHandler extends Xasset\BaseObjectHandler
     //cons
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      */
-    public function __construct(\XoopsDatabase $db)
+    public function __construct(\XoopsDatabase $db = null)
     {
         $this->_db = $db;
     }
@@ -25,11 +43,11 @@ class ApplicationGroupHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      *
      * @return Xasset\ApplicationGroupHandler
      */
-    public function getInstance(\XoopsDatabase $db)
+    public function getInstance(\XoopsDatabase $db = null)
     {
         static $instance;
         if (null === $instance) {
@@ -147,7 +165,7 @@ class ApplicationGroupHandler extends Xasset\BaseObjectHandler
         //
         $this->_db->queryF($sql);
         //
-        if (isset($aGrps)) {
+        if (null !== $aGrps) {
             foreach ($aGrps as $key => $groupid) {
                 $grp = $this->create();
                 $grp->setVar('application_id', $appID);
@@ -181,7 +199,7 @@ class ApplicationGroupHandler extends Xasset\BaseObjectHandler
             $sql = sprintf('INSERT INTO `%s` (id, application_id, group_id)
                                       VALUES (%u, %u, %u)', $this->_db->prefix($this->_dbtable), $id, $application_id, $group_id);
         } else {
-            $sql = sprintf('UPDATE `%s` SET application_id = %u, group_id = %uwhere id = %u', $this->_db->prefix($this->_dbtable), $application_id, $group_id, $id);
+            $sql = sprintf('UPDATE `%s` SET application_id = %u, group_id = %u WHERE id = %u', $this->_db->prefix($this->_dbtable), $application_id, $group_id, $id);
         }
         //echo $sql;
         // Update DB

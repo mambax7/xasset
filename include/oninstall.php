@@ -30,7 +30,7 @@ use XoopsModules\Xasset;
  */
 function xoops_module_pre_install_xasset(\XoopsModule $module)
 {
-    include  dirname(__DIR__) . '/preloads/autoloader.php';
+    require_once dirname(__DIR__) . '/preloads/autoloader.php';
     /** @var Xasset\Utility $utility */
     $utility = new \XoopsModules\Xasset\Utility();
     $xoopsSuccess = $utility::checkVerXoops($module);
@@ -60,6 +60,7 @@ function xoops_module_install_xasset(\XoopsModule $module)
 
     $moduleDirName = basename(dirname(__DIR__));
 
+    /** @var Xasset\Helper $helper */
     $helper       = Xasset\Helper::getInstance();
     $utility      = new Xasset\Utility();
     $configurator = new Xasset\Common\Configurator();

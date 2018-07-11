@@ -1,17 +1,35 @@
 <?php
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
 use XoopsModules\Xasset;
 
 require_once __DIR__ . '/header.php';
 require_once XOOPS_ROOT_PATH . '/header.php';
-//require_once('class/crypt.php');
+//require('class/crypt.php');
 
 $op    = \Xmf\Request::getCmd('op', 'default');
 
 switch ($op) {
     case 'default':
     default:
-        //if (isset($_GET['appid'])) $appid = $_GET['appid']; else $appid = 0;
+        //if (\Xmf\Request::hasVar('appid', 'GET'))) $appid = $_GET['appid']; else $appid = 0;
         //loadIndex(/*$appid*/);
         product();
         break;
@@ -41,7 +59,7 @@ switch ($op) {
         break;
     //
     case 'evaluation':
-        if (isset($_GET['appid']) && isset($_GET['key'])) {
+        if (\Xmf\Request::hasVar('appid', 'GET') && isset($_GET['key'])) {
             loadEvaluation($_GET['appid'], $_GET['key']);
         } else {
             loadEvaluation();
@@ -100,12 +118,12 @@ function loadIndex($appid = 0, $key = '')
         redirect_header('index.php?op=evaluation', 0, 'Redirecting...');
     }
     //
-    $hLic     = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    $licenseHandler     = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
     $hPackGrp = new Xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
     $hLink    = new Xasset\LinkHandler($GLOBALS['xoopsDB']);
     $hApp     = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
     //
-    $userApps = $hLic->getUserApplicationArray($uid);
+    $userApps = $licenseHandler->getUserApplicationArray($uid);
     $app      = $hApp->create();
     //
     if (!($appid > 0)) {
@@ -123,7 +141,7 @@ function loadIndex($appid = 0, $key = '')
         $crit = new \CriteriaCompo(new \Criteria('id', $appid));
         //
         $appObj  = $hApp->getApplicationsArray($crit);
-        $userLic = $hLic->getClientLicenses($appid, $uid);
+        $userLic = $licenseHandler->getClientLicenses($appid, $uid);
         $links   = $hLink->getApplicationLinks($appid);
         $appObj  = $appObj[0];
         //
@@ -135,7 +153,7 @@ function loadIndex($appid = 0, $key = '')
         $xoopsTpl->assign('xasset_application_links', $links);
         $xoopsTpl->assign('xasset_links_count', count($links));
         //
-        include XOOPS_ROOT_PATH . '/footer.php';
+        require_once XOOPS_ROOT_PATH . '/footer.php';
     }
 }
 
@@ -161,9 +179,10 @@ function viewLicense($licID, $key)
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_license_index.tpl';
     require_once XOOPS_ROOT_PATH . '/header.php';
     //first check that the key matches requested ID
-    $hLic = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    /** @var Xasset\LicenseHandler $licenseHandler */
+    $licenseHandler = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
     //
-    $lic = $hLic->get($licID);
+    $lic = $licenseHandler->get($licID);
     //
     if (keyMatches($licID, $key, $lic->weight, 'Invalid Key. Cannot display License Information')) {
         $app =& $lic->getApplication();
@@ -178,7 +197,7 @@ function viewLicense($licID, $key)
         $xoopsTpl->assign('xasset_license', $res);
         $xoopsTpl->assign('xasset_application', $app->getVar('name'));
         //
-        include XOOPS_ROOT_PATH . '/footer.php';
+        require_once XOOPS_ROOT_PATH . '/footer.php';
     }
 }
 
@@ -206,7 +225,7 @@ function viewAppGroups($groupid, $key)
         $xoopsTpl->assign('xasset_package', $packGrp->getVar('name'));
         $xoopsTpl->assign('xasset_application', $app->getVar('name'));
         //
-        include XOOPS_ROOT_PATH . '/footer.php';
+        require_once XOOPS_ROOT_PATH . '/footer.php';
     }
 }
 
@@ -286,7 +305,7 @@ function loadEvaluation($appid = 0, $key = '')
         $uid = 0;
     }
     //
-    $hLic     = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    $licenseHandler     = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
     $hPackGrp = new Xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
     $hLink    = new Xasset\LinkHandler($GLOBALS['xoopsDB']);
     $hApp     = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
@@ -296,7 +315,7 @@ function loadEvaluation($appid = 0, $key = '')
     $hCommon  = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
     //
     if ($uid > 0) {
-        $evalApps = $hLic->getEvalApplicationsArray($uid);
+        $evalApps = $licenseHandler->getEvalApplicationsArray($uid);
     } else {
         $evalApps = $hApp->getEvalApplicationsArray();
     }
@@ -309,7 +328,7 @@ function loadEvaluation($appid = 0, $key = '')
         } else {
             $GLOBALS['xoopsOption']['template_main'] = 'xasset_error.tpl';
             $xoopsTpl->assign('xasset_error', 'No evaluation applications found.');
-            include XOOPS_ROOT_PATH . '/footer.php';
+            require_once XOOPS_ROOT_PATH . '/footer.php';
             exit;
         }
     }
@@ -320,7 +339,7 @@ function loadEvaluation($appid = 0, $key = '')
         $appObj = $hApp->getApplicationsArray($crit);
         $appObj = $appObj[0];
         //
-        if (isset($_SESSION['currency_id'])) {
+        if (\Xmf\Request::hasVar('currency_id', 'SESSION')) {
             $currid = $_SESSION['currency_id'];
         } else {
             $currid = $hConfig->getBaseCurrency();
@@ -353,7 +372,7 @@ function loadEvaluation($appid = 0, $key = '')
         $xoopsTpl->assign('xasset_show_expires', $showExpires);
         //$xoopsTpl->assign('xasset_base_currency',
         //
-        include XOOPS_ROOT_PATH . '/footer.php';
+        require_once XOOPS_ROOT_PATH . '/footer.php';
     }
 }
 
@@ -402,7 +421,7 @@ function product($appid = null, $key = null)
         $uid = 0;
     }
     //
-    $hLic     = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    $licenseHandler     = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
     $hPackGrp = new Xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
     $hLink    = new Xasset\LinkHandler($GLOBALS['xoopsDB']);
     $hApps    = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
@@ -420,7 +439,7 @@ function product($appid = null, $key = null)
     } else {
         $GLOBALS['xoopsOption']['template_main'] = 'xasset_error.tpl';
         $xoopsTpl->assign('xasset_error', 'No applications defined for this group.');
-        include XOOPS_ROOT_PATH . '/footer.php';
+        require_once XOOPS_ROOT_PATH . '/footer.php';
 
         return;
     }
@@ -432,7 +451,7 @@ function product($appid = null, $key = null)
         } else {
             $GLOBALS['xoopsOption']['template_main'] = 'xasset_error.tpl';
             $xoopsTpl->assign('xasset_error', 'No application found.');
-            include XOOPS_ROOT_PATH . '/footer.php';
+            require_once XOOPS_ROOT_PATH . '/footer.php';
             exit;
         }
     }
@@ -440,7 +459,7 @@ function product($appid = null, $key = null)
     if (keyMatches($appid, $key, $app->weight, 'Invalid Key. Cannot display Application')) {
         $crit = new \CriteriaCompo(new \Criteria('id', $appid));
         //
-        if (isset($_SESSION['currency_id'])) {
+        if (\Xmf\Request::hasVar('currency_id', 'SESSION')) {
             $currid = $_SESSION['currency_id'];
         } else {
             $currid = $hConfig->getBaseCurrency();
@@ -485,7 +504,7 @@ function product($appid = null, $key = null)
         //
         $xoopsTpl->assign('xasset_application', $appObj);
     }
-    include XOOPS_ROOT_PATH . '/footer.php';
+    require_once XOOPS_ROOT_PATH . '/footer.php';
 }
 
 /////////////////////////////////////////
@@ -512,7 +531,7 @@ function showMyDownloads()
         redirect_header(XOOPS_URL . '/user.php', 3, 'Not Logged in.');
     }
     //
-    include XOOPS_ROOT_PATH . '/footer.php';
+    require_once XOOPS_ROOT_PATH . '/footer.php';
 }
 
 //////////////////////////////////////////////////
@@ -537,7 +556,7 @@ function showUserSubs()
         redirect_header(XOOPS_URL . '/user.php', 3, 'Not Logged in.');
     }
     //
-    include XOOPS_ROOT_PATH . '/footer.php';
+    require_once XOOPS_ROOT_PATH . '/footer.php';
 }
 
 ////////////////////////////////////////////
@@ -548,7 +567,7 @@ function showUserSubs()
  */
 function getVideo($id, $position, $token)
 {
-    /** @var \XassetVideoHandler $hVideo */
+    /** @var Xasset\VideoHandler $hVideo */
     $hVideo = new Xasset\VideoHandler($GLOBALS['xoopsDB']);
     $hVideo->getVideo($id, $token, $position);
 }
@@ -568,7 +587,7 @@ function ViewVideoLic($id, $key)
     $hPack   = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
     $hCommon = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
     //
-    /** @var \Xasset\Package $oPackage */
+    /** @var Xasset\Package $oPackage */
     $oPackage = $hPack->get($id);
     //
     if (keyMatches($id, $key, $oPackage->weight, 'Invalid Key. Cannot view video')) {
@@ -580,7 +599,7 @@ function ViewVideoLic($id, $key)
         $xoopsTpl->assign('xasset_movie_size', filesize($oPackage->filePath()));
         $xoopsTpl->assign('xasset_token', $xoopsUser ? $hCommon->pspEncrypt($xoopsUser->uid()) : $hCommon->pspEncrypt(0));
         //
-        include XOOPS_ROOT_PATH . '/footer.php';
+        require_once XOOPS_ROOT_PATH . '/footer.php';
     }
 }
 

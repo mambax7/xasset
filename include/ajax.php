@@ -1,6 +1,7 @@
 <?php
 
 use XoopsModules\Xasset;
+use XoopsModules\Xasset\Xajax;
 
 require_once  dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 
@@ -8,7 +9,7 @@ require_once  dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
  * @param $packageID
  * @param $packageKey
  *
- * @return xajaxResponse
+ * @return Xajax\XajaxResponse
  */
 function onSampleClick($packageID, $packageKey)
 {
@@ -17,7 +18,7 @@ function onSampleClick($packageID, $packageKey)
     $hPackage = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
     $hCommon  = new Xasset\CommonHandler($GLOBALS['xoopsDB']);
     //
-    $objResponse = new \XajaxResponse();
+    $objResponse = new Xajax\XajaxResponse();
     //
     if ($hCommon->keyMatches($packageID, $packageKey, $hPackage->_weight)) {
         $oPackage = $hPackage->get($packageID);

@@ -1,11 +1,29 @@
 <?php
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
 use XoopsModules\Xasset;
 
 //require_once  dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 require_once __DIR__ . '/admin_header.php';
 
-//require_once(__DIR__ . '/../include/functions.php');
+//require(__DIR__ . '/../include/functions.php');
 
 global $xoopsModule;
 $module_id = $xoopsModule->getVar('mid');
@@ -64,7 +82,7 @@ switch ($op) {
         break;
     //
     case 'managePackages':
-        if (isset($_GET['appid'])) {
+        if (\Xmf\Request::hasVar('appid', 'GET')) {
             $appid = $_GET['appid'];
         } else {
             $appid = 0;
@@ -350,13 +368,13 @@ function loadIndex()
   $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_index.tpl';
   //
   $hApp       = xoops_getModuleHandler('application','xasset');
-  $hLic       = xoops_getModuleHandler('license','xasset');
+  $licenseHandler       = xoops_getModuleHandler('license','xasset');
   $hPack      = xoops_getModuleHandler('package','xasset');
   $hStat      = xoops_getModuleHandler('userPackageStats','xasset');
   $hLinks     = xoops_getModuleHandler('link','xasset');
   //
   $xasset_index['applications']     = $hApp->getAllApplicationsCount();
-  $xasset_index['licenses']         = $hLic->getAllLicensesCount();
+  $xasset_index['licenses']         = $licenseHandler->getAllLicensesCount();
   $xasset_index['files']            = $hPack->getAllPackagesCount();
   $xasset_index['links']            = $hLinks->getAllLinksCount();
   $xasset_index['downloads']        = $hStat->getAllDownloadStats();
@@ -590,10 +608,10 @@ function manageLicenses()
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_license_index.tpl';
     //
     $hApp = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
-    $hLic = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    $licenseHandler = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
     //
     //  $xoopsTpl->assign('xasset_navigation',$oAdminButton->renderButtons('manLic'));
-    $xoopsTpl->assign('xasset_lic_list', $hLic->getLicenseSummary());
+    $xoopsTpl->assign('xasset_lic_list', $licenseHandler->getLicenseSummary());
     $xoopsTpl->assign('xasset_lic_select', $hApp->getApplicationSelectArray());
     $xoopsTpl->assign('xasset_users', getGroupClients());
     $xoopsTpl->assign('xasset_date_field', getDateField('expires', time()));
@@ -608,12 +626,12 @@ function manageLicenses()
  */
 function addLicense($post)
 {
-    $hLic = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    $licenseHandler = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
     //
     if (isset($post['id']) && ($post['id'] > 0)) {
-        $lic = $hLic->get($post['id']);
+        $lic = $licenseHandler->get($post['id']);
     } else {
-        $lic = $hLic->create();
+        $lic = $licenseHandler->create();
     }
     $lic->setVar('uid', $post['userid']);
     $lic->setVar('applicationid', $post['appid']);
@@ -622,7 +640,7 @@ function addLicense($post)
     $lic->setVar('expires', $post['expires']);
     $lic->setVar('dateIssued', time());
     //
-    if ($hLic->insert($lic)) {
+    if ($licenseHandler->insert($lic)) {
         if (isset($post['adminop'])) {
             redirect_header('main.php?op=' . $post['adminop'], 3, 'License Added.');
         } else {
@@ -640,7 +658,7 @@ function viewAppLicenses($appid)
     global $xoopsTpl;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_license_application.tpl';
     //
-    $hLic = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    $licenseHandler = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
     $hApp = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
     //
     $app = $hApp->get($appid);
@@ -648,7 +666,7 @@ function viewAppLicenses($appid)
     //  $xoopsTpl->assign('xasset_navigation',$oAdminButton->renderButtons('manLic'));
     $xoopsTpl->assign('xasset_appid', $appid);
     $xoopsTpl->assign('xasset_lic_appname', $app->getVar('name'));
-    $xoopsTpl->assign('xasset_lic_list', $hLic->getAppLicenses($appid));
+    $xoopsTpl->assign('xasset_lic_list', $licenseHandler->getAppLicenses($appid));
     $xoopsTpl->assign('xasset_lic_select', $hApp->getApplicationSelectArray());
     $xoopsTpl->assign('xasset_users', getGroupClients());
     $xoopsTpl->assign('adminop', "viewAppLicenses&id=$appid");
@@ -668,11 +686,11 @@ function viewClientLicenses($uid, $appid)
     global $xoopsTpl;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_license_client.tpl';
     //
-    $hLic          = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    $licenseHandler          = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
     $hApp          = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
     $memberHandler = xoops_getHandler('member');
     //
-    $lics = $hLic->getClientLicenses($appid, $uid);
+    $lics = $licenseHandler->getClientLicenses($appid, $uid);
     $user = $memberHandler->getUser($uid);
     $app  = $hApp->get($appid);
     //
@@ -699,10 +717,10 @@ function editClientLicense($id)
     global $xoopsTpl;
     $GLOBALS['xoopsOption']['template_main'] = 'xasset_admin_license_add.tpl';
     //
-    $hLic = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    $licenseHandler = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
     $hApp = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
     //
-    $lic = $hLic->get($id);
+    $lic = $licenseHandler->get($id);
     //
     $xoopsTpl->assign('xasset_operation_short', 'modify');
     $xoopsTpl->assign('xasset_operation', 'Modify');
@@ -722,9 +740,9 @@ function editClientLicense($id)
  */
 function deleteClientLicense($id)
 {
-    $hLic = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+    $licenseHandler = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
     //
-    if ($hLic->deleteByID($id, true)) {
+    if ($licenseHandler->deleteByID($id, true)) {
         redirect_header('main.php?op=manageLicenses', 3, 'License Deleted.');
     }
 }
@@ -1735,7 +1753,7 @@ function manageGateways($id = null)
     $gateways  = $hGateway->parseGatewayModules();
     $installed = $hGateway->getInstalledGatewayArray();
     //
-    if (isset($id) && ($id > 0)) {
+    if (null !== $id && ($id > 0)) {
         $gateway = $hGateway->get($id);
     } else {
         if (count($gateways) > 0) {

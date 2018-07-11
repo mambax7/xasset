@@ -1,8 +1,26 @@
 <?php namespace XoopsModules\Xasset;
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
 use XoopsModules\Xasset;
 
-//use XoopsModules\Xasset\xajax;
+//use XoopsModules\Xasset\Xajax;
 
 /**
  * Class BaseObjectHandler
@@ -12,11 +30,11 @@ class BaseObjectHandler extends \XoopsObjectHandler
     /**
      * @return mixed
      */
-    public function create()
+    public  function create()
     {
-        $obj = new $this->classname();
+            $obj = new $this->classname();
 
-        return $obj;
+            return $obj;
     }
 
     /**
@@ -51,11 +69,11 @@ class BaseObjectHandler extends \XoopsObjectHandler
     ///////////////////////////////////////////////////////////////////
     /**
      * @param $sql
-     * @param $criteria
+     * @param null $criteria
      */
-    public function postProcessSQL(&$sql, $criteria)
+    public function postProcessSQL(&$sql, $criteria=null)
     {
-        if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
+        if (null !== $criteria && is_subclass_of($criteria, 'CriteriaElement')) {
             if ('' != $criteria->renderWhere()) {
                 $sql .= ' ' . $criteria->renderWhere();
             }
@@ -80,7 +98,7 @@ class BaseObjectHandler extends \XoopsObjectHandler
         $ret   = [];
         $limit = $start = 0;
         $sql   = $this->_selectQuery($criteria);
-        if (isset($criteria)) {
+        if (null !== $criteria) {
             $limit = $criteria->getLimit();
             $start = $criteria->getStart();
         }
@@ -113,7 +131,7 @@ class BaseObjectHandler extends \XoopsObjectHandler
     public function _selectQuery($criteria = null)
     {
         $sql = sprintf('SELECT * FROM `%s`', $this->_db->prefix($this->_dbtable));
-        if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
+        if (null !== $criteria && is_subclass_of($criteria, 'CriteriaElement')) {
             $sql .= ' ' . $criteria->renderWhere();
             if ('' != $criteria->getSort()) {
                 $sql .= ' ORDER BY ' . $criteria->getSort() . '
@@ -132,7 +150,7 @@ class BaseObjectHandler extends \XoopsObjectHandler
     public function getCount($criteria = null)
     {
         $sql = 'SELECT COUNT(*) FROM ' . $this->_db->prefix($this->_dbtable);
-        if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
+        if (null !== $criteria && is_subclass_of($criteria, 'CriteriaElement')) {
             $sql .= ' ' . $criteria->renderWhere();
         }
         if (!$result = $this->_db->query($sql)) {

@@ -22,7 +22,7 @@ use XoopsModules\Xasset;
 $path = dirname(dirname(dirname(__DIR__)));
 require_once $path . '/include/cp_header.php';
 
-include  dirname(__DIR__) . '/preloads/autoloader.php';
+require_once dirname(__DIR__) . '/preloads/autoloader.php';
 
 $moduleDirName = basename(dirname(__DIR__));
 /** @var Xasset\Helper $helper */
@@ -50,7 +50,7 @@ define('XASSET_BASE_PATH', XOOPS_ROOT_PATH . '/modules/xasset');
 define('XASSET_CLASS_PATH', XASSET_BASE_PATH . '/class');
 define('XASSET_ADMIN_PATH', XASSET_BASE_PATH . '/admin');
 
-require XASSET_BASE_PATH . '/admin/AdminButtons.php';
+require_once XASSET_BASE_PATH . '/admin/AdminButtons.php';
 require_once XASSET_BASE_PATH . '/include/functions.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 

@@ -1,10 +1,28 @@
 <?php
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
 use XoopsModules\Xasset;
 
 require_once __DIR__ . '/header.php';
-//require_once('class/crypt.php');
-//require_once(XOOPS_ROOT_PATH . "/header.php");
+//require('class/crypt.php');
+//require(XOOPS_ROOT_PATH . "/header.php");
 
 require_once __DIR__ . '/class/validator.php';
 
@@ -42,9 +60,9 @@ switch ($op) {
         break;
     //
     case 'checkout':
-        if (isset($_POST['updateCart'])) {
+        if (\Xmf\Request::hasVar('updateCart', 'POST')) {
             updateOrderQuantities($_POST);
-        } elseif (isset($_POST['checkout'])) {
+        } elseif (\Xmf\Request::hasVar('checkout', 'POST')) {
             choosePayment();
         }
         break;
@@ -75,10 +93,10 @@ function addToCart($itemID, $key, $qty = 1, $forceUser = null)
 {
     global $xoopsOption, $xoopsTpl, $xoopsConfig, $xoopsUser, $xoopsLogger, $xoopsUserIsAdmin, $xasset_module_header;
     //check if not anonymous user
-    if (isset($forceUser)) {
+    if (null !== $forceUser) {
         $xoopsUser = $forceUser;
     }
-    if (!$xoopsUser && !isset($forceUser)) {
+    if (!$xoopsUser && null === $forceUser) {
         //no user record... redirect to User Detail Page.
         $redirect = [
             'id'  => $itemID,
@@ -126,7 +144,7 @@ function addToCart($itemID, $key, $qty = 1, $forceUser = null)
         $hUserDetail = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
         //
         if ($userDetail = $hUserDetail->getUserDetailByID($xoopsUser->uid())) {
-            if (isset($_SESSION['currency_id']) && ($_SESSION['currency_id'] > 0)) {
+            if (\Xmf\Request::hasVar('currency_id', 'SESSION') && ($_SESSION['currency_id'] > 0)) {
                 $currid = $_SESSION['currency_id'];
             } else {
                 $hConfig = new Xasset\ConfigHandler($GLOBALS['xoopsDB']);
@@ -190,7 +208,7 @@ function askUserDetails($userDetails = null)
         die('No countried defined.');
     }
     //
-    if (isset($userDetails)) {
+    if (null !== $userDetails) {
         $cust    = $userDetails;
         $aCust   = $cust->getArray();
         $country = $hCountry->get($cust->getVar('country_id'));
@@ -228,10 +246,10 @@ function askUserDetails($userDetails = null)
     //
     $xasset_module_header .= insertHeaderCountriesJavaScriptNoAllZones();
     //
-    if (isset($cust)) {
+    if (null !== $cust) {
         $xoopsTpl->assign('xasset_customer', $aCust);
     }
-    if (isset($errors)) {
+    if (null !== $errors) {
         $xoopsTpl->assign('xasset_error', $errors);
     }
     //
@@ -243,7 +261,7 @@ function askUserDetails($userDetails = null)
     $xoopsTpl->assign('xasset_operation', 'Add');
     $xoopsTpl->assign('xasset_operation_short', 'create');
     //
-    include XOOPS_ROOT_PATH . '/footer.php';
+    require_once XOOPS_ROOT_PATH . '/footer.php';
 }
 
 ////////////////////////////////////////////////////////
@@ -264,7 +282,7 @@ function showUserDetails($userDetails = null)
     $hCustDet = new Xasset\UserDetailsHandler($GLOBALS['xoopsDB']);
     $hCount   = new Xasset\CountryHandler($GLOBALS['xoopsDB']);
     //
-    if (isset($userDetails)) {
+    if (null !== $userDetails) {
         $cust = $userDetails;
     } else {
         $cust = $hCustDet->getUserDetailByID($xoopsUser->uid());
@@ -311,7 +329,7 @@ function showUserDetails($userDetails = null)
     $xoopsTpl->assign('xasset_customer', $aCust);
     $xoopsTpl->assign('xasset_error', $aErrors);
     //
-    include XOOPS_ROOT_PATH . '/footer.php';
+    require_once XOOPS_ROOT_PATH . '/footer.php';
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -387,7 +405,7 @@ function addCustomer($post)
             //
             $myts = \MyTextSanitizer::getInstance();
             $hMember->loginUser($myts->addSlashes($oUser->uname()), $myts->addSlashes($password));
-            if (!isset($_SESSION)) {
+            if (null === $_SESSION) {
                 $_SESSION = [];
             }
             $_SESSION['xoopsUserId']     = $oUser->getVar('uid');
@@ -401,7 +419,7 @@ function addCustomer($post)
     }
     //we are here so the data looks good...save it
     if ($hCust->insert($cust)) {
-        if (isset($_SESSION['stage'])) {
+        if (\Xmf\Request::hasVar('stage', 'SESSION')) {
             if (1 == $_SESSION['stage']) {
                 //direct to stage 2
                 $_SESSION['stage'] = 2;
@@ -433,7 +451,7 @@ function showCart()
     //
     $hOrder = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
     //get the order id from session
-    if (isset($_SESSION['orderID']) && ($_SESSION['orderID'] > 0)) {
+    if (\Xmf\Request::hasVar('orderID', 'SESSION') && ($_SESSION['orderID'] > 0)) {
         $GLOBALS['xoopsOption']['template_main'] = 'xasset_order_index.tpl';
         require_once XOOPS_ROOT_PATH . '/header.php';
         //
@@ -459,7 +477,7 @@ function showCart()
             $xoopsTpl->assign('xasset_total_price', $order->getOrderTotal());
             $xoopsTpl->assign('xasset_tax', $order->getOrderTaxTotal());
             //
-            include XOOPS_ROOT_PATH . '/footer.php';
+            require_once XOOPS_ROOT_PATH . '/footer.php';
         } else { //why are we here... redirect back to index
             redirect_header('index.php', 2, 'No items in your cart.');
         }
@@ -514,7 +532,7 @@ function choosePayment()
 {
     global $xoopsOption, $xoopsTpl, $xoopsConfig, $xoopsUser, $xoopsLogger, $xoopsUserIsAdmin, $xasset_module_header;
     //get the order id from session
-    if (isset($_SESSION['orderID']) && ($_SESSION['orderID'] > 0)) {
+    if (\Xmf\Request::hasVar('orderID', 'SESSION') && ($_SESSION['orderID'] > 0)) {
         $hOrder   = new Xasset\OrderHandler($GLOBALS['xoopsDB']);
         $hGateway = new Xasset\GatewayHandler($GLOBALS['xoopsDB']);
         //
@@ -548,7 +566,7 @@ function choosePayment()
                 $xoopsTpl->assign('xasset_total_price', $order->getOrderTotal());
                 $xoopsTpl->assign('xasset_tax', $tax);
                 //
-                include XOOPS_ROOT_PATH . '/footer.php';
+                require_once XOOPS_ROOT_PATH . '/footer.php';
             } else {
                 redirect_header('index.php', 2, 'Cannot checkout. Your cart is empty.');
             }
@@ -556,7 +574,7 @@ function choosePayment()
             redirect_header('index.php', 2, 'Cannot find Cart.');
         }
         //
-        include XOOPS_ROOT_PATH . '/footer.php';
+        require_once XOOPS_ROOT_PATH . '/footer.php';
     } else {
         redirect_header('index.php', 2, 'Cannot find Cart.');
     }
@@ -574,7 +592,7 @@ function processPayment($post)
     $hNotify  = new Xasset\NotificationServiceHandler($GLOBALS['xoopsDB']);
     //save gatewayid in order index for return
     $value = $post['gateway'];
-    if (isset($_SESSION['orderID']) && ($_SESSION['orderID'] > -1)) {
+    if (\Xmf\Request::hasVar('orderID', 'SESSION') && ($_SESSION['orderID'] > -1)) {
         $order = $hOrder->get($_SESSION['orderID']);
         $order->setVar('gateway', $value);
         $order->setVar('status', $order->orderStatusGateway());
@@ -622,7 +640,7 @@ function processOptionForm($gatewayID)
     $xoopsTpl->assign('xoops_module_header', $xasset_module_header);
     $xoopsTpl->assign('paygate', $paygate);
     //
-    include XOOPS_ROOT_PATH . '/footer.php';
+    require_once XOOPS_ROOT_PATH . '/footer.php';
 }
 
 ///////////////////////////////////////////////////////////////////////////

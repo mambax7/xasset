@@ -1,5 +1,23 @@
 <?php namespace XoopsModules\Xasset;
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
 use XoopsModules\Xasset;
 
 /**
@@ -16,9 +34,9 @@ class PackageHandler extends Xasset\BaseObjectHandler
     //cons
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      */
-    public function __construct(\XoopsDatabase $db)
+    public function __construct(\XoopsDatabase $db = null)
     {
         $this->_db = $db;
     }
@@ -32,7 +50,7 @@ class PackageHandler extends Xasset\BaseObjectHandler
      */
     public function getPackagesArray($criteria)
     {
-        if (!isset($criteria)) {
+        if (null === $criteria) {
             $criteria = new \CriteriaCompo();
             $criteria->setSort('filename');
         }
@@ -197,21 +215,21 @@ class PackageHandler extends Xasset\BaseObjectHandler
         //
         if (count($objs) > 0) {
             return $objs;
-        } else {
-            $objs = false;
-
-            return $objs;
         }
+
+        $objs = false;
+
+        return $objs;
     }
 
     ///////////////////////////////////////////////////
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      *
      * @return Xasset\PackageHandler
      */
-    public function getInstance(\XoopsDatabase $db)
+    public function getInstance(\XoopsDatabase $db = null)
     {
         static $instance;
         if (null === $instance) {

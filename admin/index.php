@@ -31,13 +31,13 @@ $adminObject = \Xmf\Module\Admin::getInstance();
 global $xoopsTpl;
 //
 $hApp   = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
-$hLic   = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+$licenseHandler   = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
 $hPack  = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
 $hStat  = new Xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
 $hLinks = new Xasset\LinkHandler($GLOBALS['xoopsDB']);
 //
 $applicationsCount = $hApp->getAllApplicationsCount();
-$licensesCount     = $hLic->getAllLicensesCount();
+$licensesCount     = $licenseHandler->getAllLicensesCount();
 $filesCount        = $hPack->getAllPackagesCount();
 $linksCount        = $hLinks->getAllLinksCount();
 $downloadsCount    = $hStat->getAllDownloadStats();
@@ -54,7 +54,7 @@ if (!$fp) {
 $adminObject->addInfoBox(_MI_XASSET_DASHBBOARD);
 
 $adminObject->addInfoBoxLine(sprintf(_MI_XASSET_APPLICATIONS, $hApp->getAllApplicationsCount()), '', 'Green');
-$adminObject->addInfoBoxLine(sprintf(_MI_XASSET_LICENSES, $hLic->getAllLicensesCount()), '', 'Green');
+$adminObject->addInfoBoxLine(sprintf(_MI_XASSET_LICENSES, $licenseHandler->getAllLicensesCount()), '', 'Green');
 $adminObject->addInfoBoxLine(sprintf(_MI_XASSET_FILES, $hPack->getAllPackagesCount()), '', 'Green');
 $adminObject->addInfoBoxLine(sprintf(_MI_XASSET_LINKS, $hLinks->getAllLinksCount()), '', 'Green');
 $adminObject->addInfoBoxLine(sprintf(_MI_XASSET_DOWNLOADS, $hStat->getAllDownloadStats()), '', 'Green');

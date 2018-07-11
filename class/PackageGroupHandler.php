@@ -1,5 +1,23 @@
 <?php namespace XoopsModules\Xasset;
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
 use XoopsModules\Xasset;
 
 /**
@@ -15,9 +33,9 @@ class PackageGroupHandler extends Xasset\BaseObjectHandler
     //cons
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      */
-    public function __construct(\XoopsDatabase $db)
+    public function __construct(\XoopsDatabase $db = null)
     {
         $this->_db = $db;
     }
@@ -31,7 +49,7 @@ class PackageGroupHandler extends Xasset\BaseObjectHandler
      */
     public function getPackageGroupArray($criteria)
     {
-        if (!isset($criteria)) {
+        if (null === $criteria) {
             $criteria = new \CriteriaCompo();
             $criteria->setSort('name');
         }
@@ -111,7 +129,7 @@ class PackageGroupHandler extends Xasset\BaseObjectHandler
         //
         $objs = $this->getPackageGroupArray($crit);
         //
-        for ($i = 0, $iMax = count($objs); $i < $iMax; ++$i) {
+        foreach ($objs as $i => $iValue) {
             $action = '<a href="main.php?op=editPackageGroup&id=' . $objs[$i]['id'] . '&appid=' . $objs[$i]['applicationid'] . '">' . $imagearray['editimg'] . '</a>' . '<a href="main.php?op=deletePackageGroup&id=' . $objs[$i]['id'] . '">' . $imagearray['deleteimg'] . '</a>';
             //
             $objs[$i]['actions'] = $action;
@@ -133,7 +151,7 @@ class PackageGroupHandler extends Xasset\BaseObjectHandler
         $crit->setSort('name');
         //
         $ary[0] = 'None';
-        $ary    = $ary + $this->getGroupsSelectArray($crit);
+        $ary    += $this->getGroupsSelectArray($crit);
 
         //
         return $ary;
@@ -197,7 +215,7 @@ class PackageGroupHandler extends Xasset\BaseObjectHandler
      */
     public function getDownloadSummaryArray($crit = null)
     {
-        if (!isset($crit)) {
+        if (null === $crit) {
             $crit = new \CriteriaCompo();
             $crit->setSort('id');
         }
@@ -223,11 +241,11 @@ class PackageGroupHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      *
      * @return Xasset\PackageGroupHandler
      */
-    public function getInstance(\XoopsDatabase $db)
+    public function getInstance(\XoopsDatabase $db = null)
     {
         static $instance;
         if (null === $instance) {

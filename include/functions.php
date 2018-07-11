@@ -13,8 +13,8 @@ function parseConstants($body, $moduleName)
 {
     global $xoopsConfig;
     //
-    $hModule = xoops_getHandler('module');
-    $module  = $hModule->getByDirname($moduleName);
+    $moduleHandler = xoops_getHandler('module');
+    $module  = $moduleHandler->getByDirname($moduleName);
     //
     $tags                 = [];
     $tags['X_MODULE']     = $module->getVar('name');
@@ -63,7 +63,7 @@ function getGroupClients()
  */
 function getDateField($name, $date = null)
 {
-    if (!isset($date)) {
+    if (null === $date) {
         $date = time();
     }
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
@@ -101,7 +101,7 @@ function keyMatches($id, $key, $weight, $error)
         $GLOBALS['xoopsOption']['template_main'] = 'xasset_error.tpl';
         require_once XOOPS_ROOT_PATH . '/header.php';
         $xoopsTpl->assign('xasset_error', $error);
-        include XOOPS_ROOT_PATH . '/footer.php';
+        require_once XOOPS_ROOT_PATH . '/footer.php';
 
         return false;
     }

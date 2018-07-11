@@ -1,5 +1,23 @@
 <?php namespace XoopsModules\Xasset;
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
 use XoopsModules\Xasset;
 use XoopsModules\Xasset\Gateways;
 
@@ -16,9 +34,9 @@ class GatewayHandler extends Xasset\BaseObjectHandler
     //cons
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      */
-    public function __construct(\XoopsDatabase $db)
+    public function __construct(\XoopsDatabase $db = null)
     {
         $this->_db = $db;
     }
@@ -26,11 +44,11 @@ class GatewayHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      *
      * @return Xasset\GatewayHandler
      */
-    public function getInstance(\XoopsDatabase $db)
+    public function getInstance(\XoopsDatabase $db = null)
     {
         static $instance;
         if (null === $instance) {
@@ -56,11 +74,11 @@ class GatewayHandler extends Xasset\BaseObjectHandler
             $res = false;
 
             return $res;
-        } else {
-            $res = current($objs);
-
-            return $res;
         }
+
+        $res = current($objs);
+
+        return $res;
     }
 
     ///////////////////////////////////////////////////
@@ -106,7 +124,7 @@ class GatewayHandler extends Xasset\BaseObjectHandler
     public function getInstalledGatewayWithDescArray()
     {
         $ar = $this->getInstalledGatewayArray();
-        for ($i = 0, $iMax = count($ar); $i < $iMax; ++$i) {
+        foreach ($ar as $i => $iValue) {
             $gateway               =& $this->getGatewayModuleByID($ar[$i]['id']);
             $ar[$i]['description'] = $gateway->description;
         }
@@ -166,13 +184,11 @@ class GatewayHandler extends Xasset\BaseObjectHandler
             }
         }
         //
-        if (isset($module)) {
+        if (null !== $module) {
             return $module;
-        } else {
-            $res = false;
-
-            return $res;
         }
+
+        return false;
     }
 
     ///////////////////////////////////////////////////
@@ -227,7 +243,7 @@ class GatewayHandler extends Xasset\BaseObjectHandler
             $class = '\\XoopsModules\\Xasset\\Gateways\\' . $className;
             $module = new $class;
             //check if this class is a subclass of BaseGateway
-            if (is_subclass_of($module, BaseGateway::class) && ($xoopsModule->getVar('version') == $module->version())) {
+            if (is_subclass_of($module, Xasset\Gateways\BaseGateway::class) && ($xoopsModule->getVar('version') == $module->version())) {
                 $installed_modules[] = [
                     'id'        => $module->id,
                     'class'     => $class,

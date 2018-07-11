@@ -1,5 +1,25 @@
 <?php namespace XoopsModules\Xasset;
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
+use XoopsModules\Xasset;
+
 /**
  * class NotificationServiceHandler
  */
@@ -25,23 +45,23 @@ class NotificationServiceHandler extends \XoopsObjectHandler
     /////////////////////////////////////
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      */
-    public function __construct(\XoopsDatabase $db)
+    public function __construct(\XoopsDatabase $db = null)
     {
         global $xoopsConfig, $xoopsModule;
         //
         $this->_db = $db;
         //
-        $hModule = xoops_getHandler('module');
+        $moduleHandler = xoops_getHandler('module');
         //
         $this->_ts           = \MyTextSanitizer::getInstance();
         $this->_template_dir = $this->_getTemplateDir($xoopsConfig['language']);
         //
-        if (isset($xoopsModule) && 'xasset' === $xoopsModule->getVar('dirname')) {
+        if (null !== $xoopsModule && 'xasset' === $xoopsModule->getVar('dirname')) {
             $this->_module =& $xoopsModule;
         } else {
-            $this->_module = $hModule->getByDirname('xasset');
+            $this->_module = $moduleHandler->getByDirname('xasset');
         }
     }
 
@@ -86,9 +106,9 @@ class NotificationServiceHandler extends \XoopsObjectHandler
         $hMember = xoops_getHandler('member'); //otherwise...
         if ($member = $hMember->getUser($uid)) {
             return $member->getVar('email');
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     /////////////////////////////////////////////
@@ -163,9 +183,9 @@ class NotificationServiceHandler extends \XoopsObjectHandler
         $path = XOOPS_ROOT_PATH . '/modules/xasset/language/' . $language . '/mail_template';
         if (is_dir($path)) {
             return $path;
-        } else {
-            return XOOPS_ROOT_PATH . '/modules/xsset/language/english/mail_template';
         }
+
+        return XOOPS_ROOT_PATH . '/modules/xsset/language/english/mail_template';
     }
 
     //////////////////////////////////////////////////////////////////////////

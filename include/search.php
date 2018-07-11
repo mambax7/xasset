@@ -12,6 +12,14 @@
 
 use XoopsModules\Xasset;
 
+/**
+ * @param $queryarray
+ * @param $andor
+ * @param $limit
+ * @param $offset
+ * @param $userid
+ * @return array
+ */
 function xasset_search($queryarray, $andor, $limit, $offset, $userid)
 {
     $hApp     = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
@@ -23,7 +31,7 @@ function xasset_search($queryarray, $andor, $limit, $offset, $userid)
     //first the apps
     $ret = [];
     $i   = 0;
-    if (is_array($aApps) && count($aApps) > 0 && isset($oApp)) {
+    if (is_array($aApps) && count($aApps) > 0 && null !== $oApp) {
         foreach ($aApps as $key => $oApp) {
             $ret[$i]['image'] = 'assets/images/main.png';
             $ret[$i]['link']  = 'index.php?op=product&id=' . $oApp->ID() . '&key=' . $oApp->getKey();

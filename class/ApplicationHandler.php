@@ -1,5 +1,23 @@
 <?php namespace XoopsModules\Xasset;
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
 use XoopsModules\Xasset;
 
 /**
@@ -28,9 +46,9 @@ class ApplicationHandler extends Xasset\BaseObjectHandler
     //cons
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      */
-    public function __construct(\XoopsDatabase $db)
+    public function __construct(\XoopsDatabase $db = null)
     {
         $this->_db = $db;
     }
@@ -121,14 +139,14 @@ class ApplicationHandler extends Xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        $hLic     = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+        $licenseHandler     = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
         $hStats   = new Xasset\UserPackageStatsHandler($GLOBALS['xoopsDB']);
         $hPack    = new Xasset\PackageHandler($GLOBALS['xoopsDB']);
         $hPackGrp = new Xasset\PackageGroupHandler($GLOBALS['xoopsDB']);
         $hAppProd = new Xasset\ApplicationProductHandler($GLOBALS['xoopsDB']);
         //
         $appTable = $this->_db->prefix($this->_dbtable);
-        $licTable = $this->_db->prefix($hLic->_dbtable);
+        $licTable = $this->_db->prefix($licenseHandler->_dbtable);
         $stTable  = $this->_db->prefix($hStats->_dbtable);
         $pkTable  = $this->_db->prefix($hPack->_dbtable);
         $pgTable  = $this->_db->prefix($hPackGrp->_dbtable);
@@ -140,7 +158,7 @@ class ApplicationHandler extends Xasset\BaseObjectHandler
                       pg.id = p.packagegroupid left join $stTable s on
                       p.id = s.packageid ";
         //
-        if (!isset($criteria)) {
+        if (null === $criteria) {
             $criteria = new \CriteriaCompo();
         }
         $criteria->setGroupBy('a.id, a.name');
@@ -181,7 +199,7 @@ class ApplicationHandler extends Xasset\BaseObjectHandler
      */
     public function getApplicationSelectArray($criteria = null)
     {
-        if (!isset($criteria)) {
+        if (null === $criteria) {
             $criteria = new \CriteriaCompo();
             $criteria->setOrder('name');
         }
@@ -195,9 +213,9 @@ class ApplicationHandler extends Xasset\BaseObjectHandler
         }
         if (count($ar) > 0) {
             return $ar;
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     ///////////////////////////////////////////////////
@@ -314,11 +332,11 @@ class ApplicationHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      *
      * @return Xasset\ApplicationHandler
      */
-    public function getInstance(\XoopsDatabase $db)
+    public function getInstance(\XoopsDatabase $db = null)
     {
         static $instance;
         if (null === $instance) {
@@ -393,7 +411,7 @@ class ApplicationHandler extends Xasset\BaseObjectHandler
         $sql  = "select * from $thisTable";
         $crit = new \CriteriaCompo();
         //
-        if (isset($userid) && ($userid > 0)) {
+        if (null !== $userid && ($userid > 0)) {
             echo $userid;
 
             return $ret;

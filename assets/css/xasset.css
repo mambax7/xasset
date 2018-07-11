@@ -1,11 +1,11 @@
 input.validateError {
-    background-color: red;
-    color: white;
+    background-color: #ff0000;
+    color: #ffffff;
 }
 
 textarea.validateError {
-    background-color: red;
-    color: white;
+    background-color: #ff0000;
+    color: #ffffff;
 }
 
 .mainTable {

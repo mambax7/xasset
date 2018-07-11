@@ -1,5 +1,23 @@
 <?php namespace XoopsModules\Xasset;
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
 use XoopsModules\Xasset;
 
 /**
@@ -15,9 +33,9 @@ class LicenseHandler extends Xasset\BaseObjectHandler
     //cons
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      */
-    public function __construct(\XoopsDatabase $db)
+    public function __construct(\XoopsDatabase $db = null)
     {
         $this->_db = $db;
     }
@@ -48,8 +66,8 @@ class LicenseHandler extends Xasset\BaseObjectHandler
             if ($row = $this->_db->fetcharray($res)) {
                 $appid = $row['applicationid'];
                 //now get a valid license
-                $hLic     = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
-                $licTable = $this->_db->prefix($hLic->_dbtable);
+                $licenseHandler     = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+                $licTable = $this->_db->prefix($licenseHandler->_dbtable);
                 //
                 $sql = "select count(*) cnt from $licTable
                    where applicationid = $appid and uid = $uid and expires >= " . time();
@@ -121,11 +139,11 @@ class LicenseHandler extends Xasset\BaseObjectHandler
     {
         global $imagearray;
         //
-        $hLic = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
+        $licenseHandler = new Xasset\LicenseHandler($GLOBALS['xoopsDB']);
         $hApp = new Xasset\ApplicationHandler($GLOBALS['xoopsDB']);
         //
         $appTable = $this->_db->prefix($hApp->_dbtable);
-        $licTable = $this->_db->prefix($hLic->_dbtable);
+        $licTable = $this->_db->prefix($licenseHandler->_dbtable);
         //
         $sql = "select app.id, app.name, count(distinct lic.uid) licenses
             from $appTable app inner join $licTable lic on
@@ -241,7 +259,7 @@ class LicenseHandler extends Xasset\BaseObjectHandler
     {
         $criteria = new \CriteriaCompo(new \Criteria('l.uid', $uid));
         $criteria->setSort('a.name');
-        if (isset($crit)) {
+        if (null !== $crit) {
             $criteria->add($crit);
         }
 
@@ -393,11 +411,11 @@ class LicenseHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      *
      * @return Xasset\LicenseHandler
      */
-    public function getInstance(\XoopsDatabase $db)
+    public function getInstance(\XoopsDatabase $db = null)
     {
         static $instance;
         if (null === $instance) {

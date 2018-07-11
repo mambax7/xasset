@@ -1,5 +1,23 @@
 <?php namespace XoopsModules\Xasset;
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
 use XoopsModules\Xasset;
 
 /**
@@ -24,7 +42,7 @@ class Order extends Xasset\BaseObject
         $this->initVar('value', XOBJ_DTYPE_OTHER, 0, false);
         $this->initVar('fee', XOBJ_DTYPE_OTHER, 0, false);
         //
-        if (isset($id)) {
+        if (null !== $id) {
             if (is_array($id)) {
                 $this->assignVars($id);
             }
@@ -103,8 +121,8 @@ class Order extends Xasset\BaseObject
         $taxArray =& $this->getOrderTax();
         $total    = 0;
         //
-        for ($i = 0, $iMax = count($taxArray); $i < $iMax; ++$i) {
-            $total = $total + (float)$taxArray[$i]['amount'];
+        foreach ($taxArray as $i => $iValue) {
+            $total += (float)$taxArray[$i]['amount'];
         }
         $res = [
             'amount'    => $total,
@@ -191,19 +209,19 @@ class Order extends Xasset\BaseObject
         $prodArray = $hODetail->getOrderApplicationProducts($id); //print_r($prodArray);
         //repopulate $taxArray with order values.
         foreach ($taxArray as $priority => $aTax) {
-            if (isset($subTax)) {
+            if (null !== $subTax) {
                 unset($subTax);
             }
-            for ($j = 0; $j < count($prodArray); ++$j) {
+            for ($j = 0, $jMax = count($prodArray); $j < $jMax; ++$j) {
                 $tax = 0;
                 for ($i = 0, $iMax = count($aTax); $i < $iMax; ++$i) {
                     if ($prodArray[$j]['tax_class_id'] == $aTax[$i]['tax_class_id']) {
-                        $tax                               = $tax + $prodArray[$j]['qty'] * $prodArray[$j]['unit_price'] * ($aTax[$i]['rate'] / 100);
-                        $subTax[$i]                        = $subTax[$i] + $prodArray[$j]['qty'] * $prodArray[$j]['unit_price'] * ($aTax[$i]['rate'] / 100);
+                        $tax                               += $prodArray[$j]['qty'] * $prodArray[$j]['unit_price'] * ($aTax[$i]['rate'] / 100);
+                        $subTax[$i]                        += $prodArray[$j]['qty'] * $prodArray[$j]['unit_price'] * ($aTax[$i]['rate'] / 100);
                         $taxArray[$priority][$i]['amount'] = $subTax[$i];
                     }
                 }
-                $prodArray[$j]['unit_price'] = $prodArray[$j]['unit_price'] + $tax;
+                $prodArray[$j]['unit_price'] += $tax;
             }
         } //print_r($prodArray); print_r($taxArray);
         //finally construct output array
@@ -259,7 +277,7 @@ class Order extends Xasset\BaseObject
         //
         if ($orderObjs = $hODetail->getObjects($crit)) {
             $order = $hODetail->get($orderObjs[0]->getVar('id'));
-            $qty   = $qty + $order->getVar('qty');
+            $qty   += $order->getVar('qty');
         } else {
             $order = $hODetail->create();
         }
@@ -314,7 +332,7 @@ class Order extends Xasset\BaseObject
                 //add to group expiry table
                 $hProdMember->AddGroupExpiry($oDetail, $oAppProduct, $oUserDetail);
                 //
-                if (isset($oUserDetail)) {
+                if (null !== $oUserDetail) {
                     unset($oUserDetail);
                 }
             }
@@ -324,7 +342,7 @@ class Order extends Xasset\BaseObject
                 //add to group expiry table
                 $hProdMember->AddGroupExpiry($oDetail, $oAppProduct, $oUserDetail, '2');
                 //
-                if (isset($oUserDetail)) {
+                if (null !== $oUserDetail) {
                     unset($oUserDetail);
                 }
             }

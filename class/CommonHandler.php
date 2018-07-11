@@ -1,5 +1,23 @@
 <?php namespace XoopsModules\Xasset;
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
 use XoopsModules\Xasset;
 
 /**
@@ -15,9 +33,9 @@ class CommonHandler extends Xasset\BaseObjectHandler
     //cons
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      */
-    public function __construct(\XoopsDatabase $db)
+    public function __construct(\XoopsDatabase $db = null)
     {
         $this->_db = $db;
         //load languages
@@ -28,11 +46,11 @@ class CommonHandler extends Xasset\BaseObjectHandler
     ///////////////////////////////////////////////////
 
     /**
-     * @param $db
+     * @param \XoopsDatabase $db
      *
      * @return CommonHandler
      */
-    public function getInstance(\XoopsDatabase $db)
+    public function getInstance(\XoopsDatabase $db = null)
     {
         static $instance;
         if (null === $instance) {
@@ -59,14 +77,14 @@ class CommonHandler extends Xasset\BaseObjectHandler
         }
 
         $retval = false;
-        if (isset($xoopsModuleConfig)
+        if (null !== $xoopsModuleConfig
             && (is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $repmodule
                 && $xoopsModule->getVar('isactive'))) {
             if (isset($xoopsModuleConfig[$option])) {
                 $retval = $xoopsModuleConfig[$option];
             }
         } else {
-            /** @var XoopsModuleHandler $moduleHandler */
+            /** @var \XoopsModuleHandler $moduleHandler */
             $moduleHandler = xoops_getHandler('module');
             $module        = $moduleHandler->getByDirname($repmodule);
             $configHandler = xoops_getHandler('config');
@@ -94,14 +112,14 @@ class CommonHandler extends Xasset\BaseObjectHandler
     {
         global $xoopsTpl;
         //
-        if (!isset($date)) {
+        if (null === $date) {
             $date = time();
         }
         //
         if ($module_header = $this->getSmartyVar('xoops_module_header')) {
             ob_start();
             require_once XOOPS_ROOT_PATH . '/include/calendarjs.php';
-            $module_header = $module_header . ob_get_contents();
+            $module_header .= ob_get_contents();
             ob_end_clean();
             //assign back
             $xoopsTpl->assign('xoops_module_header', $module_header);
@@ -122,7 +140,7 @@ class CommonHandler extends Xasset\BaseObjectHandler
     {
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
         //
-        if (!isset($date)) {
+        if (null === $date) {
             $date = time();
         }
         $datetime = getdate($date);
@@ -130,7 +148,7 @@ class CommonHandler extends Xasset\BaseObjectHandler
         //
         $timearray = [];
         for ($i = 0; $i < 24; ++$i) {
-            for ($j = 0; $j < 60; $j = $j + $div) {
+            for ($j = 0; $j < 60; $j += $div) {
                 $key             = ($i * 3600) + ($j * 60);
                 $timearray[$key] = (0 != $j) ? $i . ':' . $j : $i . ':0' . $j;
             }
@@ -179,7 +197,7 @@ class CommonHandler extends Xasset\BaseObjectHandler
             return true;
         } else {
             //      $GLOBALS['xoopsOption']['template_main'] = 'xasset_error.tpl';
-            //      require_once(XOOPS_ROOT_PATH . "/header.php");
+            //      require(XOOPS_ROOT_PATH . "/header.php");
             //      $xoopsTpl->assign('xasset_error',$error);
             //      include(XOOPS_ROOT_PATH . "/footer.php");
             return false;
@@ -236,9 +254,9 @@ class CommonHandler extends Xasset\BaseObjectHandler
             $user = reset($user);
 
             return $user;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     ///////////////////////////////////////////
@@ -259,9 +277,9 @@ class CommonHandler extends Xasset\BaseObjectHandler
             $user = reset($user);
 
             return $user;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     ///////////////////////////////////////////
@@ -309,7 +327,7 @@ class CommonHandler extends Xasset\BaseObjectHandler
         $memberHandler = xoops_getHandler('member');
 
         $unamecount = 10;
-        if (0 == strlen($password)) {
+        if ('' === $password) {
             $password = substr(md5(uniqid(mt_rand(), 1)), 0, 6);
         }
 
@@ -433,7 +451,7 @@ class CommonHandler extends Xasset\BaseObjectHandler
         $this->InitRand();
         $tmp = [];
 
-        for ($i = 0; $i < $digits; ++$i) {
+        foreach ($tmp as $i => $iValue) {
             $tmp[$i] = (mt_rand() % 9);
         }
 
@@ -479,14 +497,14 @@ class CommonHandler extends Xasset\BaseObjectHandler
      */
     public function validateInteger($value, $field, $required = true, $minval = -1, $maxval = -1)
     {
-        $valid = new ValidateInteger($value, $field, $required, $minval, $maxval);
+        $valid = new Xasset\ValidateInteger($value, $field, $required, $minval, $maxval);
         if ($valid->isValid()) {
             $res = false;
 
             return $res;
-        } else {
-            return $valid->getErrors();
         }
+
+        return $valid->getErrors();
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -502,14 +520,14 @@ class CommonHandler extends Xasset\BaseObjectHandler
      */
     public function &validateFloat($value, $field, $required = true, $minval = -1, $maxval = -1)
     {
-        $valid = new ValidateFloat($value, $field, $required, $minval, $maxval);
+        $valid = new Xasset\ValidateFloat($value, $field, $required, $minval, $maxval);
         if ($valid->isValid()) {
             $res = false;
 
             return $res;
-        } else {
-            return $valid->getErrors();
         }
+
+        return $valid->getErrors();
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -521,12 +539,12 @@ class CommonHandler extends Xasset\BaseObjectHandler
     {
         global $xoopsUser;
         //
-        $hModule = xoops_getHandler('module');
+        $moduleHandler = xoops_getHandler('module');
         $hOnline = xoops_getHandler('online');
         //
-        $aModule = $hModule->getByDirname($module);
+        $aModule = $moduleHandler->getByDirname($module);
         //
-        if (isset($aModule)) {
+        if (null !== $aModule) {
             if ($xoopsUser) {
                 $uid   = $xoopsUser->uid();
                 $uname = $xoopsUser->uname();
@@ -630,11 +648,11 @@ class CommonHandler extends Xasset\BaseObjectHandler
         //
         if ($result) {
             return true;
-        } else {
-            echo $sql;
-
-            return false;
         }
+
+        echo $sql;
+
+        return false;
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -650,9 +668,9 @@ class CommonHandler extends Xasset\BaseObjectHandler
         //
         if (isset($xoopsTpl->_tpl_vars[$name])) {
             return $xoopsTpl->_tpl_vars[$name];
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -716,7 +734,7 @@ class CommonHandler extends Xasset\BaseObjectHandler
     {
         $filename = time();
 
-        if ($handle = fopen($filename, 'a')) {
+        if ($handle = fopen($filename, 'ab')) {
             fwrite($handle, $content);
             fclose($handle);
         }
@@ -731,11 +749,11 @@ class CommonHandler extends Xasset\BaseObjectHandler
     {
         if (false !== strpos(XOOPS_URL, 'https')) {
             return XOOPS_URL;
-        } else {
-            $url = str_replace('http', 'https', XOOPS_URL);
-
-            return $url;
         }
+
+        $url = str_replace('http', 'https', XOOPS_URL);
+
+        return $url;
     }
 
     ////////////////////////////////////////////////////////////////////

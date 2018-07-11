@@ -1,7 +1,25 @@
 <?php
 
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Nazar Aziz (www.panthersoftware.com)
+ * @author       XOOPS Development Team
+ * @package      xAsset
+ */
+
 //include "header.php";
-//require XOOPS_ROOT_PATH."/header.php";
+//require_once XOOPS_ROOT_PATH."/header.php";
 //require_once __DIR__ . '/include/info.php';
 
 use XoopsModules\Xasset;
@@ -11,8 +29,8 @@ require_once __DIR__ . '/preloads/autoloader.php';
 $moduleDirName = basename(__DIR__);
 
 $modversion['version']       = '1.00';
-$modversion['module_status'] = 'Alpha 1';
-$modversion['release_date']  = '2017/01/03';
+$modversion['module_status'] = 'Alpha 2';
+$modversion['release_date']  = '2018/07/11';
 $modversion['name']          = _MI_XASSET_MODULE_NAME;
 $modversion['description']   = _MI_XASSET_MODULE_DESCRIPTION;
 $modversion['credits']       = 'PSP, XOOPS Development Team';
@@ -28,7 +46,7 @@ $modversion['modicons32'] = 'assets/images/icons/32';
 $modversion['release_file']        = XOOPS_URL . '/modules/' . $modversion['dirname'] . '/docs/changelog.txt';
 $modversion['module_website_url']  = 'www.xoops.org';
 $modversion['module_website_name'] = 'XOOPS';
-$modversion['min_php']             = '5.5';
+$modversion['min_php']             = '5.6';
 $modversion['min_xoops']           = '2.5.9';
 $modversion['min_admin']           = '1.2';
 $modversion['min_db']              = ['mysql' => '5.5'];
